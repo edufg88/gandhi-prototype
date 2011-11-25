@@ -249,6 +249,31 @@
     <None Include="media\textures\tileTextures.png" />
     <None Include="media\textures\tutorialTexture.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\cCritter.h" />
+    <ClInclude Include="include\cGame.h" />
+    <ClInclude Include="include\cGraphicsLayer.h" />
+    <ClInclude Include="include\cInputLayer.h" />
+    <ClInclude Include="include\cKeyboard.h" />
+    <ClInclude Include="include\cLog.h" />
+    <ClInclude Include="include\cMouse.h" />
+    <ClInclude Include="include\cScene.h" />
+    <ClInclude Include="include\cSkeleton.h" />
+    <ClInclude Include="include\cTrajectory.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lib\cCritter.cpp" />
+    <ClCompile Include="lib\cGame.cpp" />
+    <ClCompile Include="lib\cGraphicsLayer.cpp" />
+    <ClCompile Include="lib\cInputLayer.cpp" />
+    <ClCompile Include="lib\cKeyboard.cpp" />
+    <ClCompile Include="lib\cLog.cpp" />
+    <ClCompile Include="lib\cMouse.cpp" />
+    <ClCompile Include="lib\cScene.cpp" />
+    <ClCompile Include="lib\cSkeleton.cpp" />
+    <ClCompile Include="lib\cTrajectory.cpp" />
+    <ClCompile Include="src\Win32Main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D07A686F-067E-471D-BDB6-9D7F227DFB27}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -258,7 +283,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -278,6 +303,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\include;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\DX9SDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\lib;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\DX9SDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <SourcePath>C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
