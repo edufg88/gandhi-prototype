@@ -13,5 +13,727 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="media">
+      <UniqueIdentifier>{1fc78c89-e07d-4ba1-8d48-8f8b611b8d24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="media\textures">
+      <UniqueIdentifier>{f3334174-1122-45ef-afff-822df2f26ee7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="media\sounds">
+      <UniqueIdentifier>{8d1a451d-dbb7-4882-af92-c855b29f4799}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="media\sounds\wind6.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\wind5.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\wind4.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\wind3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\wind2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\wind1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\weaponSwitch.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\waves3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\waves2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\waves1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleWeaponJam.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleStuggle.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleSplat.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleSmoke.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleReverseBeep.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleLand.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleIgnite.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleExplode.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleColourSwish.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleBurn.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\vehicleBump.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\uzi.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\usp.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\useSkill.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\unstoppable.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\turbine7.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\turbine6.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\turbine5.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\turbine4.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\turbine3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\turbine2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\turbine1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\train2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\train1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\tireBlowout.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\thunder2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\thunder1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stolenSeekers.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stingerMissiles.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepWater2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepWater1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepSnow2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepSnow1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepNorm2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepNorm1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepMetal2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepMetal1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepInside2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepInside1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepGrass2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepGrass1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepDirt2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\stepDirt1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\steam1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\static1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\spawn.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\spas.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\skillUnlock.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\skillUnlevel.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\skid1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\shockwave.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\shockRevolver.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\shipHorn.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\shellBounce.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\selfRepair.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\seekRifle.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\rifleEmpty.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\respectUp.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\reloadStartPistol.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\reloadStart.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\reloadMidPistol.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\reloadMid.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\reloadEndPistol.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\reloadEnd.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\rain7.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\rain6.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\rain5.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\rain4.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\rain3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\rain2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\rain1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\railgun.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\radioBleep.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\radiate.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\radarTruck.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\quadKill.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\purchase.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\punchWall.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\punchHit.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\punch.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\psg1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\positionPing.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\playerLeft.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\playerJoined.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\plasma.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\pistolEmpty.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\pelletWall.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\pelletHit.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\pelletExplode.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\objectiveReturned.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\objectiveExtracted.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\objectiveCaptured.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\noPurchase.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\newRound.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\nanosuit.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\nailgun.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\mutationUp.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\multiKill.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\mp5.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\missionUpdated.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\missionFailed.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\missionCompleted.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\minigun.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\machine3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\machine2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\machine1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\m249.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\m60.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\m24.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\m4a1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\m3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\logout.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\login.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\lightSaberWall.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\lightSaberHit.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\lightSaber.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\light5.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\light4.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\light3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\light2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\light1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\land.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\knifeWall.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\knifeHit.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\knife.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\killedHuman.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\killedBot.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\killed.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\kamikaze.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\jump.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\info.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\infection.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\hurt3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\hurt2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\hurt1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\humiliation.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\horn3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\horn2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\horn1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\heartbeat.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\headSplat.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\grenadeThrow.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\grenadeExplode.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\grenadeBounce.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\frog2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\frog1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\forest1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\forceFieldExplode.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\forceFieldBounce.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\forceField.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\flashExplode.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\flash2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\flash1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\flagMove.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\fireReady.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\fire4.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\fire3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\fire2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\fire1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engineStart1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine6Damaged.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine6.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine5Damaged.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine5.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine4Damaged.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine4.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine3Damaged.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine2Damaged.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine1Damaged.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\engine1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\drivebyDenied.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\drip2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\drip1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\disablingDrop.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\die.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\deagle.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\construction.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\conductionHit.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\computing2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\computing1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\clipMagnet.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\checkpointBuzz.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\chat.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carWheelSpark.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carHitPellet.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carHit.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carDamage.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carCollision3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carCollision2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carCollision1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carBombTick.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carBombDisarm.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\carBombArm.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\buttonOver.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\buttonHover.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\buttonClick.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bulletWall.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bulletHit.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\blastCannon.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bladeFuryExplode.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bladeFury.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bird3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bird2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bird1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bells1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bazooka.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\batWall.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\batHit.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\bat.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\barrierHum.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\barrier.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\background3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\background2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\background1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\alarm4.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\alarm3.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\alarm2.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\alarm1.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\sounds\ak47.wav">
+      <Filter>media\sounds</Filter>
+    </None>
+    <None Include="media\textures\tutorialTexture.png">
+      <Filter>media\textures</Filter>
+    </None>
+    <None Include="media\textures\tileTextures.png">
+      <Filter>media\textures</Filter>
+    </None>
+    <None Include="media\textures\menuTextures.png">
+      <Filter>media\textures</Filter>
+    </None>
+    <None Include="media\textures\mapTextures2.png">
+      <Filter>media\textures</Filter>
+    </None>
+    <None Include="media\textures\mapTextures1.png">
+      <Filter>media\textures</Filter>
+    </None>
+    <None Include="media\textures\flagTextures.png">
+      <Filter>media\textures</Filter>
+    </None>
   </ItemGroup>
 </Project>
