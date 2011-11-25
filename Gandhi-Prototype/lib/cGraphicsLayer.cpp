@@ -88,23 +88,23 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateSprite( g_pD3DDevice, &g_pSprite ); 
 
 	//Main menu
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"main.png",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/main.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texMain);
 	//GUI game
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"game.png",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/game.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texGame);
 	//Tiles
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"tiles.png",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/tiles.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texTiles);
 	//Characters
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"characters.png",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/characters.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texCharacters);
 	//Mouse pointers
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"mouse.png",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/mouse.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texMouse);
 }

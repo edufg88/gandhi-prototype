@@ -11,6 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="media\imgs\characters.png" />
+    <None Include="media\imgs\flagTextures.png" />
+    <None Include="media\imgs\game.png" />
+    <None Include="media\imgs\main.png" />
+    <None Include="media\imgs\mapTextures1.png" />
+    <None Include="media\imgs\mapTextures2.png" />
+    <None Include="media\imgs\menuTextures.png" />
+    <None Include="media\imgs\mouse.png" />
+    <None Include="media\imgs\tiles.png" />
+    <None Include="media\imgs\tileTextures.png" />
+    <None Include="media\imgs\tutorialTexture.png" />
     <None Include="media\sounds\ak47.wav" />
     <None Include="media\sounds\alarm1.wav" />
     <None Include="media\sounds\alarm2.wav" />
@@ -242,12 +253,6 @@
     <None Include="media\sounds\wind4.wav" />
     <None Include="media\sounds\wind5.wav" />
     <None Include="media\sounds\wind6.wav" />
-    <None Include="media\textures\flagTextures.png" />
-    <None Include="media\textures\mapTextures1.png" />
-    <None Include="media\textures\mapTextures2.png" />
-    <None Include="media\textures\menuTextures.png" />
-    <None Include="media\textures\tileTextures.png" />
-    <None Include="media\textures\tutorialTexture.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cCritter.h" />
