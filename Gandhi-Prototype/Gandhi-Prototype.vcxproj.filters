@@ -13,31 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Resource Files\textures">
-      <UniqueIdentifier>{f0a88dcb-7c7b-4b2b-8bb8-ab1b142cc687}</UniqueIdentifier>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{018e9b4c-e8a7-4655-8f79-f380b337196d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\sounds">
-      <UniqueIdentifier>{2dab5a6e-44e1-4162-8507-31e4133165b5}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\..\Desktop\textures\tutorialTexture.png">
-      <Filter>Resource Files\textures</Filter>
-    </None>
-    <None Include="..\..\..\..\..\Desktop\textures\flagTextures.png">
-      <Filter>Resource Files\textures</Filter>
-    </None>
-    <None Include="..\..\..\..\..\Desktop\textures\mapTextures1.png">
-      <Filter>Resource Files\textures</Filter>
-    </None>
-    <None Include="..\..\..\..\..\Desktop\textures\mapTextures2.png">
-      <Filter>Resource Files\textures</Filter>
-    </None>
-    <None Include="..\..\..\..\..\Desktop\textures\menuTextures.png">
-      <Filter>Resource Files\textures</Filter>
-    </None>
-    <None Include="..\..\..\..\..\Desktop\textures\tileTextures.png">
-      <Filter>Resource Files\textures</Filter>
-    </None>
   </ItemGroup>
 </Project>
