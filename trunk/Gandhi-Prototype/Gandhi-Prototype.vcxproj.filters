@@ -16,11 +16,11 @@
     <Filter Include="media">
       <UniqueIdentifier>{1fc78c89-e07d-4ba1-8d48-8f8b611b8d24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="media\textures">
-      <UniqueIdentifier>{f3334174-1122-45ef-afff-822df2f26ee7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="media\sounds">
       <UniqueIdentifier>{8d1a451d-dbb7-4882-af92-c855b29f4799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="media\imgs">
+      <UniqueIdentifier>{f3334174-1122-45ef-afff-822df2f26ee7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -717,23 +717,38 @@
     <None Include="media\sounds\ak47.wav">
       <Filter>media\sounds</Filter>
     </None>
-    <None Include="media\textures\tutorialTexture.png">
-      <Filter>media\textures</Filter>
+    <None Include="media\imgs\characters.png">
+      <Filter>media\imgs</Filter>
     </None>
-    <None Include="media\textures\tileTextures.png">
-      <Filter>media\textures</Filter>
+    <None Include="media\imgs\flagTextures.png">
+      <Filter>media\imgs</Filter>
     </None>
-    <None Include="media\textures\menuTextures.png">
-      <Filter>media\textures</Filter>
+    <None Include="media\imgs\game.png">
+      <Filter>media\imgs</Filter>
     </None>
-    <None Include="media\textures\mapTextures2.png">
-      <Filter>media\textures</Filter>
+    <None Include="media\imgs\main.png">
+      <Filter>media\imgs</Filter>
     </None>
-    <None Include="media\textures\mapTextures1.png">
-      <Filter>media\textures</Filter>
+    <None Include="media\imgs\mapTextures1.png">
+      <Filter>media\imgs</Filter>
     </None>
-    <None Include="media\textures\flagTextures.png">
-      <Filter>media\textures</Filter>
+    <None Include="media\imgs\mapTextures2.png">
+      <Filter>media\imgs</Filter>
+    </None>
+    <None Include="media\imgs\menuTextures.png">
+      <Filter>media\imgs</Filter>
+    </None>
+    <None Include="media\imgs\mouse.png">
+      <Filter>media\imgs</Filter>
+    </None>
+    <None Include="media\imgs\tiles.png">
+      <Filter>media\imgs</Filter>
+    </None>
+    <None Include="media\imgs\tileTextures.png">
+      <Filter>media\imgs</Filter>
+    </None>
+    <None Include="media\imgs\tutorialTexture.png">
+      <Filter>media\imgs</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
