@@ -25,9 +25,9 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	}
 	Input.SetMousePosition(SCREEN_RES_X >> 1,SCREEN_RES_Y >> 1);
 
-	Graphics.LoadData();
+	//EFG: Graphics.LoadData();
 
-	Scene.LoadMap("map.txt");
+	//EFG: Scene.LoadMap("map.txt");
 
 	return true;
 }
