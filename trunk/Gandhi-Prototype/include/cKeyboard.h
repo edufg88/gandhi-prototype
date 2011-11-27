@@ -21,7 +21,7 @@ public:
 
 private:
 	LPDIRECTINPUTDEVICE8 m_pDIDev;
-
+	
 	char m_keys[256];
 };
 

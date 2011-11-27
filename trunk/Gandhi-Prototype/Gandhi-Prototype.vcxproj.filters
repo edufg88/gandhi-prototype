@@ -782,6 +782,9 @@
     <ClInclude Include="include\cCritter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\cSound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\cTrajectory.cpp">
@@ -817,5 +820,13 @@
     <ClCompile Include="src\Win32Main.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="lib\cSound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Gandhi-Prototype.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
