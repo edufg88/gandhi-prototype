@@ -77,10 +77,12 @@ bool cGame::LoopProcess()
 {
 	cMouse *Mouse;
 	Mouse = Input.GetMouse();
-
+	
 	switch(state)
 	{
 		case STATE_MAIN:
+					
+						// EFG: Comprobar eventos del raton
 						if(Mouse->ButtonDown(LEFT))
 						{
 							//Play button
