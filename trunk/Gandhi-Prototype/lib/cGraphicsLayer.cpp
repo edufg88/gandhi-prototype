@@ -269,15 +269,40 @@ bool cGraphicsLayer::DrawEnemies()
 
 	cSkeleton* Skeleton = cGame::GetInstance()->GetSkeleton();
 	cScene* Scene = cGame::GetInstance()->GetScene();
+	cMouse* Mouse = cInputLayer::GetInstance()->GetMouse();
 	
 	//Draw Skeleton
 	Skeleton->GetCell(&cx,&cy);
 	if(Scene->Visible(cx,cy))
 	{
 		Skeleton->GetRect(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texCharacters,&rc,NULL, 
+
+		////////////// Arnau: Prueba rotaciones
+		D3DXMATRIX preChange, matRotate;
+		D3DXVECTOR2 vCenter(16.0f, 16.0f);
+		D3DXVECTOR2 vPosition(posx, posy);
+		int mPosx, mPosy;
+		float deg;
+
+		g_pSprite->GetTransform(&preChange);
+
+		Mouse->GetPosition(&mPosx, &mPosy);
+
+		deg = atan2(float(mPosy-posy),float(mPosx-posx));
+
+		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, deg, &vPosition);
+
+		g_pSprite->SetTransform(&matRotate);
+
+		g_pSprite->Draw(texCharacters,&rc,NULL, NULL, 0xFFFFFFFF);
+
+		g_pSprite->SetTransform(&preChange);
+		///////////////
+
+		///// SKELETON ANTIGUO
+		/*g_pSprite->Draw(texCharacters,&rc,NULL, 
 						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-						0xFFFFFFFF);
+						0xFFFFFFFF);*/
 	}
 	Skeleton->GetRectRadar(&rc,&posx,&posy);
 	g_pSprite->Draw(texTiles,&rc,NULL, 
