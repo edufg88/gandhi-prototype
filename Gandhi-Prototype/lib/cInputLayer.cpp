@@ -4,6 +4,16 @@
 #include "cKeyboard.h"
 #include "cLog.h"
 
+cInputLayer* cInputLayer::instance = NULL;
+
+cInputLayer* cInputLayer::GetInstance()
+{
+	if (instance == NULL)
+		instance = new cInputLayer();
+
+	return instance;
+}
+
 /************************************************************************
 Construction and destruction functions
 ************************************************************************/

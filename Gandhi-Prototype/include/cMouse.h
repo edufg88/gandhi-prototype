@@ -34,46 +34,46 @@ class cScene;
 
 class cMouse 
 {
-public:
-	cMouse(LPDIRECTINPUT8 pDI, HWND hwnd, bool isExclusive = true);
-	~cMouse();
+	public:
+		cMouse(LPDIRECTINPUT8 pDI, HWND hwnd, bool isExclusive = true);
+		~cMouse();
 
-	bool	ButtonDown(int button);
-	bool	ButtonUp(int button);
-	int		GetWheelMovement();
-	void	GetMovement(int *dx, int *dy);
+		bool	ButtonDown(int button);
+		bool	ButtonUp(int button);
+		int		GetWheelMovement();
+		void	GetMovement(int *dx, int *dy);
 
-	bool Acquire();
-	bool Unacquire();
+		bool Acquire();
+		bool Unacquire();
 
-	void SetPosition(int xo, int yo);
-	void GetPosition(int *xpos, int *ypos);
-	void GetCell(int *xcell,int *ycell);
-	void SetPointer(int p);
-	int  GetPointer();
-	void SetSelection(int s);
-	int  GetSelection();
-	void SetSelectionPoint(int sx,int sy);
-	void GetSelectionPoint(int *sx,int *sy);
+		void SetPosition(int xo, int yo);
+		void GetPosition(int *xpos, int *ypos);
+		void GetCell(int *xcell,int *ycell);
+		void SetPointer(int p);
+		int  GetPointer();
+		void SetSelection(int s);
+		int  GetSelection();
+		void SetSelectionPoint(int sx,int sy);
+		void GetSelectionPoint(int *sx,int *sy);
 
-	bool Read();
+		bool Read();
 
-	void GetRect(RECT *rc,int *posx,int *posy);
-	bool In(int xo,int yo,int xf,int yf);
-	bool InCell(cScene *Scene,int cellx,int celly);
-	void InitAnim();
+		void GetRect(RECT *rc,int *posx,int *posy);
+		bool In(int xo,int yo,int xf,int yf);
+		bool InCell(cScene *Scene,int cellx,int celly);
+		void InitAnim();
 
-private:
-	LPDIRECTINPUTDEVICE8 m_pDIDev;
-	DIMOUSESTATE	m_state;
+	private:
+		LPDIRECTINPUTDEVICE8 m_pDIDev;
+		DIMOUSESTATE	m_state;
 
-	int x,y;
-	int cx,cy;
-	int pointer;
-	int select;				//Selecting state
-	int select_x,select_y;  //Select 1st point
+		int x,y;
+		int cx,cy;
+		int pointer;
+		int select;				//Selecting state
+		int select_x,select_y;  //Select 1st point
 
-	int seq,delay;
+		int seq,delay;
 };
 
 #endif 

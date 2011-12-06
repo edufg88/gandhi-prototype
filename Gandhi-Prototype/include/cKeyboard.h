@@ -6,23 +6,23 @@
 
 class cKeyboard
 {
-public:
-	cKeyboard(LPDIRECTINPUT8 pDI, HWND hwnd);
-	~cKeyboard();
+	public:
+		cKeyboard(LPDIRECTINPUT8 pDI, HWND hwnd);
+		~cKeyboard();
 
-	bool KeyDown(int key) { return (m_keys[key] & 0x80) ? true : false; }
-	bool KeyUp(int key) { return (m_keys[key] & 0x80) ? false : true; }
+		bool KeyDown(int key) { return (m_keys[key] & 0x80) ? true : false; }
+		bool KeyUp(int key) { return (m_keys[key] & 0x80) ? false : true; }
 
-	bool Read();
-	void Clear() { ZeroMemory(m_keys, 256 * sizeof(char)); }
+		bool Read();
+		void Clear() { ZeroMemory(m_keys, 256 * sizeof(char)); }
 	
-	bool Acquire();
-	bool Unacquire();
+		bool Acquire();
+		bool Unacquire();
 
-private:
-	LPDIRECTINPUTDEVICE8 m_pDIDev;
+	private:
+		LPDIRECTINPUTDEVICE8 m_pDIDev;
 	
-	char m_keys[256];
+		char m_keys[256];
 };
 
 #endif 

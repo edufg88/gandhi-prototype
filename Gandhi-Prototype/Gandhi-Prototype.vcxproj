@@ -257,7 +257,11 @@
   <ItemGroup>
     <ClInclude Include="include\cCritter.h" />
     <ClInclude Include="include\cGame.h" />
+    <ClInclude Include="include\cGameState.h" />
     <ClInclude Include="include\cGraphicsLayer.h" />
+    <ClInclude Include="include\cGSGameOver.h" />
+    <ClInclude Include="include\cGSIngame.h" />
+    <ClInclude Include="include\cGSMenu.h" />
     <ClInclude Include="include\cInputLayer.h" />
     <ClInclude Include="include\cKeyboard.h" />
     <ClInclude Include="include\cLog.h" />
@@ -270,7 +274,11 @@
   <ItemGroup>
     <ClCompile Include="lib\cCritter.cpp" />
     <ClCompile Include="lib\cGame.cpp" />
+    <ClCompile Include="lib\cGameState.cpp" />
     <ClCompile Include="lib\cGraphicsLayer.cpp" />
+    <ClCompile Include="lib\cGSGameOver.cpp" />
+    <ClCompile Include="lib\cGSIngame.cpp" />
+    <ClCompile Include="lib\cGSMenu.cpp" />
     <ClCompile Include="lib\cInputLayer.cpp" />
     <ClCompile Include="lib\cKeyboard.cpp" />
     <ClCompile Include="lib\cLog.cpp" />

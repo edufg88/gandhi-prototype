@@ -22,6 +22,24 @@
     <Filter Include="media\imgs">
       <UniqueIdentifier>{f3334174-1122-45ef-afff-822df2f26ee7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameStates">
+      <UniqueIdentifier>{1a40b7c3-9799-4540-abdd-64c34a72d055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{cab7c569-2070-4651-951b-960810f8b5d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\HeroStates">
+      <UniqueIdentifier>{c58e87e9-79dc-479e-8eb2-fdcfcc7f61ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameStates">
+      <UniqueIdentifier>{d9ec1ed4-eba1-4277-ba34-efe057c084a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemies">
+      <UniqueIdentifier>{54dae527-ad21-4869-839b-0895dee7723a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HeroStates">
+      <UniqueIdentifier>{9c55cc06-89bb-4ba9-a9a4-b3651821fbb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="media\sounds\wind6.wav">
@@ -785,6 +803,18 @@
     <ClInclude Include="include\cSound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\cGSGameOver.h">
+      <Filter>Header Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cGSIngame.h">
+      <Filter>Header Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cGSMenu.h">
+      <Filter>Header Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cGameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\cTrajectory.cpp">
@@ -821,6 +851,18 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\cSound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cGSGameOver.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cGSIngame.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cGSMenu.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cGameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,6 +4,15 @@
 #include "cLog.h"
 #include <stdio.h>
 
+cGraphicsLayer* cGraphicsLayer::instance = NULL;
+
+cGraphicsLayer* cGraphicsLayer::GetInstance()
+{
+	if (instance == NULL)
+		instance = new cGraphicsLayer();
+	
+	return instance;
+}
 
 cGraphicsLayer::cGraphicsLayer()
 {
@@ -143,35 +152,18 @@ void cGraphicsLayer::UnLoadData()
 	}
 }
 
-bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton)
+bool cGraphicsLayer::RenderMenu()
 {
-	//HRESULT Draw( LPDIRECT3DTEXTURE9 pTexture, CONST RECT *pSrcRect,
-	//				CONST D3DXVECTOR3 *pCenter,  CONST D3DXVECTOR3 *pPosition,
-	//				D3DCOLOR Color);
+	cGame* game = cGame::GetInstance();
 
 	g_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, 0xFF000000, 0, 0 );
 	g_pD3DDevice->BeginScene();
 
-		//--- SPRITES ---
-		g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	g_pSprite->Draw(texMain,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
+	g_pSprite->End();
 
-			switch(state)
-			{
-				case STATE_MAIN:
-								g_pSprite->Draw(texMain,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
-								break;
-
-				case STATE_GAME:
-								//Graphic User Interface
-								g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
-								DrawScene(Scene);
-								DrawUnits(Scene,Critter,Skeleton);
-								break;
-			}
-
-		g_pSprite->End();
-
-		DrawMouse(Mouse);
+	DrawMouse();
 
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present( NULL, NULL, NULL, NULL );
@@ -179,8 +171,37 @@ bool cGraphicsLayer::Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Crit
 	return true;
 }
 
-bool cGraphicsLayer::DrawScene(cScene *Scene)
+bool cGraphicsLayer::RenderInGame()
 {
+	cGame* game = cGame::GetInstance();
+
+	g_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, 0xFF000000, 0, 0 );
+	g_pD3DDevice->BeginScene();
+
+	//--- SPRITES ---
+	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+
+	//Graphic User Interface
+	g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
+	DrawLevel();
+	DrawHero();
+	DrawEnemies();
+	//DrawHUD();
+
+	g_pSprite->End();
+
+	DrawMouse();
+
+	g_pD3DDevice->EndScene();
+	g_pD3DDevice->Present( NULL, NULL, NULL, NULL );
+
+	return true;
+}
+
+bool cGraphicsLayer::DrawLevel()
+{
+	cScene* Scene = cGame::GetInstance()->GetScene();
+	
 	RECT rc;
 	int x,y,n,
 		fx,fy,
@@ -206,20 +227,16 @@ bool cGraphicsLayer::DrawScene(cScene *Scene)
 		}
 	}
 
-	//Draw radar
-	x=RADAR_Xo+(Scene->cx<<2);
-	y=RADAR_Yo+(Scene->cy<<2);
-	SetRect(&rc,0,32,80,100);
-	g_pSprite->Draw(texTiles,&rc,NULL, 
-					&D3DXVECTOR3(float(x),float(y),0.0f), 
-					0xFFFFFFFF);
 	return true;
 }
 
-bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton)
+bool cGraphicsLayer::DrawHero()
 {
 	int cx,cy,posx,posy;
 	RECT rc;
+
+	cCritter* Critter = cGame::GetInstance()->GetCritter();
+	cScene* Scene = cGame::GetInstance()->GetScene();
 
 	//Draw Critter
 	Critter->GetCell(&cx,&cy);
@@ -241,6 +258,18 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	g_pSprite->Draw(texTiles,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
+
+	return true;
+}
+
+bool cGraphicsLayer::DrawEnemies()
+{
+	int cx,cy,posx,posy;
+	RECT rc;
+
+	cSkeleton* Skeleton = cGame::GetInstance()->GetSkeleton();
+	cScene* Scene = cGame::GetInstance()->GetScene();
+	
 	//Draw Skeleton
 	Skeleton->GetCell(&cx,&cy);
 	if(Scene->Visible(cx,cy))
@@ -254,28 +283,30 @@ bool cGraphicsLayer::DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skelet
 	g_pSprite->Draw(texTiles,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
+	
 	//Draw Fire
-	if(Critter->GetShooting())
-	{
-		if(Critter->IsFiring())
-		{
-			//Advance animation & draw
-			Critter->GetRectShoot(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texCharacters,&rc,NULL, 
-							&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-							0xFFFFFFFF);
-		}
-		else
-		{
-			//Advance animation
-			Critter->GetRectShoot(&rc,&posx,&posy,Scene);
-		}
-	}
+	//if(Critter->GetShooting())
+	//{
+	//	if(Critter->IsFiring())
+	//	{
+	//		//Advance animation & draw
+	//		Critter->GetRectShoot(&rc,&posx,&posy,Scene);
+	//		g_pSprite->Draw(texCharacters,&rc,NULL, 
+	//						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+	//						0xFFFFFFFF);
+	//	}
+	//	else
+	//	{
+	//		//Advance animation
+	//		Critter->GetRectShoot(&rc,&posx,&posy,Scene);
+	//	}
+	//}
 	return true;
 }
 
-bool cGraphicsLayer::DrawMouse(cMouse *Mouse)
+bool cGraphicsLayer::DrawMouse()
 {
+	cMouse* Mouse = cInputLayer::GetInstance()->GetMouse();
 	RECT rc;
 	int mx,my,posx,posy;
 

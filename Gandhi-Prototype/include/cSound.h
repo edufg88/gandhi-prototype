@@ -12,6 +12,7 @@ class DatosCancion;
 class cSound
 {
     public:
+		static cSound* GetInstance();
         ~cSound();
         bool inicializarAudio();
         void actualizar();
@@ -38,6 +39,7 @@ class cSound
         FMOD::Sound* getSound() const;
 
     private:
+		static cSound* instance;
         cSound();
         FMOD::System* system;
         FMOD_RESULT result;

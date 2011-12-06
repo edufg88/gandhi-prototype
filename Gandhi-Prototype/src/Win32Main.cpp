@@ -5,8 +5,6 @@
 #include <windows.h>
 #include "cGame.h"
 
-cGame Game;
-
 LRESULT CALLBACK WindowFunc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
 	switch(msg)
@@ -47,12 +45,12 @@ bool InitWindow( HINSTANCE hInst, HWND *hWnd, bool *exclusive )
 	if( !RegisterClassEx( &wcl ) )
 		return false;
 
-	/*	int fullscreen;
+		int fullscreen;
 		fullscreen=MessageBox(0, "Would you like fullscreen mode?", "Isometric Engine", MB_YESNO );
 
 		if(fullscreen==IDYES)
 		{
-	*/
+	
 
 	*hWnd = CreateWindow(	szWinName, szWinName, WS_POPUP, 0, 0,
 							SCREEN_RES_X, //GetSystemMetrics(SM_CXSCREEN),
@@ -60,7 +58,7 @@ bool InitWindow( HINSTANCE hInst, HWND *hWnd, bool *exclusive )
 							HWND_DESKTOP, NULL, hInst, NULL );
 	*exclusive = true;
 
-	/*	}
+		}
 		else
 		{
 			*hWnd = CreateWindow( szWinName, szWinName,
@@ -68,7 +66,7 @@ bool InitWindow( HINSTANCE hInst, HWND *hWnd, bool *exclusive )
 								0, 0, 800, 600, HWND_DESKTOP, NULL, hInst, NULL );
 			*exclusive = false;
 		}
-	*/
+	
 
 	if( *hWnd == NULL )
 		return false;
@@ -81,9 +79,10 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevIntance, LPSTR lpszArgs,
 	bool exclusive,res;
 	MSG msg;
 	HWND hWnd;
+	cGame* game = cGame::GetInstance();
 
 	res = InitWindow( hInstance, &hWnd, &exclusive );
-	res = Game.Init(hWnd,hInstance,exclusive);
+	res = game->Init(hWnd,hInstance,exclusive);
 
 	if( res == true )
 	{
@@ -98,11 +97,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevIntance, LPSTR lpszArgs,
 			}
 			else
 			{
-				if(!Game.Loop()) break;
+				if(!game->Loop()) break;
 			}
 		}
 	}
 
-	Game.Finalize();
+	game->Finalize();
 	return 0;
 }
