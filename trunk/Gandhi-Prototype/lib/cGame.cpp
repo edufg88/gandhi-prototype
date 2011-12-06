@@ -1,31 +1,54 @@
 
 #include "cGame.h"
 #include "cLog.h"
+#include "cGSMenu.h"
+
+cGame* cGame::instance = NULL;
 
 cGame::cGame() {}
 cGame::~cGame(){}
 
+cGame* cGame::GetInstance()
+{
+	if (instance == NULL)
+	{
+		instance = new cGame();
+	}
+	
+	return instance;
+}
+
 bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 {
 	bool res;
+	
 	cLog *Log = cLog::Instance();
+	
+	// EFG: Instanciamos gráficos, sonido e input
+	Graphics = cGraphicsLayer::GetInstance();
+	Sound = cSound::GetInstance();
+	Input = cInputLayer::GetInstance();
 
-	res = Graphics.Init(hWnd);
+	// EFG: Iniciamos el estado menú
+	State = new cGSMenu();
+	State->Enter();
+
+	res = Graphics->Init(hWnd);
 	if(!res)
 	{
 		Log->Msg("Error initializing Graphics!");
 		return false;
 	}
 
-	res = Input.Init(hInst,hWnd,exclusive,USE_MOUSE|USE_KEYBOARD);
+	res = Input->Init(hInst,hWnd,exclusive,USE_MOUSE|USE_KEYBOARD);
 	if(!res)
 	{
 		Log->Msg("Error initializing Input!");
 		return false;
 	}
-	Input.SetMousePosition(SCREEN_RES_X >> 1,SCREEN_RES_Y >> 1);
+	Input->SetMousePosition(SCREEN_RES_X >> 1,SCREEN_RES_Y >> 1);
 
-	Graphics.LoadData();
+	Graphics->LoadData();
 
 	//EFG: Scene.LoadMap("map.txt");
 
@@ -34,10 +57,10 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 void cGame::Finalize()
 {
-	Graphics.UnLoadData();
-	Graphics.Finalize();
-	Input.UnacquireAll();
-	Input.Finalize();
+	Graphics->UnLoadData();
+	Graphics->Finalize();
+	Input->UnacquireAll();
+	Input->Finalize();
 }
 
 bool cGame::Loop()
@@ -64,7 +87,7 @@ bool cGame::LoopInput()
 	bool res;
 	cLog *Log = cLog::Instance();
 
-	res = Input.Read();
+	res = Input->Read();
 	if(!res)
 	{
 		Log->Msg("Error reading Input!");
@@ -75,35 +98,7 @@ bool cGame::LoopInput()
 
 bool cGame::LoopProcess()
 {
-	cMouse *Mouse;
-	Mouse = Input.GetMouse();
-	
-	switch(state)
-	{
-		case STATE_MAIN:
-					
-						// EFG: Comprobar eventos del raton
-						if(Mouse->ButtonDown(LEFT))
-						{
-							//Play button
-							if(Mouse->In(334,236,420,278))
-							{
-								state = STATE_GAME;
-							}
-							//Exit button
-							else if(Mouse->In(426,236,512,278))
-							{
-								return false;
-							}
-						}
-						break;
-
-		case STATE_GAME:
-						ProcessOrder();
-						Critter.Move();
-						break;
-	}
-	return true;
+	return State->Process();
 }
 
 bool cGame::LoopOutput()
@@ -116,7 +111,12 @@ bool cGame::LoopOutput()
 bool cGame::Render()
 {
 	bool res;
-	res = Graphics.Render(state,Input.GetMouse(),&Scene,&Critter,&Skeleton);
+
+	// EFG: El juego llama al método pintar del estado
+	// y el estado, en función de cuál sea, le dirá a la
+	// los gráficos que pinten una cosa u otra
+	res = State->Render();
+
 	return res;
 }
 
@@ -128,7 +128,7 @@ void cGame::ProcessOrder()
 	int xo,xf,yo,yf;
 	int b4pointer;
 
-	Mouse = Input.GetMouse();
+	Mouse = Input->GetMouse();
 	b4pointer = Mouse->GetPointer();
 	Mouse->GetPosition(&mx,&my);
 
@@ -251,4 +251,26 @@ void cGame::ProcessOrder()
 	}
 
 	if(b4pointer!=Mouse->GetPointer()) Mouse->InitAnim();
+}
+
+bool cGame::ChangeState(cGameState* newState)
+{
+	// EFG: Salimos del estado actual y lo borramos
+	if (State != NULL)
+	{
+		State->Exit();
+		delete State;
+		State = NULL;
+	}
+	// EFG: Hacemos del nuevo estado el estado actual y entramos en el
+	if (newState != NULL)
+	{
+		State = newState;
+		State->Enter();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

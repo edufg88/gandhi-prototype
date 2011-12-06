@@ -1,4 +1,3 @@
-
 #ifndef __INPUTLAYER_H__
 #define __INPUTLAYER_H__
 
@@ -15,36 +14,39 @@ class cKeyboard;
 
 class cInputLayer  
 {
-public:
-	cInputLayer();
-	virtual ~cInputLayer();
+	public:
+		static cInputLayer* GetInstance();
+		virtual ~cInputLayer();
 
-	bool	Init(HINSTANCE hInst, HWND hWnd, bool isExclusive = true, DWORD flags = 0);
-	bool	Finalize();
+		bool	Init(HINSTANCE hInst, HWND hWnd, bool isExclusive = true, DWORD flags = 0);
+		bool	Finalize();
 
-	void	AcquireAll();
-	void	UnacquireAll();
+		void	AcquireAll();
+		void	UnacquireAll();
 
-	cKeyboard	*GetKeyboard();
-	cMouse		*GetMouse();
+		cKeyboard	*GetKeyboard();
+		cMouse		*GetMouse();
 	
-	bool	Read();
+		bool	Read();
 
-	bool	KeyDown(char key);
-	bool	KeyUp(char key);
+		bool	KeyDown(char key);
+		bool	KeyUp(char key);
 
-	bool	ButtonDown(int button);
-	bool	ButtonUp(int button);
-	void	GetMouseMovement(int *dx, int *dy);
-	int		GetMouseWheelMovement();
-	void	SetMousePosition(int xo, int yo);
-	void	GetMousePosition(int *xpos, int *ypos);
+		bool	ButtonDown(int button);
+		bool	ButtonUp(int button);
+		void	GetMouseMovement(int *dx, int *dy);
+		int		GetMouseWheelMovement();
+		void	SetMousePosition(int xo, int yo);
+		void	GetMousePosition(int *xpos, int *ypos);
 	
-private:
-	cKeyboard *m_pKeyboard;
-	cMouse *m_pMouse;
+	private:
+		static cInputLayer* instance;
+		cInputLayer();
 
-	LPDIRECTINPUT8 m_pDI;
+		cKeyboard *m_pKeyboard;
+		cMouse *m_pMouse;
+
+		LPDIRECTINPUT8 m_pDI;
 };
 
 #endif

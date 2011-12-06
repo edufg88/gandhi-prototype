@@ -28,18 +28,18 @@
 class cScene
 {
 
-public:
+	public:
 	
-	cScene();
-	virtual ~cScene();
+		cScene();
+		virtual ~cScene();
 
-	void LoadMap(char *file);
-	void Move(int pointer);
-	void MoveByRadar(int x,int y);
-	bool Visible(int cellx,int celly);
+		void LoadMap(char *file);
+		void Move(int pointer);
+		void MoveByRadar(int x,int y);
+		bool Visible(int cellx,int celly);
 
-	int map[SCENE_AREA][SCENE_AREA];
-	int cx,cy;
+		int map[SCENE_AREA][SCENE_AREA];
+		int cx,cy;
 };
 
 

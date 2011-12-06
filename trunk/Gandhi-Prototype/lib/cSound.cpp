@@ -1,5 +1,19 @@
 #include "cSound.h"
 
+cSound* cSound::instance = NULL;
+
+cSound* cSound::GetInstance()
+{
+	if (instance == NULL)
+	{
+		instance = new cSound();
+	}
+
+	return instance;
+}
+
+cSound::cSound(){}
+
 cSound::~cSound()
 {
     cout << "BORRANDO INTERFAZ AUDIO" << endl;
@@ -14,7 +28,6 @@ cSound::~cSound()
     ERRCHECK(result);
     result = system->release();
     ERRCHECK(result);
-
 }
 
 bool cSound::inicializarAudio()

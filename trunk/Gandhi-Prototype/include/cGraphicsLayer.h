@@ -18,32 +18,48 @@
 
 class cGraphicsLayer  
 {
+	public:
+		static cGraphicsLayer* GetInstance();
+		virtual ~cGraphicsLayer();
 
-public:
+		bool Init(HWND hWnd); 
+		void Finalize();
 	
-	cGraphicsLayer();
-	virtual ~cGraphicsLayer();
-
-	bool Init(HWND hWnd); 
-	void Finalize();
+		void LoadData();
+		void UnLoadData();
 	
-	void LoadData();
-	void UnLoadData();
-	bool Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton);
 
-	bool DrawScene(cScene *Scene);
-	bool DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton);
-	bool DrawMouse(cMouse *Mouse);
-	bool DrawRect(RECT rc, D3DCOLOR color);
+		// EFG: Ahora Graphics Layer tiene acceso a todos los parámetros porque tiene acceso a la clase cGame
+		// bool Render();
+		bool RenderMenu();
+		bool RenderInGame();
+		bool RenderGameOver();
+		
 
-private:
+		bool DrawLevel();
+		//bool DrawHUD();
+		bool DrawHero();
+		bool DrawEnemies();
 
-	LPDIRECT3D9 g_pD3D;
-	LPDIRECT3DDEVICE9 g_pD3DDevice;
-	LPD3DXSPRITE g_pSprite;
+		bool DrawMouse();
+		bool DrawRect(RECT rc, D3DCOLOR color);
+		//bool Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton);
+		//bool DrawScene(cScene *Scene);
+		//bool DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton);
+		//bool DrawMouse(cMouse *Mouse);
+		//bool DrawRect(RECT rc, D3DCOLOR color);
 
-	LPDIRECT3DTEXTURE9 texMain,texGame;
-	LPDIRECT3DTEXTURE9 texTiles,texCharacters,texMouse;
+	private:
+		static cGraphicsLayer* instance;
+		cGraphicsLayer();
+
+		LPDIRECT3D9 g_pD3D;
+		LPDIRECT3DDEVICE9 g_pD3DDevice;
+		LPD3DXSPRITE g_pSprite;
+
+		// TEXTURAS
+		LPDIRECT3DTEXTURE9 texMain,texGame;
+		LPDIRECT3DTEXTURE9 texTiles,texCharacters,texMouse;
 };
 
 
