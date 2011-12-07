@@ -23,7 +23,7 @@ cGraphicsLayer::cGraphicsLayer()
 
 cGraphicsLayer::~cGraphicsLayer(){}
 
-bool cGraphicsLayer::Init(HWND hWnd)
+bool cGraphicsLayer::Init(HWND hWnd, bool windowed)
 {
 	cLog *Log = cLog::Instance();
 	HRESULT hr;
@@ -40,7 +40,7 @@ bool cGraphicsLayer::Init(HWND hWnd)
 	D3DPRESENT_PARAMETERS d3dpp; 
 	ZeroMemory( &d3dpp, sizeof( d3dpp ) );
 
-	d3dpp.Windowed               = FALSE;
+	d3dpp.Windowed               = windowed;
 	d3dpp.SwapEffect             = D3DSWAPEFFECT_DISCARD;	//Efficient page flipping
 	d3dpp.BackBufferWidth        = SCREEN_RES_X;
     d3dpp.BackBufferHeight       = SCREEN_RES_Y;
