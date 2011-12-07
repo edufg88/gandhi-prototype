@@ -25,20 +25,8 @@
     <Filter Include="Header Files\GameStates">
       <UniqueIdentifier>{1a40b7c3-9799-4540-abdd-64c34a72d055}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Enemies">
-      <UniqueIdentifier>{cab7c569-2070-4651-951b-960810f8b5d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\HeroStates">
-      <UniqueIdentifier>{c58e87e9-79dc-479e-8eb2-fdcfcc7f61ea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GameStates">
       <UniqueIdentifier>{d9ec1ed4-eba1-4277-ba34-efe057c084a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Enemies">
-      <UniqueIdentifier>{54dae527-ad21-4869-839b-0895dee7723a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\HeroStates">
-      <UniqueIdentifier>{9c55cc06-89bb-4ba9-a9a4-b3651821fbb5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -773,9 +761,6 @@
     <ClInclude Include="include\cTrajectory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\cSkeleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\cScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -797,9 +782,6 @@
     <ClInclude Include="include\cGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\cCritter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\cSound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -815,12 +797,24 @@
     <ClInclude Include="include\cGameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\cHero.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cWeapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\cTrajectory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\cSkeleton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\cScene.cpp">
@@ -844,9 +838,6 @@
     <ClCompile Include="lib\cGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\cCritter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Win32Main.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
@@ -863,6 +854,21 @@
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
     <ClCompile Include="lib\cGameState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cHero.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cWeapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -122,11 +122,6 @@ bool cMouse::Read()
 								else if(y>=SCENE_Yf) y=SCENE_Yf-1;
 								break;
 
-		case SELECT_RADAR:		if(x<RADAR_Xo) x=RADAR_Xo;
-								else if(x>=RADAR_Xf) x=RADAR_Xf-1;
-								if(y<RADAR_Yo) y=RADAR_Yo;
-								else if(y>=RADAR_Yf) y=RADAR_Yf-1;
-								break;
 	}
 	if((x<SCENE_Xf)&&(y>=SCENE_Yo))
 	{

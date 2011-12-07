@@ -255,38 +255,44 @@
     <None Include="media\sounds\wind6.wav" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\cCritter.h" />
+    <ClInclude Include="include\cEnemy.h" />
     <ClInclude Include="include\cGame.h" />
     <ClInclude Include="include\cGameState.h" />
     <ClInclude Include="include\cGraphicsLayer.h" />
     <ClInclude Include="include\cGSGameOver.h" />
     <ClInclude Include="include\cGSIngame.h" />
     <ClInclude Include="include\cGSMenu.h" />
+    <ClInclude Include="include\cHero.h" />
+    <ClInclude Include="include\cHUD.h" />
     <ClInclude Include="include\cInputLayer.h" />
+    <ClInclude Include="include\cItem.h" />
     <ClInclude Include="include\cKeyboard.h" />
     <ClInclude Include="include\cLog.h" />
     <ClInclude Include="include\cMouse.h" />
     <ClInclude Include="include\cScene.h" />
-    <ClInclude Include="include\cSkeleton.h" />
     <ClInclude Include="include\cSound.h" />
     <ClInclude Include="include\cTrajectory.h" />
+    <ClInclude Include="include\cWeapon.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib\cCritter.cpp" />
+    <ClCompile Include="lib\cEnemy.cpp" />
     <ClCompile Include="lib\cGame.cpp" />
     <ClCompile Include="lib\cGameState.cpp" />
     <ClCompile Include="lib\cGraphicsLayer.cpp" />
     <ClCompile Include="lib\cGSGameOver.cpp" />
     <ClCompile Include="lib\cGSIngame.cpp" />
     <ClCompile Include="lib\cGSMenu.cpp" />
+    <ClCompile Include="lib\cHero.cpp" />
+    <ClCompile Include="lib\cHUD.cpp" />
     <ClCompile Include="lib\cInputLayer.cpp" />
+    <ClCompile Include="lib\cItem.cpp" />
     <ClCompile Include="lib\cKeyboard.cpp" />
     <ClCompile Include="lib\cLog.cpp" />
     <ClCompile Include="lib\cMouse.cpp" />
     <ClCompile Include="lib\cScene.cpp" />
-    <ClCompile Include="lib\cSkeleton.cpp" />
     <ClCompile Include="lib\cSound.cpp" />
     <ClCompile Include="lib\cTrajectory.cpp" />
+    <ClCompile Include="lib\cWeapon.cpp" />
     <ClCompile Include="src\Win32Main.cpp" />
   </ItemGroup>
   <ItemGroup>

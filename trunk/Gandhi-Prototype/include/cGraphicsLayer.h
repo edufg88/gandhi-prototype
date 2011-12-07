@@ -13,8 +13,6 @@
 #include <D3DX9.h>
 #include "cScene.h"
 #include "cMouse.h"
-#include "cCritter.h"
-#include "cSkeleton.h"
 
 class cGraphicsLayer  
 {
@@ -37,10 +35,10 @@ class cGraphicsLayer
 		
 
 		bool DrawLevel();
-		//bool DrawHUD();
+		bool DrawHUD();
 		bool DrawHero();
 		bool DrawEnemies();
-
+		bool DrawItems();
 		bool DrawMouse();
 		bool DrawRect(RECT rc, D3DCOLOR color);
 		//bool Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton);

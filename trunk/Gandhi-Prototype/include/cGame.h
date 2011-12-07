@@ -5,8 +5,12 @@
 #include "cGraphicsLayer.h"
 #include "cInputLayer.h"
 #include "cScene.h"
+#include "cHUD.h"
 #include "cSound.h"
 #include "cGameState.h"
+#include "cHero.h"
+#include "cEnemy.h"
+#include "cItem.h"
 
 #define STATE_MAIN	0
 #define STATE_GAME	1
@@ -22,12 +26,13 @@ class cGame
 		bool Loop(); 
 		void Finalize();
 
-		// EFG: Todo esto hay que cambiarlo cuando tengamos nivel, personaje y enemigos
+		// EFG: Todo esto hay que cambia	rlo cuando tengamos nivel, personaje y enemigos
 		cGameState* GetState(){ return State; }
-		cScene* GetScene() { return &Scene; }
-		cCritter* GetCritter() { return &Critter; }
-		cSkeleton* GetSkeleton() { return &Skeleton; }
-
+		cScene* GetScene() { return Scene; }
+		cHUD* GetHUD() { return HUD; }
+		cHero* GetHero() { return Hero; }
+		cEnemy* GetEnemy() { return Enemy; }
+		cItem* GetItem() { return Item; }
 		// EFG: Cambia el estado del juego
 		bool ChangeState(cGameState* newState);
 
@@ -47,12 +52,15 @@ class cGame
 		cGraphicsLayer* Graphics;
 		cInputLayer* Input;
 		cSound* Sound;
-
-		cScene Scene;
-		cCritter Critter;
-		cSkeleton Skeleton;
-	
+		cScene* Scene;
+		cHUD* HUD;
 		cGameState* State;
+
+		cHero* Hero;
+		// EFG: Items y enemigos habrá más de uno. Podemos usar una lista o un map
+		cEnemy* Enemy;
+		cItem* Item;
+		
 };
 
 #endif
