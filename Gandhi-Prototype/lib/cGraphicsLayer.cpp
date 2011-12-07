@@ -182,11 +182,12 @@ bool cGraphicsLayer::RenderInGame()
 	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 	//Graphic User Interface
-	g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
+	//g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
 	DrawLevel();
 	DrawHero();
 	DrawEnemies();
-	//DrawHUD();
+	DrawItems();
+	DrawHUD();
 
 	g_pSprite->End();
 
@@ -195,6 +196,11 @@ bool cGraphicsLayer::RenderInGame()
 	g_pD3DDevice->EndScene();
 	g_pD3DDevice->Present( NULL, NULL, NULL, NULL );
 
+	return true;
+}
+
+bool cGraphicsLayer::DrawHUD()
+{
 	return true;
 }
 
@@ -235,29 +241,18 @@ bool cGraphicsLayer::DrawHero()
 	int cx,cy,posx,posy;
 	RECT rc;
 
-	cCritter* Critter = cGame::GetInstance()->GetCritter();
+	cHero* Hero = cGame::GetInstance()->GetHero();
 	cScene* Scene = cGame::GetInstance()->GetScene();
 
 	//Draw Critter
-	Critter->GetCell(&cx,&cy);
+	Hero->GetCell(&cx, &cy);
 	if(Scene->Visible(cx,cy))
 	{
-		Critter->GetRect(&rc,&posx,&posy,Scene);
+		Hero->GetRect(&rc,&posx,&posy,Scene);
 		g_pSprite->Draw(texCharacters,&rc,NULL, 
 						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 						0xFFFFFFFF);
-		if(Critter->GetSelected())
-		{
-			Critter->GetRectLife(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texMouse,&rc,NULL, 
-							&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-							0xFFFFFFFF);
-		}
 	}
-	Critter->GetRectRadar(&rc,&posx,&posy);
-	g_pSprite->Draw(texTiles,&rc,NULL, 
-					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-					0xFFFFFFFF);
 
 	return true;
 }
@@ -267,15 +262,15 @@ bool cGraphicsLayer::DrawEnemies()
 	int cx,cy,posx,posy;
 	RECT rc;
 
-	cSkeleton* Skeleton = cGame::GetInstance()->GetSkeleton();
+	cEnemy* Enemy = cGame::GetInstance()->GetEnemy();
 	cScene* Scene = cGame::GetInstance()->GetScene();
 	cMouse* Mouse = cInputLayer::GetInstance()->GetMouse();
 	
 	//Draw Skeleton
-	Skeleton->GetCell(&cx,&cy);
+	Enemy->GetCell(&cx,&cy);
 	if(Scene->Visible(cx,cy))
 	{
-		Skeleton->GetRect(&rc,&posx,&posy,Scene);
+		Enemy->GetRect(&rc,&posx,&posy,Scene);
 
 		////////////// Arnau: Prueba rotaciones
 		D3DXMATRIX preChange, matRotate;
@@ -298,16 +293,7 @@ bool cGraphicsLayer::DrawEnemies()
 
 		g_pSprite->SetTransform(&preChange);
 		///////////////
-
-		///// SKELETON ANTIGUO
-		/*g_pSprite->Draw(texCharacters,&rc,NULL, 
-						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-						0xFFFFFFFF);*/
 	}
-	Skeleton->GetRectRadar(&rc,&posx,&posy);
-	g_pSprite->Draw(texTiles,&rc,NULL, 
-					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-					0xFFFFFFFF);
 	
 	//Draw Fire
 	//if(Critter->GetShooting())
@@ -326,6 +312,28 @@ bool cGraphicsLayer::DrawEnemies()
 	//		Critter->GetRectShoot(&rc,&posx,&posy,Scene);
 	//	}
 	//}
+
+	return true;
+}
+
+bool cGraphicsLayer::DrawItems()
+{
+	int cx,cy,posx,posy;
+	RECT rc;
+
+	cItem* Item = cGame::GetInstance()->GetItem();
+	cScene* Scene = cGame::GetInstance()->GetScene();
+
+	//Draw Critter
+	Item->GetCell(&cx, &cy);
+	if(Scene->Visible(cx,cy))
+	{
+		Item->GetRect(&rc,&posx,&posy,Scene);
+		g_pSprite->Draw(texCharacters,&rc,NULL, 
+						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+						0xFFFFFFFF);
+	}
+
 	return true;
 }
 

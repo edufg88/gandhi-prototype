@@ -56,23 +56,6 @@ void cScene::Move(int pointer)
 	}
 }
 
-void cScene::MoveByRadar(int x,int y)
-{
-	//move=0..12,0..15
-	//rect=(80x68)/4=20x17
-
-	cx=(x-RADAR_Xo)>>2;
-	cy=(y-RADAR_Yo)>>2;
-
-	if(cx<=9)		cx=0;
-	else if(cx>=21)	cx=12;
-	else			cx-=9;
-	
-	if(cy<=8)		cy=0;
-	else if(cy>=23)	cy=15;
-	else			cy-=8;
-}
-
 bool cScene::Visible(int cellx,int celly)
 {
 	return ((cellx>=cx)&&(cellx<cx+SCENE_WIDTH)&&(celly>=cy)&&(celly<cy+SCENE_HEIGHT)) ? 1 : 0;

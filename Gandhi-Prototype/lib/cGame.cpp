@@ -6,7 +6,45 @@
 cGame* cGame::instance = NULL;
 
 cGame::cGame() {}
-cGame::~cGame(){}
+cGame::~cGame()
+{
+	//EFG: Eliminamos la memoria dinámica
+	if (Graphics != NULL)
+	{
+		delete Graphics;
+		Graphics = NULL;
+	}
+	if (Input != NULL)
+	{
+		delete Input;
+		Input = NULL;
+	}
+	if (Sound != NULL)
+	{
+		delete Sound;
+		Sound = NULL;
+	}
+	if (Scene != NULL)
+	{
+		delete Scene;
+		Scene = NULL;
+	}
+	if (HUD != NULL)
+	{
+		delete HUD;
+		HUD = NULL;
+	}
+	if (State != NULL)
+	{
+		delete State;
+		State = NULL;
+	}
+	if (Hero != NULL)
+	{
+		delete Hero;
+		Hero = NULL;
+	}
+}
 
 cGame* cGame::GetInstance()
 {
@@ -28,6 +66,14 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Graphics = cGraphicsLayer::GetInstance();
 	Sound = cSound::GetInstance();
 	Input = cInputLayer::GetInstance();
+
+	// EFG: Creamos la escena y el HUD
+	Scene = new cScene();
+
+	// EFG: Creamos el heroe... y el enemigo de momento
+	Hero = new cHero();
+	Enemy = new cEnemy();
+	Item = new cItem();
 
 	// EFG: Iniciamos el estado menú
 	State = new cGSMenu();
@@ -61,6 +107,8 @@ void cGame::Finalize()
 	Graphics->Finalize();
 	Input->UnacquireAll();
 	Input->Finalize();
+	
+	
 }
 
 bool cGame::Loop()
@@ -122,10 +170,8 @@ bool cGame::Render()
 
 void cGame::ProcessOrder()
 {
+	int mx, my;
 	cMouse *Mouse;
-	int mx,my,msx,msy,p,cx,cy,x,y;
-	int s=5; //marge for directional pointers
-	int xo,xf,yo,yf;
 	int b4pointer;
 
 	Mouse = Input->GetMouse();
@@ -138,74 +184,15 @@ void cGame::ProcessOrder()
 		
 		if(Mouse->In(SCENE_Xo,SCENE_Yo,SCENE_Xf,SCENE_Yf))
 		{
-			if(Mouse->GetSelection()!=SELECT_SCENE)
-			{
-				//Select movement/attack
-				if(Critter.GetSelected())
-				{
-					//Attack
-					Skeleton.GetCell(&cx,&cy);
-					if(Mouse->InCell(&Scene,cx,cy))
-					{
-						if(!Critter.GetShooting())
-							Critter.GoToEnemy(Scene.cx+cx,Scene.cx+cy);
-					}
-					//Movement
-					else
-					{
-						Mouse->GetCell(&cx,&cy);
-						Critter.GoToCell(Scene.cx+cx,Scene.cy+cy);
-					}
-				}
-				//Begin selection
-				else
-				{
-					Mouse->SetSelection(SELECT_SCENE);
-					Mouse->SetSelectionPoint(mx,my);
-				}
-			}
-		}
-		else if(Mouse->In(RADAR_Xo,RADAR_Yo,RADAR_Xf,RADAR_Yf))
-		{
-			if(Critter.GetSelected())
-			{
-				int radar_cell_x = (mx-RADAR_Xo) >> 2, //[672..799]/4=[0..31]
-					radar_cell_y = (my-RADAR_Yo) >> 2; //[ 60..187]/4=[0..31]
-
-				Critter.GoToCell(radar_cell_x,radar_cell_y);
-			}
-			else
-			{
-				Mouse->SetSelection(SELECT_RADAR);
-				Scene.MoveByRadar(mx,my);
-			}
+			// EFG: Mouse dentro de la escena
 		}
 	}
 	else if(Mouse->ButtonUp(LEFT))
 	{
-		if(Mouse->GetSelection()==SELECT_SCENE)
-		{
-			Mouse->GetSelectionPoint(&msx,&msy);
-
-			xo = min(msx,mx)+(Scene.cx<<5)-SCENE_Xo;
-			xf = max(msx,mx)+(Scene.cx<<5)-SCENE_Xo;
-			yo = min(msy,my)+(Scene.cy<<5)-SCENE_Yo,
-			yf = max(msy,my)+(Scene.cy<<5)-SCENE_Yo;
-			
-			Critter.GetPosition(&x,&y);
-			if((xo<(x+32))&&(xf>=x)&&(yo<(y+32))&&(yf>=y))
-				Critter.SetSelected(true);
-		}
 		Mouse->SetSelection(SELECT_NOTHING);
 
-		//Mouse over Critter
-		Critter.GetCell(&cx,&cy);
-		if(Mouse->InCell(&Scene,cx,cy))
-		{
-			Mouse->SetPointer(SELECT);
-			return;
-		}
 		//Mouse over Enemy
+		/* EFG: Esto puede servir de algo
 		Skeleton.GetCell(&cx,&cy);
 		if(Mouse->InCell(&Scene,cx,cy))
 		{
@@ -217,11 +204,6 @@ void cGame::ProcessOrder()
 			if(Critter.GetSelected())	Mouse->SetPointer(MOVE);
 			//Critter selected but mouse out map
 			else						Mouse->SetPointer(NORMAL);
-		}
-		else if(Mouse->In(RADAR_Xo,RADAR_Yo,RADAR_Xf,RADAR_Yf))
-		{
-			//Critter selected pointing, where to move trough radar
-			if(Critter.GetSelected())	Mouse->SetPointer(MOVE);
 		}
 		else
 		{	
@@ -239,18 +221,14 @@ void cGame::ProcessOrder()
 
 			p = Mouse->GetPointer();
 			if((p>=MN)&&(p<=MSO))	Scene.Move(p);
-		}
+		}*/
 	}
 	if(Mouse->ButtonDown(RIGHT))
 	{
-		if(Critter.GetSelected())
-		{
-			Critter.SetSelected(false);
-			Mouse->SetPointer(NORMAL);
-		}
+		//EFG: Segundo ataque?
 	}
 
-	if(b4pointer!=Mouse->GetPointer()) Mouse->InitAnim();
+	//if(b4pointer!=Mouse->GetPointer()) Mouse->InitAnim();
 }
 
 bool cGame::ChangeState(cGameState* newState)
