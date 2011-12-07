@@ -33,7 +33,7 @@ cMouse::cMouse(LPDIRECTINPUT8 pDI, HWND hwnd, bool isExclusive)
 	}
 	else
 	{
-		flags = DISCL_FOREGROUND | DISCL_NONEXCLUSIVE;
+		flags = DISCL_FOREGROUND | DISCL_EXCLUSIVE;
 		//ShowCursor(false);
 	}
 

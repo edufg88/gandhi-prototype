@@ -42,35 +42,27 @@ bool InitWindow( HINSTANCE hInst, HWND *hWnd, bool *exclusive )
 	wcl.cbWndExtra = 0;
 	wcl.hbrBackground = (HBRUSH) GetStockObject(BLACK_BRUSH);
 
-	if( !RegisterClassEx( &wcl ) )
-		return false;
+	if( !RegisterClassEx( &wcl ) ) return false;
 
-		int fullscreen;
-		fullscreen=MessageBox(0, "Would you like fullscreen mode?", "Isometric Engine", MB_YESNO );
+	int fullscreen;
+	fullscreen=MessageBox(0, "Would you like fullscreen mode?", "Isometric Engine", MB_YESNO );
 
-		if(fullscreen==IDYES)
-		{
-	
-
-	*hWnd = CreateWindow(	szWinName, szWinName, WS_POPUP, 0, 0,
-							SCREEN_RES_X, //GetSystemMetrics(SM_CXSCREEN),
-							SCREEN_RES_Y, //GetSystemMetrics(SM_CYSCREEN),
-							HWND_DESKTOP, NULL, hInst, NULL );
-	*exclusive = true;
-
-		}
-		else
-		{
-			*hWnd = CreateWindow( szWinName, szWinName,
-								WS_BORDER | WS_CAPTION | WS_SYSMENU | WS_VISIBLE, 
-								0, 0, 800, 600, HWND_DESKTOP, NULL, hInst, NULL );
-			*exclusive = false;
-		}
-	
-
-	if( *hWnd == NULL )
-		return false;
-
+	if(fullscreen==IDYES)
+	{
+		*hWnd = CreateWindow(	szWinName, szWinName, WS_POPUP, 0, 0,
+								SCREEN_RES_X, //GetSystemMetrics(SM_CXSCREEN),
+								SCREEN_RES_Y, //GetSystemMetrics(SM_CYSCREEN),
+								HWND_DESKTOP, NULL, hInst, NULL );
+		*exclusive = true;
+	}
+	else
+	{
+		*hWnd = CreateWindow( szWinName, szWinName,
+							WS_BORDER | WS_CAPTION | WS_SYSMENU | WS_VISIBLE, 
+							0, 0, 800, 600, HWND_DESKTOP, NULL, hInst, NULL );
+		*exclusive = false;
+	}
+	if( *hWnd == NULL ) return false;
 	return true;
 }
 

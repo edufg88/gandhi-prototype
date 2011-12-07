@@ -22,7 +22,7 @@ class cGraphicsLayer
 		static cGraphicsLayer* GetInstance();
 		virtual ~cGraphicsLayer();
 
-		bool Init(HWND hWnd); 
+		bool Init(HWND hWnd, bool windowed); 
 		void Finalize();
 	
 		void LoadData();

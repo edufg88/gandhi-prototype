@@ -33,7 +33,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	State = new cGSMenu();
 	State->Enter();
 
-	res = Graphics->Init(hWnd);
+	res = Graphics->Init(hWnd, !exclusive); //fullscreen = !exclusive
 	if(!res)
 	{
 		Log->Msg("Error initializing Graphics!");
