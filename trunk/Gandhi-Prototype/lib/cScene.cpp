@@ -20,12 +20,20 @@ void cScene::LoadMap(char *file)
 	FILE *f;
 	f=fopen(file,"r");
 
+	fscanf(f,"%d",&n);
+	while (n != -1)
+	{
+		walkableTiles.insert(n);
+		fscanf(f,"%d",&n);
+	}
+
 	for(i=0;i<AREA_WIDTH;i++)
 	{
 		for(j=0;j<AREA_HEIGHT;j++)
 		{
 			fscanf(f,"%d",&n);
-			map[i][j]=n;
+			map[i][j].tile = n;
+			map[i][j].walkable = walkableTiles.count(n);
 		}
 	}
 
@@ -41,22 +49,28 @@ void cScene::Move(int dir)
 	//Up
 	if(dir==DIRUP)
 	{
-		if(camy > 0) camy -= speed;
+		int heroY = cGame::GetInstance()->GetHero()->GetY();
+		if(camy > 0 && heroY + HERO_HEIGHT/2 + HERO_Y < AREA_HEIGHT*TILE_WIDTH) camy -= speed;
 	}
 	//South
 	else if(dir==DIRDOWN)
 	{
-		if(camy < (AREA_HEIGHT-SCENE_HEIGHT)*TILE_WIDTH) camy += speed;
+		int heroY = cGame::GetInstance()->GetHero()->GetY();
+		if(camy < (AREA_HEIGHT-SCENE_HEIGHT)*TILE_WIDTH
+			&& heroY + HERO_HEIGHT/2 - HERO_Y > 0) camy += speed;
 	}
 	//West
 	if(dir==DIRLEFT)
 	{
-		if(camx > 0) camx -= speed;
+		int heroX = cGame::GetInstance()->GetHero()->GetX();
+		if(camx > 0 && heroX + HERO_WIDTH/2 + HERO_X < AREA_WIDTH*TILE_WIDTH) camx -= speed;
 	}
 	//East
 	else if(dir==DIRRIGHT)
 	{
-		if(camx < (AREA_WIDTH-SCENE_WIDTH)*TILE_WIDTH) camx += speed;
+		int heroX = cGame::GetInstance()->GetHero()->GetX();
+		if(camx < (AREA_WIDTH-SCENE_WIDTH)*TILE_WIDTH
+			&& heroX + HERO_WIDTH/2 - HERO_X > 0) camx += speed;
 	}
 }
 

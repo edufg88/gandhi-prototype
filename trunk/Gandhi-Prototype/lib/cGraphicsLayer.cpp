@@ -235,7 +235,7 @@ bool cGraphicsLayer::DrawLevel()
 		{
 			pantx = SCENE_Xo + ((x-cx)<<5) - offx;
 
-			n = Scene->map[y][x];
+			n = Scene->map[y][x].tile;
 			SetRect(&rc,n<<5,0,(n+1)<<5,TILE_WIDTH);
 			g_pSprite->Draw(texTiles,&rc,NULL, 
 							&D3DXVECTOR3(float(pantx),float(panty),0.0f), 

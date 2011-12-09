@@ -16,7 +16,7 @@ class cHero
 		cHero(void);
 		virtual ~cHero(void);
 
-		void Move(int dir);
+		bool Move(int dir);
 		void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);
 		void GetRectLife(RECT *rc,int *posx,int *posy,cScene *Scene);
 		void GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene);
@@ -45,6 +45,7 @@ class cHero
 		int shoot_delay;//Shooter animation delay
 
 		int speed; // Velocidad del personaje
+		cScene *Scene;
 };
 
 #endif

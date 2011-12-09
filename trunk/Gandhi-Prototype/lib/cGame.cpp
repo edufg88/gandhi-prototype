@@ -177,20 +177,16 @@ void cGame::ProcessKeyboard() {
 	Keyboard = Input->GetKeyboard();
 
 	if(Keyboard->KeyDown(DIK_W) || Keyboard->KeyDown(DIK_UP)) {
-		Hero->Move(DIRUP);
-		if(Hero->GetY() + HERO_HEIGHT/2 + HERO_Y < AREA_HEIGHT*TILE_WIDTH) Scene->Move(DIRUP);
+		if(Hero->Move(DIRUP)) Scene->Move(DIRUP);
 	}
 	else if(Keyboard->KeyDown(DIK_S) || Keyboard->KeyDown(DIK_DOWN)) {
-		Hero->Move(DIRDOWN);
-		if(Hero->GetY() + HERO_HEIGHT/2 - HERO_Y > 0) Scene->Move(DIRDOWN);
+		if(Hero->Move(DIRDOWN)) Scene->Move(DIRDOWN);
 	}
 	if(Keyboard->KeyDown(DIK_D) || Keyboard->KeyDown(DIK_RIGHT)) {
-		Hero->Move(DIRRIGHT);
-		if(Hero->GetX() + HERO_WIDTH/2 - HERO_X > 0) Scene->Move(DIRRIGHT);
+		if(Hero->Move(DIRRIGHT)) Scene->Move(DIRRIGHT);
 	}
 	else if(Keyboard->KeyDown(DIK_A) || Keyboard->KeyDown(DIK_LEFT)) {
-		Hero->Move(DIRLEFT);
-		if(Hero->GetX() + HERO_WIDTH/2 + HERO_X < AREA_WIDTH*TILE_WIDTH) Scene->Move(DIRLEFT);
+		if(Hero->Move(DIRLEFT)) Scene->Move(DIRLEFT);
 	}
 }
 

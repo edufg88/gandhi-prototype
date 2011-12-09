@@ -1,11 +1,13 @@
 
 #include "cHero.h"
 #include "cTrajectory.h"
-#include "cScene.h"
+#include "cGame.h"
 
 cHero::cHero()
 {
-	SetPosition(384,96);
+	Scene = cGame::GetInstance()->GetScene();
+
+	SetPosition(0,0);
 
 	seq=0;
 	delay=0;
@@ -59,22 +61,40 @@ void cHero::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 	}
 }
 
-void cHero::Move(int dir)
+bool cHero::Move( int dir )
 {
 	switch(dir) {
 	case DIRUP:
-		y -= speed;
+		if(Scene->map[(y-speed+1)/TILE_WIDTH][x/TILE_WIDTH].walkable
+			&& Scene->map[(y-speed+1)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
+			y -= speed;
+			return true;
+		}
 		break;
 	case DIRDOWN:
-		y += speed;
+		if(Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][x/TILE_WIDTH].walkable
+			&& Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
+			y += speed;
+			return true;
+		}
 		break;
 	case DIRRIGHT:
-		x += speed;
+		if(Scene->map[y/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable
+			&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable) {
+			x += speed;
+			return true;
+		}
 		break;
 	case DIRLEFT:
-		x -= speed;
+		if(Scene->map[y/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable
+			&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable) {
+			x -= speed;
+			return true;
+		}
 		break;
 	}
+
+	return false;
 }
 
 void cHero::SetPosition(int posx,int posy)
