@@ -22,6 +22,7 @@
     <None Include="media\imgs\tiles.png" />
     <None Include="media\imgs\tileTextures.png" />
     <None Include="media\imgs\tutorialTexture.png" />
+    <None Include="media\map.txt" />
     <None Include="media\sounds\ak47.wav" />
     <None Include="media\sounds\alarm1.wav" />
     <None Include="media\sounds\alarm2.wav" />
@@ -327,9 +328,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\fmoddesignerapi\api\inc;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\api\inc;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\include;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\DX9SDK\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\fmoddesignerapi\api\lib;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\api\lib;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\lib;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\DX9SDK\Lib\x86;$(LibraryPath)</LibraryPath>
-    <SourcePath>C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\src;$(SourcePath)</SourcePath>
+    <IncludePath>C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\fmoddesignerapi\api\inc;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\api\inc;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\include;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\DX9SDK\Include;C:\Users\Arnau\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\fmoddesignerapi\api\inc;C:\Users\Arnau\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\api\inc;C:\Users\Arnau\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\include;C:\Users\Arnau\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\DX9SDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\fmoddesignerapi\api\lib;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\api\lib;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\lib;C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\DX9SDK\Lib\x86;C:\Users\Arnau\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\fmoddesignerapi\api\lib;C:\Users\Arnau\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\FMOD\api\lib;C:\Users\Arnau\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\lib;C:\Users\Arnau\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\DX9SDK\Lib\x86;$(LibraryPath)</LibraryPath>
+    <SourcePath>C:\Users\Edu\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\src;C:\Users\Arnau\Documents\Visual Studio 2010\Projects\gandhi-prototype\Gandhi-Prototype\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
