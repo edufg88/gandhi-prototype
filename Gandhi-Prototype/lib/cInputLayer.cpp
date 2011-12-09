@@ -144,9 +144,9 @@ bool cInputLayer::Read()
 void cInputLayer::AcquireAll()
 {
   if (m_pKeyboard)
-    m_pKeyboard->Acquire();
+	m_pKeyboard->Acquire();
   if (m_pMouse)
-    m_pMouse->Acquire();
+	m_pMouse->Acquire();
 } 
 
 /*************************************************************************
@@ -157,9 +157,9 @@ void cInputLayer::AcquireAll()
 void cInputLayer::UnacquireAll()
 {
   if (m_pKeyboard)
-    m_pKeyboard->Unacquire();
+	m_pKeyboard->Unacquire();
   if (m_pMouse)
-    m_pMouse->Unacquire();
+	m_pMouse->Unacquire();
 } 
 
 /*************************************************************************

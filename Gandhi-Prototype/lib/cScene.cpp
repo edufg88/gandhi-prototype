@@ -1,13 +1,15 @@
 
 #include "cScene.h"
 #include "cMouse.h"
+#include "cGame.h"
 #include <stdio.h>
 
 
 cScene::cScene()
 {
-	cx=0;
-	cy=0;
+	/*cx=0;
+	cy=0;*/
+	camx = camy = 0;
 }
 cScene::~cScene(){}
 
@@ -16,11 +18,11 @@ void cScene::LoadMap(char *file)
 	int i,j,n;
 	
 	FILE *f;
-	f=fopen("map.txt","r");
+	f=fopen(file,"r");
 
-	for(i=0;i<SCENE_AREA;i++)
+	for(i=0;i<AREA_WIDTH;i++)
 	{
-		for(j=0;j<SCENE_AREA;j++)
+		for(j=0;j<AREA_HEIGHT;j++)
 		{
 			fscanf(f,"%d",&n);
 			map[i][j]=n;
@@ -30,33 +32,42 @@ void cScene::LoadMap(char *file)
 	fclose(f);
 }
 
-void cScene::Move(int pointer)
+void cScene::Move(int dir)
 {
+	int speed = cGame::GetInstance()->GetHero()->GetSpeed();
+
 	//map=32x32, visible=20x17 => move=0..32-20,0..32-17=0..12,0..15
 
 	//Up
-	if((pointer==MN)||(pointer==MNO)||(pointer==MNE))
+	if(dir==DIRUP)
 	{
-		if(cy>0) cy--;
+		if(camy > 0) camy -= speed;
 	}
 	//South
-	else if((pointer==MS)||(pointer==MSO)||(pointer==MSE))
+	else if(dir==DIRDOWN)
 	{
-		if(cy<SCENE_AREA-SCENE_HEIGHT) cy++;
+		if(camy < (AREA_HEIGHT-SCENE_HEIGHT)*TILE_WIDTH) camy += speed;
 	}
 	//West
-	if((pointer==MO)||(pointer==MNO)||(pointer==MSO))
+	if(dir==DIRLEFT)
 	{
-		if(cx>0) cx--;
+		if(camx > 0) camx -= speed;
 	}
 	//East
-	else if((pointer==ME)||(pointer==MNE)||(pointer==MSE))
+	else if(dir==DIRRIGHT)
 	{
-		if(cx<SCENE_AREA-SCENE_WIDTH) cx++;
+		if(camx < (AREA_WIDTH-SCENE_WIDTH)*TILE_WIDTH) camx += speed;
 	}
 }
 
 bool cScene::Visible(int cellx,int celly)
 {
+	int cx, cy;
+	getCell(&cx, &cy);
 	return ((cellx>=cx)&&(cellx<cx+SCENE_WIDTH)&&(celly>=cy)&&(celly<cy+SCENE_HEIGHT)) ? 1 : 0;
+}
+
+void cScene::getCell(int *cx, int *cy) {
+	*cx = camx/32;
+	*cy = camy/32;
 }

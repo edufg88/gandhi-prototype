@@ -2,6 +2,7 @@
 #include "cGame.h"
 #include "cLog.h"
 #include "cGSMenu.h"
+#include "cGSIngame.h"
 
 cGame* cGame::instance = NULL;
 
@@ -75,8 +76,11 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Enemy = new cEnemy();
 	Item = new cItem();
 
+	// Arnau: Comentado para debugar más rápido
 	// EFG: Iniciamos el estado menú
-	State = new cGSMenu();
+	//State = new cGSMenu();
+	State = new cGSIngame(); // Arnau: borrar en beta
+
 	State->Enter();
 
 	res = Graphics->Init(hWnd, !exclusive); //fullscreen = !exclusive
@@ -96,7 +100,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	Graphics->LoadData();
 
-	//EFG: Scene.LoadMap("map.txt");
+	Scene->LoadMap("map.txt");
 
 	return true;
 }
@@ -139,7 +143,7 @@ bool cGame::LoopInput()
 	if(!res)
 	{
 		Log->Msg("Error reading Input!");
-		return false;
+		//return false; // Arnau: comentado porqué al perder focus devolvía false y cerraba la aplicación el joputa
 	}
 	return true;
 }
@@ -168,6 +172,28 @@ bool cGame::Render()
 	return res;
 }
 
+void cGame::ProcessKeyboard() {
+	cKeyboard *Keyboard;
+	Keyboard = Input->GetKeyboard();
+
+	if(Keyboard->KeyDown(DIK_W)) {
+		Hero->Move(DIRUP);
+		if(Hero->GetY() + HERO_HEIGHT/2 + HERO_Y < AREA_HEIGHT*TILE_WIDTH) Scene->Move(DIRUP);
+	}
+	else if(Keyboard->KeyDown(DIK_S)) {
+		Hero->Move(DIRDOWN);
+		if(Hero->GetY() + HERO_HEIGHT/2 - HERO_Y > 0) Scene->Move(DIRDOWN);
+	}
+	if(Keyboard->KeyDown(DIK_D)) {
+		Hero->Move(DIRRIGHT);
+		if(Hero->GetX() + HERO_WIDTH/2 - HERO_X > 0) Scene->Move(DIRRIGHT);
+	}
+	else if(Keyboard->KeyDown(DIK_A)) {
+		Hero->Move(DIRLEFT);
+		if(Hero->GetX() + HERO_WIDTH/2 + HERO_X < AREA_WIDTH*TILE_WIDTH) Scene->Move(DIRLEFT);
+	}
+}
+
 void cGame::ProcessOrder()
 {
 	int mx, my;
@@ -177,6 +203,8 @@ void cGame::ProcessOrder()
 	Mouse = Input->GetMouse();
 	b4pointer = Mouse->GetPointer();
 	Mouse->GetPosition(&mx,&my);
+
+	ProcessKeyboard();
 
 	if(Mouse->ButtonDown(LEFT))
 	{
