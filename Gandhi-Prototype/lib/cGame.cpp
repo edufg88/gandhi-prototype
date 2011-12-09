@@ -100,7 +100,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	Graphics->LoadData();
 
-	Scene->LoadMap("map.txt");
+	Scene->LoadMap("media/map.txt");
 
 	return true;
 }

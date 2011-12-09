@@ -756,6 +756,9 @@
     <None Include="media\imgs\tutorialTexture.png">
       <Filter>media\imgs</Filter>
     </None>
+    <None Include="media\map.txt">
+      <Filter>media</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cTrajectory.h">
