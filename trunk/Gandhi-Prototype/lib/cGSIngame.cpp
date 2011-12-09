@@ -11,7 +11,7 @@ bool cGSIngame::Process()
 	cGame *Game = cGame::GetInstance();
 		
 	Game->ProcessOrder();
-	Game->GetHero()->Move();
+	//Game->GetHero()->Move();
 	
 	return true;
 }

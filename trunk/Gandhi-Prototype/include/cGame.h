@@ -60,6 +60,8 @@ class cGame
 		// EFG: Items y enemigos habrá más de uno. Podemos usar una lista o un map
 		cEnemy* Enemy;
 		cItem* Item;
+
+		void ProcessKeyboard();
 		
 };
 

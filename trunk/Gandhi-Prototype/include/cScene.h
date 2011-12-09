@@ -6,18 +6,31 @@
 #define SCREEN_RES_X	800
 #define SCREEN_RES_Y	600
 
-//Visible part
-#define SCENE_WIDTH		25
-#define SCENE_HEIGHT	20
+#define TILE_WIDTH 32
 
-//Dimension = Area^2
-#define SCENE_AREA		32
+//Visible part
+#define SCENE_WIDTH		SCREEN_RES_X/TILE_WIDTH
+#define SCENE_HEIGHT	SCREEN_RES_Y/TILE_WIDTH-1 // Arnau: no entiendo el -1 pero arregla cosas...
+
+//Dimension = Area_X * Area_Y
+#define AREA_WIDTH		32
+#define AREA_HEIGHT		32
 
 //Map coordinate beginning
 #define SCENE_Xo		0
 #define SCENE_Yo		0
-#define SCENE_Xf		( SCENE_Xo + (SCENE_WIDTH<<5) )
-#define SCENE_Yf		( SCENE_Yo + (SCENE_HEIGHT<<5) )
+#define SCENE_Xf		( SCENE_Xo + (SCENE_WIDTH * TILE_WIDTH) )
+#define SCENE_Yf		( SCENE_Yo + (SCENE_HEIGHT * TILE_WIDTH) )
+
+//Posición pantalla Hero excepto en bordes
+#define HERO_X	SCREEN_RES_X/2
+#define HERO_Y	SCREEN_RES_Y/2
+
+//Directions
+#define DIRUP		0
+#define DIRDOWN		1
+#define DIRRIGHT	2
+#define DIRLEFT		3
 
 class cScene
 {
@@ -26,11 +39,13 @@ class cScene
 		virtual ~cScene();
 
 		void LoadMap(char *file);
-		void Move(int pointer);
+		void Move(int dir);
 		bool Visible(int cellx,int celly);
 
-		int map[SCENE_AREA][SCENE_AREA];
-		int cx,cy;
+		int map[AREA_WIDTH][AREA_HEIGHT];
+		int camx,camy/*,cx,cy*/;
+
+		void getCell(int *cx, int *cy);
 };
 
 

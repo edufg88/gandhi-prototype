@@ -4,6 +4,10 @@
 #include "cLog.h"
 #include <stdio.h>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
+
 cGraphicsLayer* cGraphicsLayer::instance = NULL;
 
 cGraphicsLayer* cGraphicsLayer::GetInstance()
@@ -43,8 +47,8 @@ bool cGraphicsLayer::Init(HWND hWnd, bool windowed)
 	d3dpp.Windowed               = windowed;
 	d3dpp.SwapEffect             = D3DSWAPEFFECT_DISCARD;	//Efficient page flipping
 	d3dpp.BackBufferWidth        = SCREEN_RES_X;
-    d3dpp.BackBufferHeight       = SCREEN_RES_Y;
-    d3dpp.BackBufferFormat       = D3DFMT_X8R8G8B8;
+	d3dpp.BackBufferHeight       = SCREEN_RES_Y;
+	d3dpp.BackBufferFormat       = D3DFMT_X8R8G8B8;
 
 	hr = g_pD3D->CreateDevice(	D3DADAPTER_DEFAULT, 
 								D3DDEVTYPE_HAL, 
@@ -59,8 +63,8 @@ bool cGraphicsLayer::Init(HWND hWnd, bool windowed)
 	}
 
 	// Configure for 2d operations
-    hr = g_pD3DDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
-    hr = g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	hr = g_pD3DDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
+	hr = g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	hr = g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	if(FAILED(hr))
 	{
@@ -211,22 +215,28 @@ bool cGraphicsLayer::DrawLevel()
 	RECT rc;
 	int x,y,n,
 		fx,fy,
-		pantx,panty;
+		pantx,panty,
+		cx, cy,
+		offx, offy;
+
+	Scene->getCell(&cx, &cy);
+	offx = Scene->camx - cx*TILE_WIDTH;
+	offy = Scene->camy - cy*TILE_WIDTH;
 
 	//Tile based map
-	fx=Scene->cx+SCENE_WIDTH;
-	fy=Scene->cy+SCENE_HEIGHT;
+	fx=cx+SCENE_WIDTH+1;
+	fy=cy+SCENE_HEIGHT+3; //Arnau: no entiendo el +3, pero con solo +1 pinta negros...
 
-	for(y=Scene->cy;y<fy;y++)
+	for(y=cy;y<fy;y++)
 	{
-		panty = SCENE_Yo + ((y-Scene->cy)<<5);
+		panty = SCENE_Yo + ((y-cy)<<5) - offy;
 
-		for(x=Scene->cx;x<fx;x++)
+		for(x=cx;x<fx;x++)
 		{
-			pantx = SCENE_Xo + ((x-Scene->cx)<<5);
+			pantx = SCENE_Xo + ((x-cx)<<5) - offx;
 
 			n = Scene->map[y][x];
-			SetRect(&rc,n<<5,0,(n+1)<<5,32);
+			SetRect(&rc,n<<5,0,(n+1)<<5,TILE_WIDTH);
 			g_pSprite->Draw(texTiles,&rc,NULL, 
 							&D3DXVECTOR3(float(pantx),float(panty),0.0f), 
 							0xFFFFFFFF);
@@ -243,15 +253,33 @@ bool cGraphicsLayer::DrawHero()
 
 	cHero* Hero = cGame::GetInstance()->GetHero();
 	cScene* Scene = cGame::GetInstance()->GetScene();
+	cMouse* Mouse = cInputLayer::GetInstance()->GetMouse();
 
 	//Draw Critter
 	Hero->GetCell(&cx, &cy);
 	if(Scene->Visible(cx,cy))
 	{
+		D3DXMATRIX preChange, matRotate;
+		D3DXVECTOR2 vCenter(HERO_WIDTH/2, HERO_HEIGHT/2);
+		int mPosx, mPosy;
+		float angle;
+
 		Hero->GetRect(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texCharacters,&rc,NULL, 
-						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-						0xFFFFFFFF);
+		D3DXVECTOR2 vPosition(posx, posy);
+
+		g_pSprite->GetTransform(&preChange);
+
+		Mouse->GetPosition(&mPosx, &mPosy);
+		angle = atan2(float(mPosy-posy+HERO_HEIGHT/2),float(mPosx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
+		angle -= M_PI_2; // Arnau: retocar cuando cambiemos el sprite
+
+		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
+
+		g_pSprite->SetTransform(&matRotate);
+
+		g_pSprite->Draw(texCharacters, &rc, NULL, NULL, 0xFFFFFFFF);
+
+		g_pSprite->SetTransform(&preChange);
 	}
 
 	return true;
@@ -264,35 +292,15 @@ bool cGraphicsLayer::DrawEnemies()
 
 	cEnemy* Enemy = cGame::GetInstance()->GetEnemy();
 	cScene* Scene = cGame::GetInstance()->GetScene();
-	cMouse* Mouse = cInputLayer::GetInstance()->GetMouse();
 	
 	//Draw Skeleton
 	Enemy->GetCell(&cx,&cy);
 	if(Scene->Visible(cx,cy))
 	{
 		Enemy->GetRect(&rc,&posx,&posy,Scene);
-
-		////////////// Arnau: Prueba rotaciones
-		D3DXMATRIX preChange, matRotate;
-		D3DXVECTOR2 vCenter(16.0f, 16.0f);
-		D3DXVECTOR2 vPosition(posx, posy);
-		int mPosx, mPosy;
-		float deg;
-
-		g_pSprite->GetTransform(&preChange);
-
-		Mouse->GetPosition(&mPosx, &mPosy);
-
-		deg = atan2(float(mPosy-posy),float(mPosx-posx));
-
-		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, deg, &vPosition);
-
-		g_pSprite->SetTransform(&matRotate);
-
-		g_pSprite->Draw(texCharacters,&rc,NULL, NULL, 0xFFFFFFFF);
-
-		g_pSprite->SetTransform(&preChange);
-		///////////////
+		g_pSprite->Draw(texCharacters,&rc,NULL, 
+			&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+			0xFFFFFFFF);
 	}
 	
 	//Draw Fire

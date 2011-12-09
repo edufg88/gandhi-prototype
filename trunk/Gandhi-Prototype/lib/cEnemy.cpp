@@ -13,8 +13,8 @@ cEnemy::~cEnemy()
 
 void cEnemy::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
-	*posx = SCENE_Xo + x - (Scene->cx<<5);
-	*posy = SCENE_Yo + y - (Scene->cy<<5);
+	*posx = SCENE_Xo + x - (Scene->camx);
+	*posy = SCENE_Yo + y - (Scene->camy);
 
 	SetRect(rc,128,32,160,64);
 }

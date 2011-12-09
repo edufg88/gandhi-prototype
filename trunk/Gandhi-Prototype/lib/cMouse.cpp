@@ -250,27 +250,27 @@ void cMouse::GetRect(RECT *rc,int *posx,int *posy)
 		case MOVE:		SetRect(rc,seq<<5, 96,(seq+1)<<5,128);	*posx=-16; *posy=-16;	break;
 		case ATTACK:	SetRect(rc,seq<<5,128,(seq+1)<<5,160);	*posx=-16; *posy=-16;	break;
 		case SELECT:	SetRect(rc,seq<<5, 64,(seq+1)<<5, 96);	*posx=-16; *posy=-16;	break;
-		case MN:		SetRect(rc,seq<<5,160,(seq+1)<<5,192);	*posx=-16; *posy=  0;	break;
+		/*case MN:		SetRect(rc,seq<<5,160,(seq+1)<<5,192);	*posx=-16; *posy=  0;	break;
 		case MS:		SetRect(rc,seq<<5,192,(seq+1)<<5,224);	*posx=-16; *posy=-31;	break;
 		case ME:		SetRect(rc,seq<<5,224,(seq+1)<<5,256);	*posx=-31; *posy=-16;	break;
 		case MO:		SetRect(rc,seq<<5,256,(seq+1)<<5,288);	*posx=  0; *posy=-16;	break;
 		case MNE:		SetRect(rc,seq<<5,288,(seq+1)<<5,320);	*posx=-31; *posy=  0;	break;
 		case MSE:		SetRect(rc,seq<<5,320,(seq+1)<<5,352);	*posx=-31; *posy=-31;	break;
 		case MNO:		SetRect(rc,seq<<5,352,(seq+1)<<5,384);	*posx=  0; *posy=  0;	break;
-		case MSO:		SetRect(rc,seq<<5,384,(seq+1)<<5,416);	*posx=  0; *posy=-31;	break;
+		case MSO:		SetRect(rc,seq<<5,384,(seq+1)<<5,416);	*posx=  0; *posy=-31;	break;*/
 	}
 	delay++;
 	if(delay>MDELAY)
 	{
 		seq++;
-		if(pointer>=MN)
+		/*if(pointer>=MN)
 		{
 			if(seq==16) seq=0;
-		}
-		else
-		{
+		}*/
+		//else
+		//{
 			if(seq==8) seq=0;
-		}
+		//}
 		delay=0;
 	}
 }
@@ -290,7 +290,9 @@ Mouse position in same cell
 ********************************************************************************/
 bool cMouse::InCell(cScene *Scene,int cellx,int celly)
 {
-	return (((Scene->cx+cx)==cellx)&&((Scene->cy+cy)==celly)) ? 1 : 0;
+	int scene_cx, scene_cy;
+	Scene->getCell(&scene_cx, &scene_cy);
+	return (((scene_cx+cx)==cellx)&&((scene_cy+cy)==celly)) ? 1 : 0;
 }
 /******************************************************************************
 cMouse::InitAnim()
