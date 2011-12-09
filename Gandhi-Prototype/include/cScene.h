@@ -1,4 +1,3 @@
-
 #ifndef __SCENE_H__
 #define __SCENE_H__
 
@@ -32,6 +31,13 @@
 #define DIRRIGHT	2
 #define DIRLEFT		3
 
+#include <set>
+
+struct mapCell {
+	int tile;
+	bool walkable;
+};
+
 class cScene
 {
 	public:
@@ -42,10 +48,14 @@ class cScene
 		void Move(int dir);
 		bool Visible(int cellx,int celly);
 
-		int map[AREA_WIDTH][AREA_HEIGHT];
+		mapCell map[AREA_WIDTH][AREA_HEIGHT];
 		int camx,camy/*,cx,cy*/;
 
 		void getCell(int *cx, int *cy);
+
+	private:
+		std::set<int> walkableTiles;
+
 };
 
 
