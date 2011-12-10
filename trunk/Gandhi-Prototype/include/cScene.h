@@ -3,6 +3,13 @@
 
 #include <set>
 
+/** 
+ La resolucion es 800 x 600 en cualquier caso
+ El mapa es de 32 x 32 de momento
+ El tamaño de la escena en tiles es 32 x 32
+ El tamaño de la escena en pixels es 32*32 x 32*32 = 1024 x 1024
+ **/
+
 //Resolution
 #define SCREEN_RES_X	800
 #define SCREEN_RES_Y	600
@@ -19,8 +26,8 @@
 //Map coordinate beginning
 #define SCENE_Xo		0
 #define SCENE_Yo		0
-#define SCENE_Xf		( SCENE_Xo + (SCENE_WIDTH * TILE_WIDTH) )
-#define SCENE_Yf		( SCENE_Yo + (SCENE_HEIGHT * TILE_WIDTH) )
+#define SCENE_Xf		1024 
+#define SCENE_Yf		1024
 
 //Posición pantalla Hero excepto en bordes
 #define HERO_X	SCREEN_RES_X/2

@@ -5,6 +5,7 @@
 
 cHero::cHero(int cx, int cy)
 {
+	Game = cGame::GetInstance();
 	Scene = cGame::GetInstance()->GetScene();
 
 	SetCell(cx,cy);
@@ -17,6 +18,9 @@ cHero::cHero(int cx, int cy)
 	shoot=false;
 	shoot_seq=0;
 	shoot_delay=0;
+
+	weapon = BULL_1;
+	weapon_rof = 0;
 }
 
 cHero::~cHero()
@@ -172,17 +176,44 @@ int cHero::GetY()
 
 void cHero::GetWorldRect(RECT *rc)
 {
-	SetRect(rc, x, y, x + HERO_WIDTH, y + HERO_HEIGHT);
+	
 }
 
 void cHero::ShootAt(int mx, int my)
 {
+	int dx = (mx + Scene->camx) - x;
+	int dy = (my + Scene->camy) - y;
+	float mod = sqrt(float(dx*dx + dy*dy));
+	
+	float dxa = (float)dx/(float)mod;
+	float dya = (float)dy/(float)mod;
+
+	if (weapon_rof == bull_rof[weapon])
+	{
+		Game->addHeroBullet(BULL_1, x + HERO_WIDTH/2, y + HERO_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
+		weapon_rof = 0;
+	}
+	else
+		weapon_rof++;
+}
+
+/*
+void cHero::ShootAt(int mx, int my)
+{
+	cout << "(" << mx << ", " << my << ")" << endl;
 	int dx = mx - x;
 	int dy = my - y;
 	float mod = sqrt(float(dx*dx + dy*dy));
 
-	Game->addHeroBullet(BULL_1, x + HERO_WIDTH/2, y + HERO_HEIGHT/2, dx*BULL_SPEED/mod, dy*BULL_SPEED/mod);
-}
+	if (weapon_rof == bull_rof[weapon])
+	{
+		Game->addHeroBullet(BULL_1, x + HERO_WIDTH/2, y + HERO_HEIGHT/2, dx/mod*bull_speed[weapon], dy/mod*bull_speed[weapon]);
+		weapon_rof = 0;
+	}
+	else
+		weapon_rof++;
+	
+}*/
 
 bool cHero::Hit(int damage)
 {
@@ -190,3 +221,15 @@ bool cHero::Hit(int damage)
 	return life <= 0;
 }
 
+bool cHero::ChangeWeapon(int newWeapon)
+{
+	if (newWeapon >= 0 && newWeapon <= 2)
+	{
+		weapon = newWeapon;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

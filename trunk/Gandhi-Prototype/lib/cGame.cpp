@@ -288,6 +288,8 @@ void cGame::ProcessOrder()
 		{
 			// EFG: Mouse dentro de la escena
 			Hero->ShootAt(mx, my);
+
+			
 		}
 	}
 	else if(Mouse->ButtonUp(LEFT))

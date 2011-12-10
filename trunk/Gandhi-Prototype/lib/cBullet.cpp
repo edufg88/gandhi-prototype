@@ -21,7 +21,7 @@ bool cBullet::Move()
 	x += vx;
 	y += vy;
 
-	return Scene->map[(y+BULLET_HEIGHT/2)/TILE_WIDTH][(x+BULLET_WIDTH/2)/TILE_WIDTH].walkable;
+	return cGame::GetInstance()->GetScene()->map[(y+BULLET_HEIGHT/2)/TILE_WIDTH][(x+BULLET_WIDTH/2)/TILE_WIDTH].walkable;
 }
 
 void cBullet::GetRect( RECT *rc,int *posx,int *posy,cScene *Scene )
@@ -41,17 +41,7 @@ void cBullet::GetWorldRect( RECT *rc )
 
 int cBullet::GetDamage()
 {
-	switch(type) {
-	case BULL_1:
-		return BULL_1_DAMAGE;
-		break;
-	case BULL_2:
-		return BULL_2_DAMAGE;
-		break;
-	case BULL_3:
-		return BULL_3_DAMAGE;
-		break;
-	}
+	return bull_dam[type];
 }
 
 void cBullet::GetCell( int *cellx,int *celly )
