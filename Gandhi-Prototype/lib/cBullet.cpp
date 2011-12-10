@@ -9,6 +9,8 @@ cBullet::cBullet( int type, int x, int y, int vx, int vy )
 	this->y = y;
 	this->vx = vx;
 	this->vy = vy;
+
+	Scene = cGame::GetInstance()->GetScene();
 }
 
 cBullet::~cBullet( void )
@@ -21,7 +23,7 @@ bool cBullet::Move()
 	x += vx;
 	y += vy;
 
-	return cGame::GetInstance()->GetScene()->map[(y+BULLET_HEIGHT/2)/TILE_WIDTH][(x+BULLET_WIDTH/2)/TILE_WIDTH].walkable;
+	return Scene->map[(y+BULLET_HEIGHT/2)/TILE_WIDTH][(x+BULLET_WIDTH/2)/TILE_WIDTH].walkable;
 }
 
 void cBullet::GetRect( RECT *rc,int *posx,int *posy,cScene *Scene )

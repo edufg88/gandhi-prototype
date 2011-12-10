@@ -48,6 +48,7 @@ private:
 	//int cx,cy;		//Cell position in total map
 
 	int vx, vy;
+	cScene *Scene;
 };
 
 #endif

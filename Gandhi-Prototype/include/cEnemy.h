@@ -13,8 +13,8 @@
 #define ENEMY_1_BULLET BULL_1
 #define ENEMY_2_BULLET BULL_2
 
-#define ENEMY_1_LIFE 5
-#define ENEMY_2_LIFE 10
+#define ENEMY_1_LIFE 1
+#define ENEMY_2_LIFE 2
 
 class cScene;
 
