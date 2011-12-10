@@ -3,6 +3,7 @@
 #include "cLog.h"
 #include "cGSMenu.h"
 #include "cGSIngame.h"
+//#include "cGSGameOver.h"
 
 cGame* cGame::instance = NULL;
 
@@ -72,9 +73,9 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Scene = new cScene();
 
 	// EFG: Creamos el heroe... y el enemigo de momento
-	Hero = new cHero();
-	Enemy = new cEnemy();
-	Item = new cItem();
+	//Hero = new cHero();
+	//Enemies.push_back(cEnemy());
+	//Item = new cItem();
 
 	// Arnau: Comentado para debugar más rápido
 	// EFG: Iniciamos el estado menú
@@ -190,6 +191,80 @@ void cGame::ProcessKeyboard() {
 	}
 }
 
+void cGame::ProcessCollisions()
+{
+	RECT hr;
+	Hero->GetWorldRect(&hr);
+	
+	list<cItem*>::iterator it = Items.begin();
+	while(it != Items.end()) {
+		RECT ir;
+		cItem* item = *it;
+		item->GetWorldRect(&ir);
+		if(intersects(&hr, &ir)) {
+			item->Use();
+			it = Items.erase(it);
+		}
+		else it++;
+	}
+
+	list<cBullet*>::iterator hit = HeroBullets.begin();
+	while(hit != HeroBullets.end()) {
+		RECT br;
+		cBullet* bullet = *hit;
+		bullet->GetWorldRect(&br);
+		cEnemy* enemy = intersectsWithEnemy(&br);
+		if(enemy != NULL) {
+			if(enemy->Hit(bullet->GetDamage())) {
+				Enemies.remove(enemy);
+			}
+			hit = HeroBullets.erase(hit);
+		}
+		else hit++;
+	}
+
+	hit = EnemyBullets.begin();
+	while(hit != EnemyBullets.end()) {
+		RECT br;
+		cBullet* bullet = *hit;
+		bullet->GetWorldRect(&br);
+		if(intersects(&hr, &br)) {
+			if(Hero->Hit(bullet->GetDamage())) {
+				// TODO: Game Over!
+				//ChangeState(new cGSGameOver());
+			}
+			hit = EnemyBullets.erase(hit);
+		}
+		else hit++;
+	}
+}
+
+void cGame::ProcessEnemies()
+{
+	for(list<cEnemy*>::iterator it = Enemies.begin(); it != Enemies.end(); it++) {
+		cEnemy* enemy = *it;
+		enemy->Move();
+	}
+
+	list<cBullet*>::iterator hit = EnemyBullets.begin();
+	while(hit != EnemyBullets.end()) {
+		cBullet* bullet = *hit;
+		if(!bullet->Move()) {
+			hit = EnemyBullets.erase(hit);
+		}
+		else hit++;
+	}
+
+	hit = HeroBullets.begin();
+	while(hit != HeroBullets.end()) {
+		cBullet* bullet = *hit;
+		if(!bullet->Move()) {
+			hit = HeroBullets.erase(hit);
+		}
+		else hit++;
+	}
+}
+
 void cGame::ProcessOrder()
 {
 	int mx, my;
@@ -198,9 +273,12 @@ void cGame::ProcessOrder()
 
 	Mouse = Input->GetMouse();
 	b4pointer = Mouse->GetPointer();
+	//Mouse->Read(); //Arnau: comentado porqué tampoco hace nada...
 	Mouse->GetPosition(&mx,&my);
 
 	ProcessKeyboard();
+	ProcessEnemies();
+	ProcessCollisions();
 
 	if(Mouse->ButtonDown(LEFT))
 	{
@@ -209,6 +287,7 @@ void cGame::ProcessOrder()
 		if(Mouse->In(SCENE_Xo,SCENE_Yo,SCENE_Xf,SCENE_Yf))
 		{
 			// EFG: Mouse dentro de la escena
+			Hero->ShootAt(mx, my);
 		}
 	}
 	else if(Mouse->ButtonUp(LEFT))
@@ -275,4 +354,48 @@ bool cGame::ChangeState(cGameState* newState)
 	{
 		return false;
 	}
+}
+
+void cGame::addEnemy(int type, int cx, int cy)
+{
+	Enemies.push_back(new cEnemy(type, cx, cy));
+}
+
+void cGame::addItem(int type, int cx, int cy)
+{
+	Items.push_back(new cItem(type, cx, cy));
+}
+
+void cGame::addHero(int cx, int cy)
+{
+	Hero = new cHero(cx, cy);
+}
+
+void cGame::addEnemyBullet( int type, int x, int y, int vx, int vy )
+{
+	EnemyBullets.push_back(new cBullet(type, x, y, vx, vy));
+}
+
+void cGame::addHeroBullet( int type, int x, int y, int vx, int vy )
+{
+	HeroBullets.push_back(new cBullet(type, x, y, vx, vy));
+}
+
+bool cGame::intersects(RECT *r1, RECT *r2)
+{
+	return !(r1->left > r2->right || r1->right < r2->left ||
+		r1->top > r2->bottom || r1->bottom < r2->top);
+}
+
+cEnemy* cGame::intersectsWithEnemy(RECT *r)
+{
+	return NULL; //debug
+	//if(Enemies == NULL) return NULL;
+	for(list<cEnemy*>::iterator it = Enemies.begin(); it != Enemies.end(); it++) {
+		RECT er;
+		cEnemy* enemy = *it;
+		enemy->GetWorldRect(&er);
+		if(intersects(r, &er)) return enemy;
+	}
+	return NULL;
 }

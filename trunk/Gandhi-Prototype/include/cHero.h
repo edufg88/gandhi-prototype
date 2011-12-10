@@ -9,11 +9,12 @@
 #define HERO_HEIGHT 32
 
 //class cScene;
+class cGame;
 
 class cHero
 {
 	public:
-		cHero(void);
+		cHero(int cx, int cy);
 		virtual ~cHero(void);
 
 		bool Move(int dir);
@@ -28,9 +29,13 @@ class cHero
 		bool GetShooting();
 		bool IsFiring();
 
+		void ShootAt(int mx, int my);
+
 		int GetSpeed();
 		int GetX();
 		int GetY();
+		void GetWorldRect(RECT *rc);
+		bool Hit(int damage);
 
 	private:
 		int x,y;		//Position in total map
@@ -45,7 +50,10 @@ class cHero
 		int shoot_delay;//Shooter animation delay
 
 		int speed; // Velocidad del personaje
+		int life;
+
 		cScene *Scene;
+		cGame *Game;
 };
 
 #endif

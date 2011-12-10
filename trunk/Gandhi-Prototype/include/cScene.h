@@ -1,19 +1,20 @@
 #ifndef __SCENE_H__
 #define __SCENE_H__
 
+#include <set>
+
 //Resolution
 #define SCREEN_RES_X	800
 #define SCREEN_RES_Y	600
 
+//Dimensions
+#define AREA_WIDTH		32
+#define AREA_HEIGHT		32
 #define TILE_WIDTH 32
 
 //Visible part
 #define SCENE_WIDTH		SCREEN_RES_X/TILE_WIDTH
 #define SCENE_HEIGHT	SCREEN_RES_Y/TILE_WIDTH-1 // Arnau: no entiendo el -1 pero arregla cosas...
-
-//Dimension = Area_X * Area_Y
-#define AREA_WIDTH		32
-#define AREA_HEIGHT		32
 
 //Map coordinate beginning
 #define SCENE_Xo		0
@@ -31,7 +32,6 @@
 #define DIRRIGHT	2
 #define DIRLEFT		3
 
-#include <set>
 
 struct mapCell {
 	int tile;
@@ -48,7 +48,7 @@ class cScene
 		void Move(int dir);
 		bool Visible(int cellx,int celly);
 
-		mapCell map[AREA_WIDTH][AREA_HEIGHT];
+		mapCell map[AREA_HEIGHT][AREA_WIDTH];
 		int camx,camy/*,cx,cy*/;
 
 		void getCell(int *cx, int *cy);

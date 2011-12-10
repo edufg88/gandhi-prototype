@@ -1,10 +1,17 @@
 #include "cEnemy.h"
 #include "cScene.h"
 
-cEnemy::cEnemy()
+cEnemy::cEnemy(int type, int cx, int cy)
 {
-	SetPosition(64,64);
-	SetCell(2,2);
+	this->type = type;
+	SetCell(cx,cy);
+
+	switch(type) {
+	case ENEMY_1:
+		life = ENEMY_1_LIFE;
+	case ENEMY_2:
+		life = ENEMY_2_LIFE;
+	}
 }
 cEnemy::~cEnemy()
 {
@@ -31,11 +38,29 @@ void cEnemy::GetPosition(int *posx,int *posy)
 }
 void cEnemy::SetCell(int cellx,int celly)
 {
-	cx = cellx;
-	cy = celly;
+	//cx = cellx;
+	//cy = celly;
+	x = cellx*TILE_WIDTH;
+	y = celly*TILE_WIDTH;
 }
 void cEnemy::GetCell(int *cellx,int *celly)
 {
-	*cellx = cx;
-	*celly = cy;
+	*cellx = x/TILE_WIDTH;
+	*celly = y/TILE_WIDTH;
+}
+
+void cEnemy::GetWorldRect(RECT *rc)
+{
+	SetRect(rc, x, y, x + ENEMY_WIDTH, y + ENEMY_HEIGHT);
+}
+
+bool cEnemy::Hit(int damage)
+{
+	life -= damage;
+	return life <= 0;
+}
+
+void cEnemy::Move()
+{
+	// TODO: IA!
 }

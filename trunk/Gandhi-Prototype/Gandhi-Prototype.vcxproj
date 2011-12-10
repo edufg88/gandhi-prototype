@@ -256,6 +256,7 @@
     <None Include="media\sounds\wind6.wav" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\cBullet.h" />
     <ClInclude Include="include\cEnemy.h" />
     <ClInclude Include="include\cGame.h" />
     <ClInclude Include="include\cGameState.h" />
@@ -276,6 +277,7 @@
     <ClInclude Include="include\cWeapon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lib\cBullet.cpp" />
     <ClCompile Include="lib\cEnemy.cpp" />
     <ClCompile Include="lib\cGame.cpp" />
     <ClCompile Include="lib\cGameState.cpp" />

@@ -10,14 +10,14 @@ cLog* cLog::Instance()
 {
 	FILE *f;
 
-    if (_instance == 0)
+	if (_instance == 0)
 	{
-        _instance = new cLog;
+		_instance = new cLog;
 		
 		f=fopen("log.txt","w");
 		fclose(f);
-    }
-    return _instance;
+	}
+	return _instance;
 }
 
 /**************************************************************************

@@ -18,24 +18,52 @@ void cScene::LoadMap(char *file)
 	int i,j,n;
 	
 	FILE *f;
-	f=fopen(file,"r");
+	fopen_s(&f, file,"r");
 
-	fscanf(f,"%d",&n);
+	// Leemos qué tiles son walkables
+	fscanf_s(f,"%d",&n);
 	while (n != -1)
 	{
 		walkableTiles.insert(n);
-		fscanf(f,"%d",&n);
+		fscanf_s(f,"%d",&n);
 	}
 
-	for(i=0;i<AREA_WIDTH;i++)
+	cGame *Game = cGame::GetInstance();
+
+	// Mapa tiles
+	for(i=0;i<AREA_HEIGHT;i++)
 	{
-		for(j=0;j<AREA_HEIGHT;j++)
+		for(j=0;j<AREA_WIDTH;j++)
 		{
-			fscanf(f,"%d",&n);
+			fscanf_s(f,"%d",&n);
 			map[i][j].tile = n;
 			map[i][j].walkable = walkableTiles.count(n);
 		}
 	}
+
+	// Leemos posición inicial hero
+	fscanf_s(f,"%d",&i);
+	fscanf_s(f,"%d",&j);
+	Game->addHero(i, j);
+	
+	// Leemos posición final (meta) del mapa
+	fscanf_s(f,"%d",&i);
+	fscanf_s(f,"%d",&j);
+	//Game->setMapEnd(i, j); //TODO: hacer algo!
+
+	// Leemos enemigos
+	fscanf_s(f,"%d",&n);
+	while (n != -1)
+	{
+		fscanf_s(f,"%d",&i);
+		fscanf_s(f,"%d",&j);
+		Game->addEnemy(n, j, i);
+		fscanf_s(f,"%d",&n);
+	}
+
+	// Items??
+	//TODO: prueba añadir item
+	Game->addItem(0, 5, 5);
 
 	fclose(f);
 }
