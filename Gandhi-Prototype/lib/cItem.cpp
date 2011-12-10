@@ -1,10 +1,10 @@
 #include "cItem.h"
 #include "cScene.h"
 
-cItem::cItem()
+cItem::cItem(int type, int cx, int cy)
 {
-	SetPosition(128,128);
-	SetCell(3,3);
+	this->type = type;
+	SetCell(cx,cy);
 }
 
 cItem::~cItem()
@@ -32,11 +32,30 @@ void cItem::GetPosition(int *posx,int *posy)
 }
 void cItem::SetCell(int cellx,int celly)
 {
-	cx = cellx;
-	cy = celly;
+	//cx = cellx;
+	//cy = celly;
+	x = cellx*TILE_WIDTH;
+	y = celly*TILE_WIDTH;
 }
 void cItem::GetCell(int *cellx,int *celly)
 {
-	*cellx = cx;
-	*celly = cy;
+	*cellx = x/TILE_WIDTH;
+	*celly = y/TILE_WIDTH;
+}
+
+void cItem::GetWorldRect(RECT *rc)
+{
+	SetRect(rc, x, y, x + ITEM_WIDTH, y + ITEM_HEIGHT);
+}
+
+void cItem::Use()
+{
+	switch(type) {
+	case IT_LIFE:
+		//TODO: Hero.life++;
+		break;
+	case IT_SHIELD:
+		//TODO: Hero.flipa-con-el-shield() xD
+		break;
+	}
 }

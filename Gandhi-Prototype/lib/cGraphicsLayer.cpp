@@ -1,7 +1,7 @@
 
 #include "cGraphicsLayer.h"
-#include "cGame.h"
 #include "cLog.h"
+#include "cGame.h"
 #include <stdio.h>
 
 #define _USE_MATH_DEFINES
@@ -23,6 +23,8 @@ cGraphicsLayer::cGraphicsLayer()
 	g_pD3D = NULL;
 	g_pD3DDevice = NULL;
 	g_pSprite = NULL;
+
+	Game = cGame::GetInstance();
 }
 
 cGraphicsLayer::~cGraphicsLayer(){}
@@ -177,8 +179,6 @@ bool cGraphicsLayer::RenderMenu()
 
 bool cGraphicsLayer::RenderInGame()
 {
-	cGame* game = cGame::GetInstance();
-
 	g_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, 0xFF000000, 0, 0 );
 	g_pD3DDevice->BeginScene();
 
@@ -188,9 +188,9 @@ bool cGraphicsLayer::RenderInGame()
 	//Graphic User Interface
 	//g_pSprite->Draw(texGame,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
 	DrawLevel();
+	DrawItems();
 	DrawHero();
 	DrawEnemies();
-	DrawItems();
 	DrawHUD();
 
 	g_pSprite->End();
@@ -210,14 +210,14 @@ bool cGraphicsLayer::DrawHUD()
 
 bool cGraphicsLayer::DrawLevel()
 {
-	cScene* Scene = cGame::GetInstance()->GetScene();
-	
 	RECT rc;
 	int x,y,n,
 		fx,fy,
 		pantx,panty,
 		cx, cy,
 		offx, offy;
+
+	cScene* Scene = cGame::GetInstance()->GetScene();
 
 	Scene->getCell(&cx, &cy);
 	offx = Scene->camx - cx*TILE_WIDTH;
@@ -252,8 +252,8 @@ bool cGraphicsLayer::DrawHero()
 	RECT rc;
 
 	cHero* Hero = cGame::GetInstance()->GetHero();
-	cScene* Scene = cGame::GetInstance()->GetScene();
 	cMouse* Mouse = cInputLayer::GetInstance()->GetMouse();
+	cScene* Scene = cGame::GetInstance()->GetScene();
 
 	//Draw Critter
 	Hero->GetCell(&cx, &cy);
@@ -265,13 +265,13 @@ bool cGraphicsLayer::DrawHero()
 		float angle;
 
 		Hero->GetRect(&rc,&posx,&posy,Scene);
-		D3DXVECTOR2 vPosition(posx, posy);
+		D3DXVECTOR2 vPosition((FLOAT) posx, (FLOAT) posy);
 
 		g_pSprite->GetTransform(&preChange);
 
 		Mouse->GetPosition(&mPosx, &mPosy);
 		angle = atan2(float(mPosy-posy+HERO_HEIGHT/2),float(mPosx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
-		angle -= M_PI_2; // Arnau: retocar cuando cambiemos el sprite
+		angle -= (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
 
 		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
 
@@ -289,18 +289,44 @@ bool cGraphicsLayer::DrawEnemies()
 {
 	int cx,cy,posx,posy;
 	RECT rc;
-
-	cEnemy* Enemy = cGame::GetInstance()->GetEnemy();
 	cScene* Scene = cGame::GetInstance()->GetScene();
 	
 	//Draw Skeleton
-	Enemy->GetCell(&cx,&cy);
-	if(Scene->Visible(cx,cy))
-	{
-		Enemy->GetRect(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texCharacters,&rc,NULL, 
-			&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-			0xFFFFFFFF);
+	for(list<cEnemy*>::iterator it = Game->Enemies.begin(); it != Game->Enemies.end(); it++) {
+		cEnemy* Enemy = *it;
+		Enemy->GetCell(&cx,&cy);
+		if(Scene->Visible(cx,cy))
+		{
+			Enemy->GetRect(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texCharacters,&rc,NULL, 
+				&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+				0xFFFFFFFF);
+		}
+	}
+
+	//Bullets
+	for(list<cBullet*>::iterator it = Game->EnemyBullets.begin(); it != Game->EnemyBullets.end(); it++) {
+		cBullet* Bullet = *it;
+		Bullet->GetCell(&cx,&cy);
+		if(Scene->Visible(cx,cy))
+		{
+			Bullet->GetRect(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texCharacters,&rc,NULL, 
+				&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+				0xFFFFFFFF);
+		}
+	}
+
+	for(list<cBullet*>::iterator it = Game->HeroBullets.begin(); it != Game->HeroBullets.end(); it++) {
+		cBullet* Bullet = *it;
+		Bullet->GetCell(&cx,&cy);
+		if(Scene->Visible(cx,cy))
+		{
+			Bullet->GetRect(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texCharacters,&rc,NULL, 
+				&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+				0xFFFFFFFF);
+		}
 	}
 	
 	//Draw Fire
@@ -328,18 +354,19 @@ bool cGraphicsLayer::DrawItems()
 {
 	int cx,cy,posx,posy;
 	RECT rc;
-
-	cItem* Item = cGame::GetInstance()->GetItem();
 	cScene* Scene = cGame::GetInstance()->GetScene();
 
-	//Draw Critter
-	Item->GetCell(&cx, &cy);
-	if(Scene->Visible(cx,cy))
-	{
-		Item->GetRect(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texCharacters,&rc,NULL, 
-						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-						0xFFFFFFFF);
+	//Draw item
+	for(list<cItem*>::iterator it = Game->Items.begin(); it != Game->Items.end(); it++) {
+		cItem* Item = *it;
+		Item->GetCell(&cx,&cy);
+		if(Scene->Visible(cx,cy))
+		{
+			Item->GetRect(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texCharacters,&rc,NULL, 
+				&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+				0xFFFFFFFF);
+		}
 	}
 
 	return true;

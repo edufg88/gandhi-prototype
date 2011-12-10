@@ -3,11 +3,11 @@
 #include "cTrajectory.h"
 #include "cGame.h"
 
-cHero::cHero()
+cHero::cHero(int cx, int cy)
 {
 	Scene = cGame::GetInstance()->GetScene();
 
-	SetPosition(0,0);
+	SetCell(cx,cy);
 
 	seq=0;
 	delay=0;
@@ -63,11 +63,17 @@ void cHero::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 
 bool cHero::Move( int dir )
 {
+	RECT hr;
 	switch(dir) {
 	case DIRUP:
 		if(Scene->map[(y-speed+1)/TILE_WIDTH][x/TILE_WIDTH].walkable
 			&& Scene->map[(y-speed+1)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
 			y -= speed;
+			GetWorldRect(&hr);
+			if(Game->intersectsWithEnemy(&hr)) {
+				y += speed;
+				return false;
+			}
 			return true;
 		}
 		break;
@@ -75,6 +81,11 @@ bool cHero::Move( int dir )
 		if(Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][x/TILE_WIDTH].walkable
 			&& Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
 			y += speed;
+			GetWorldRect(&hr);
+			if(Game->intersectsWithEnemy(&hr)) {
+				y -= speed;
+				return false;
+			}
 			return true;
 		}
 		break;
@@ -82,6 +93,11 @@ bool cHero::Move( int dir )
 		if(Scene->map[y/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable
 			&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable) {
 			x += speed;
+			GetWorldRect(&hr);
+			if(Game->intersectsWithEnemy(&hr)) {
+				x -= speed;
+				return false;
+			}
 			return true;
 		}
 		break;
@@ -89,6 +105,11 @@ bool cHero::Move( int dir )
 		if(Scene->map[y/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable
 			&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable) {
 			x -= speed;
+			GetWorldRect(&hr);
+			if(Game->intersectsWithEnemy(&hr)) {
+				x += speed;
+				return false;
+			}
 			return true;
 		}
 		break;
@@ -148,3 +169,24 @@ int cHero::GetY()
 {
 	return y;
 }
+
+void cHero::GetWorldRect(RECT *rc)
+{
+	SetRect(rc, x, y, x + HERO_WIDTH, y + HERO_HEIGHT);
+}
+
+void cHero::ShootAt(int mx, int my)
+{
+	int dx = mx - x;
+	int dy = my - y;
+	float mod = sqrt(float(dx*dx + dy*dy));
+
+	Game->addHeroBullet(BULL_1, x + HERO_WIDTH/2, y + HERO_HEIGHT/2, dx*BULL_SPEED/mod, dy*BULL_SPEED/mod);
+}
+
+bool cHero::Hit(int damage)
+{
+	life -= damage;
+	return life <= 0;
+}
+

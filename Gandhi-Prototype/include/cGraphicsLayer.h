@@ -14,6 +14,8 @@
 #include "cScene.h"
 #include "cMouse.h"
 
+class cGame;
+
 class cGraphicsLayer  
 {
 	public:
@@ -33,7 +35,6 @@ class cGraphicsLayer
 		bool RenderInGame();
 		bool RenderGameOver();
 		
-
 		bool DrawLevel();
 		bool DrawHUD();
 		bool DrawHero();
@@ -50,6 +51,8 @@ class cGraphicsLayer
 	private:
 		static cGraphicsLayer* instance;
 		cGraphicsLayer();
+
+		cGame* Game;
 
 		LPDIRECT3D9 g_pD3D;
 		LPDIRECT3DDEVICE9 g_pD3DDevice;
