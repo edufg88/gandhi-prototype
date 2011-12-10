@@ -28,6 +28,9 @@
 #define SCENE_Yo		0
 #define SCENE_Xf		1024 
 #define SCENE_Yf		1024
+// Arnau: dejo estas comentadas por si lo queremos aprovechar más adelante
+//#define SCENE_Xf		( SCENE_Xo + (SCENE_WIDTH * TILE_WIDTH) )
+//#define SCENE_Yf		( SCENE_Yo + (SCENE_HEIGHT * TILE_WIDTH) )
 
 //Posición pantalla Hero excepto en bordes
 #define HERO_X	SCREEN_RES_X/2

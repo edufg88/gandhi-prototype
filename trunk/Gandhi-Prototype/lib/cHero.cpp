@@ -176,7 +176,7 @@ int cHero::GetY()
 
 void cHero::GetWorldRect(RECT *rc)
 {
-	
+	SetRect(rc, x, y, x + HERO_WIDTH, y + HERO_HEIGHT);
 }
 
 void cHero::ShootAt(int mx, int my)
@@ -190,7 +190,7 @@ void cHero::ShootAt(int mx, int my)
 
 	if (weapon_rof == bull_rof[weapon])
 	{
-		Game->addHeroBullet(BULL_1, x + HERO_WIDTH/2, y + HERO_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
+		Game->addHeroBullet(BULL_1, x + HERO_WIDTH/2 - BULLET_WIDTH/2, y + HERO_HEIGHT/2 - BULLET_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
 		weapon_rof = 0;
 	}
 	else

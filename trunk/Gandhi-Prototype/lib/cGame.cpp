@@ -391,8 +391,6 @@ bool cGame::intersects(RECT *r1, RECT *r2)
 
 cEnemy* cGame::intersectsWithEnemy(RECT *r)
 {
-	return NULL; //debug
-	//if(Enemies == NULL) return NULL;
 	for(list<cEnemy*>::iterator it = Enemies.begin(); it != Enemies.end(); it++) {
 		RECT er;
 		cEnemy* enemy = *it;
