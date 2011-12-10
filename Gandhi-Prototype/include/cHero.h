@@ -37,6 +37,8 @@ class cHero
 		void GetWorldRect(RECT *rc);
 		bool Hit(int damage);
 
+		bool ChangeWeapon (int newWeapon);
+
 	private:
 		int x,y;		//Position in total map
 		//int cx,cy;		//Cell position in total map
@@ -51,6 +53,9 @@ class cHero
 
 		int speed; // Velocidad del personaje
 		int life;
+
+		int weapon; // Indica el tipo de arma que lleva (Bullet type)
+		int weapon_rof;
 
 		cScene *Scene;
 		cGame *Game;
