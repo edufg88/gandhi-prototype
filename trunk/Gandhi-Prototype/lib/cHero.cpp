@@ -13,6 +13,7 @@ cHero::cHero(int cx, int cy)
 	seq=0;
 	delay=0;
 	speed = 4;
+	life = 100;
 
 	attack=false;
 	shoot=false;
