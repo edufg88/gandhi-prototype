@@ -14,6 +14,7 @@ cHero::cHero(int cx, int cy)
 	delay=0;
 	speed = 4;
 	life = 100;
+	direction = DIRNONE;
 
 	attack=false;
 	shoot=false;
@@ -29,14 +30,72 @@ cHero::~cHero()
 
 }
 
-// EFG: Creo que esto devuelve el rectángulo que hay que coger del mapa de sprites
-// Arnau: Yep, y además devuelve la posición relativa en pantalla
-void cHero::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
+void cHero::GetRectHead(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
 	*posx = SCENE_Xo + x - (Scene->camx);
 	*posy = SCENE_Yo + y - (Scene->camy);
 
-	SetRect(rc,256,0,288,32);
+	// SetRect(rc, 256, 0, 320, 64); CABEZA DE HUMANO
+	SetRect(rc, 448, 0, 512, 64);
+}
+
+void cHero::GetRectBody(RECT *rc,int *posx,int *posy,cScene *Scene)
+{
+	*posx = SCENE_Xo + x - (Scene->camx);
+	*posy = SCENE_Yo + y - (Scene->camy);
+
+	// El cuerpo cambia en función del arma que llevemos
+	switch (weapon)
+	{
+		case BULL_1:
+			SetRect(rc, 64, 0, 128, 64);
+			break;
+		case BULL_2:
+			SetRect(rc, 0, 0, 64, 64);
+			break;
+		case BULL_3:
+			SetRect(rc, 128, 0, 192, 64);
+			break;
+		default:
+			SetRect(rc, 192, 0, 256, 64);
+			break;
+	}
+}
+
+void cHero::GetRectLegs(RECT *rc,int *posx,int *posy,cScene *Scene)
+{
+	switch(direction)
+	{
+		case DIRNONE:
+			SetRect(rc, 704, 64, 768, 128);	
+			break;
+		default:
+			SetRect(rc, seq*64, 128, (seq+1)*64, 192);
+			delay++;
+			if(delay>=7)
+			{
+				seq++;
+				if(seq>6) seq=0;
+				delay=0;
+			}
+			break;
+			/*
+		case DIRLEFT:
+		case DIRRIGHT:
+			SetRect(rc, seq*64, 128, (seq+1)*64, 192);
+			delay++;
+			if(delay>=4)
+			{
+				seq++;
+				if(seq>6) seq=0;
+				delay=0;
+			}
+			break;
+			*/
+	}
+
+	*posx = SCENE_Xo + x - (Scene->camx);
+	*posy = SCENE_Yo + y - (Scene->camy);
 }
 
 void cHero::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
@@ -69,55 +128,59 @@ void cHero::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 bool cHero::Move( int dir )
 {
 	RECT hr;
-	switch(dir) {
-	case DIRUP:
-		if(Scene->map[(y-speed+1)/TILE_WIDTH][x/TILE_WIDTH].walkable
-			&& Scene->map[(y-speed+1)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
-			y -= speed;
-			GetWorldRect(&hr);
-			if(Game->intersectsWithEnemy(&hr)) {
-				y += speed;
-				return false;
-			}
-			return true;
-		}
-		break;
-	case DIRDOWN:
-		if(Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][x/TILE_WIDTH].walkable
-			&& Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
-			y += speed;
-			GetWorldRect(&hr);
-			if(Game->intersectsWithEnemy(&hr)) {
+	
+	direction = dir;
+
+	switch(dir) 
+	{
+		case DIRUP:
+			if(Scene->map[(y-speed+1)/TILE_WIDTH][x/TILE_WIDTH].walkable
+				&& Scene->map[(y-speed+1)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
 				y -= speed;
-				return false;
+				GetWorldRect(&hr);
+				if(Game->intersectsWithEnemy(&hr)) {
+					y += speed;
+					return false;
+				}
+				return true;
 			}
-			return true;
-		}
-		break;
-	case DIRRIGHT:
-		if(Scene->map[y/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable
-			&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable) {
-			x += speed;
-			GetWorldRect(&hr);
-			if(Game->intersectsWithEnemy(&hr)) {
-				x -= speed;
-				return false;
+			break;
+		case DIRDOWN:
+			if(Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][x/TILE_WIDTH].walkable
+				&& Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
+				y += speed;
+				GetWorldRect(&hr);
+				if(Game->intersectsWithEnemy(&hr)) {
+					y -= speed;
+					return false;
+				}
+				return true;
 			}
-			return true;
-		}
-		break;
-	case DIRLEFT:
-		if(Scene->map[y/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable
-			&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable) {
-			x -= speed;
-			GetWorldRect(&hr);
-			if(Game->intersectsWithEnemy(&hr)) {
+			break;
+		case DIRRIGHT:
+			if(Scene->map[y/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable
+				&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable) {
 				x += speed;
-				return false;
+				GetWorldRect(&hr);
+				if(Game->intersectsWithEnemy(&hr)) {
+					x -= speed;
+					return false;
+				}
+				return true;
 			}
-			return true;
-		}
-		break;
+			break;
+		case DIRLEFT:
+			if(Scene->map[y/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable
+				&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable) {
+				x -= speed;
+				GetWorldRect(&hr);
+				if(Game->intersectsWithEnemy(&hr)) {
+					x += speed;
+					return false;
+				}
+				return true;
+			}
+			break;
 	}
 
 	return false;
@@ -191,6 +254,7 @@ void cHero::ShootAt(int mx, int my)
 
 	if (weapon_rof == bull_rof[weapon])
 	{
+		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
 		Game->addHeroBullet(BULL_1, x + HERO_WIDTH/2 - BULLET_WIDTH/2, y + HERO_HEIGHT/2 - BULLET_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
 		weapon_rof = 0;
 	}

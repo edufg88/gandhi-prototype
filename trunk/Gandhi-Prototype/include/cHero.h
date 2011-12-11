@@ -8,6 +8,13 @@
 #define HERO_WIDTH 32
 #define HERO_HEIGHT 32
 
+//Directions
+#define DIRUP		0
+#define DIRDOWN		1
+#define DIRRIGHT	2
+#define DIRLEFT		3
+#define DIRNONE		4
+
 //class cScene;
 class cGame;
 
@@ -18,7 +25,12 @@ class cHero
 		virtual ~cHero(void);
 
 		bool Move(int dir);
-		void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);
+		//void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);
+		// EFG: Como el personaje está formado por 3 partes distintas, tenemos 3 funciones
+		void GetRectLegs(RECT *rc,int *posx,int *posy,cScene *Scene);
+		void GetRectBody(RECT *rc,int *posx,int *posy,cScene *Scene);
+		void GetRectHead(RECT *rc,int *posx,int *posy,cScene *Scene);
+
 		void GetRectLife(RECT *rc,int *posx,int *posy,cScene *Scene);
 		void GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene);
 
@@ -55,6 +67,7 @@ class cHero
 
 		int speed; // Velocidad del personaje
 		int life;
+		int direction; // Dirección en la que está el personaje
 
 		int weapon; // Indica el tipo de arma que lleva (Bullet type)
 		int weapon_rof;
