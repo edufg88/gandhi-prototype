@@ -128,6 +128,11 @@ void cGraphicsLayer::LoadData()
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texHUD);
 
+	// Characters (Esta es la nueva)
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/charTextures.png",0,0,1,0,D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
+								0x00ff00ff,NULL,NULL,&texChar);
+
 	// Font
 	if (AddFontResourceEx("media/fonts/segmental.ttf", FR_PRIVATE, 0) != 0)
 	{
@@ -173,6 +178,11 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texCharacters->Release();
 		texCharacters = NULL;
+	}
+	if(texChar)
+	{
+		texChar->Release();
+		texChar = NULL;
 	}
 	if(texMouse)
 	{
@@ -372,22 +382,72 @@ bool cGraphicsLayer::DrawHero()
 		int mPosx, mPosy;
 		float angle;
 
-		Hero->GetRect(&rc,&posx,&posy,Scene);
+		/* PINTAMOS LAS PIERNAS */
+
+		Hero->GetRectLegs(&rc,&posx,&posy,Scene);
 		D3DXVECTOR2 vPosition((FLOAT) posx, (FLOAT) posy);
 
 		g_pSprite->GetTransform(&preChange);
 
 		Mouse->GetPosition(&mPosx, &mPosy);
 		angle = atan2(float(mPosy-posy+HERO_HEIGHT/2),float(mPosx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
-		angle -= (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
+		angle += (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
 
 		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
 
 		g_pSprite->SetTransform(&matRotate);
-
-		g_pSprite->Draw(texCharacters, &rc, NULL, NULL, 0xFFFFFFFF);
-
+		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
 		g_pSprite->SetTransform(&preChange);
+
+		/* PINTAMOS EL CUERPO */
+
+		Hero->GetRectBody(&rc,&posx,&posy,Scene);
+		vPosition.x = (FLOAT) posx;
+		vPosition.y = (FLOAT) posy;
+
+		g_pSprite->GetTransform(&preChange);
+
+		Mouse->GetPosition(&mPosx, &mPosy);
+		angle = atan2(float(mPosy-posy+HERO_HEIGHT/2),float(mPosx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
+		angle += (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
+
+		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
+
+		g_pSprite->SetTransform(&matRotate);
+		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
+		g_pSprite->SetTransform(&preChange);
+
+		/* PINTAMOS LA CABEZA */
+
+		Hero->GetRectHead(&rc,&posx,&posy,Scene);
+		vPosition.x = (FLOAT) posx;
+		vPosition.y = (FLOAT) posy;
+
+		g_pSprite->GetTransform(&preChange);
+
+		Mouse->GetPosition(&mPosx, &mPosy);
+		angle = atan2(float(mPosy-posy+HERO_HEIGHT/2),float(mPosx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
+		angle += (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
+
+		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
+
+		g_pSprite->SetTransform(&matRotate);
+		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
+		g_pSprite->SetTransform(&preChange);
+
+		/* PINTAMOS SUS DISPAROS */
+		for(list<cBullet*>::iterator it = Game->HeroBullets.begin(); it != Game->HeroBullets.end(); it++)
+		{
+			cBullet* Bullet = *it;
+			Bullet->GetCell(&cx,&cy);
+			if(Scene->Visible(cx,cy))
+			{
+				Bullet->GetRect(&rc,&posx,&posy,Scene);
+				g_pSprite->Draw(texCharacters,&rc,NULL, 
+					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
+					0xFFFFFFFF);
+			}
+		}
 	}
 
 	return true;
@@ -425,17 +485,7 @@ bool cGraphicsLayer::DrawEnemies()
 		}
 	}
 
-	for(list<cBullet*>::iterator it = Game->HeroBullets.begin(); it != Game->HeroBullets.end(); it++) {
-		cBullet* Bullet = *it;
-		Bullet->GetCell(&cx,&cy);
-		if(Scene->Visible(cx,cy))
-		{
-			Bullet->GetRect(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texCharacters,&rc,NULL, 
-				&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-				0xFFFFFFFF);
-		}
-	}
+	
 	
 	//Draw Fire
 	//if(Critter->GetShooting())

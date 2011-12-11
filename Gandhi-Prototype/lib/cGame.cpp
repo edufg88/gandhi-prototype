@@ -190,6 +190,14 @@ void cGame::ProcessKeyboard() {
 	else if(Keyboard->KeyDown(DIK_A) || Keyboard->KeyDown(DIK_LEFT)) {
 		if(Hero->Move(DIRLEFT)) Scene->Move(DIRLEFT);
 	}
+
+	if (Keyboard->KeyUp(DIK_W) &&
+		Keyboard->KeyUp(DIK_A) &&
+		Keyboard->KeyUp(DIK_S) &&
+		Keyboard->KeyUp(DIK_D))
+	{
+		Hero->Move(DIRNONE);
+	}
 }
 
 void cGame::ProcessCollisions()
