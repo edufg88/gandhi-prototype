@@ -31,6 +31,7 @@ class cHero
 
 		void ShootAt(int mx, int my);
 
+		int GetLife() { return life; }
 		int GetSpeed();
 		int GetX();
 		int GetY();
@@ -38,6 +39,7 @@ class cHero
 		bool Hit(int damage);
 
 		bool ChangeWeapon (int newWeapon);
+		int GetWeapon() { return weapon; }
 
 	private:
 		int x,y;		//Position in total map

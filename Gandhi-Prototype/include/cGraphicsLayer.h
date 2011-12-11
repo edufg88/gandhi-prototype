@@ -61,6 +61,10 @@ class cGraphicsLayer
 		// TEXTURAS
 		LPDIRECT3DTEXTURE9 texMain,texGame;
 		LPDIRECT3DTEXTURE9 texTiles,texCharacters,texMouse;
+		LPDIRECT3DTEXTURE9 texHUD;
+
+		ID3DXFont *g_font;
+
 };
 
 

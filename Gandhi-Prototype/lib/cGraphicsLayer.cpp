@@ -122,6 +122,34 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/mouse.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texMouse);
+
+	// HUD
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/hudTextures.png",0,0,1,0,D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
+								0x00ff00ff,NULL,NULL,&texHUD);
+
+	// Font
+	if (AddFontResourceEx("media/fonts/segmental.ttf", FR_PRIVATE, 0) != 0)
+	{
+
+		int hr=D3DXCreateFont(g_pD3DDevice,     //D3D Device
+							35,               //Font height
+							0,                //Font width
+							FW_BLACK,        //Font Weight
+							1,                //MipLevels
+							false,            //Italic
+							DEFAULT_CHARSET,  //CharSet
+							OUT_DEFAULT_PRECIS, //OutputPrecision
+							ANTIALIASED_QUALITY, //Quality
+							DEFAULT_PITCH|FF_DONTCARE,//PitchAndFamily
+							"segmental",          //pFacename,
+							&g_font);         //ppFont
+	}
+	else
+	{
+		cLog::Error(-1, "ERROR CREANDO LA FUENTE");
+	}
+
 }
 
 void cGraphicsLayer::UnLoadData()
@@ -151,10 +179,20 @@ void cGraphicsLayer::UnLoadData()
 		texMouse->Release();
 		texMouse = NULL;
 	}
+	if(texHUD)
+	{
+		texHUD->Release();
+		texHUD = NULL;
+	}
 	if(g_pSprite)
 	{
 		g_pSprite->Release();
 		g_pSprite = NULL;
+	}
+	if(g_font)
+	{
+		g_font->Release();
+		g_font = NULL;
 	}
 }
 
@@ -205,6 +243,76 @@ bool cGraphicsLayer::RenderInGame()
 
 bool cGraphicsLayer::DrawHUD()
 {
+	int posx,posy;
+	RECT rc;
+	cHUD* hud = Game->GetHUD();
+
+	///////////////////////////////////
+	// Pintamos el arma que llevamos
+	///////////////////////////////////
+	// 0, 1 o 2 en función del arma que llevemos
+	g_pSprite->Draw(texHUD, &hud->Elements[WEAPON][Game->GetHero()->GetWeapon()].r,NULL, 
+				&D3DXVECTOR3(float(hud->Elements[WEAPON][Game->GetHero()->GetWeapon()].x),
+							 float(hud->Elements[WEAPON][Game->GetHero()->GetWeapon()].y),
+							 0.0f), 
+				0xFFFFFFFF);
+	g_pSprite->Draw(texHUD, &hud->Elements[WEAPON][3].r,NULL, 
+				&D3DXVECTOR3(float(hud->Elements[WEAPON][3].x),
+							 float(hud->Elements[WEAPON][3].y),
+							 0.0f), 
+				0xFFFFFFFF);
+	g_pSprite->Draw(texHUD, &hud->Elements[WEAPON][4].r,NULL, 
+				&D3DXVECTOR3(float(hud->Elements[WEAPON][4].x),
+							 float(hud->Elements[WEAPON][4].y),
+							 0.0f), 
+				0xFFFFFFFF);
+
+	///////////////////////////////////
+	// Pintamos la energía
+	///////////////////////////////////
+	int nucleos = (Game->GetHero()->GetLife() + 19) / 20;
+	posx = 0;
+	for (int i = 0; i < nucleos; i++)
+	{
+		g_pSprite->Draw(texHUD, &hud->Elements[LIFE][0].r,NULL, 
+				&D3DXVECTOR3(float(hud->Elements[LIFE][0].x + posx),
+							 float(hud->Elements[LIFE][0].y),
+							 0.0f), 
+				0xFFFFFFFF);
+
+		posx += 60;
+	}
+	
+	g_pSprite->Draw(texHUD, &hud->Elements[LIFE][1].r,NULL, 
+				&D3DXVECTOR3(float(hud->Elements[LIFE][1].x),
+							 float(hud->Elements[LIFE][1].y),
+							 0.0f), 
+				0xFFFFFFFF);
+
+	g_pSprite->Draw(texHUD, &hud->Elements[LIFE][2].r,NULL, 
+				&D3DXVECTOR3(float(hud->Elements[LIFE][2].x),
+							 float(hud->Elements[LIFE][2].y),
+							 0.0f), 
+				0xFFFFFFFF);
+
+	///////////////////////////////////
+	// Pintamos la puntuación
+	///////////////////////////////////
+	char text[6];
+	itoa(Game->GetPoints(), text, 10);
+	int font_height = g_font->DrawText(g_pSprite,							//pSprite
+									   text,								//pString
+									   -1,									//Count
+									   &hud->Elements[POINTS][0].r,			//pRect
+									   DT_LEFT|DT_NOCLIP,					//Format,
+									   0xFFFFFFFF);							//Color
+
+	g_pSprite->Draw(texHUD, &hud->Elements[POINTS][1].r,NULL, 
+				&D3DXVECTOR3(float(hud->Elements[POINTS][1].x),
+							 float(hud->Elements[POINTS][1].y),
+							 0.0f), 
+				0xFFFFFFFF);
+
 	return true;
 }
 

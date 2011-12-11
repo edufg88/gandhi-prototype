@@ -28,11 +28,11 @@ class cGame
 		bool Loop(); 
 		void Finalize();
 
-		// EFG: Todo esto hay que cambiarlo cuando tengamos nivel, personaje y enemigos
 		cGameState* GetState(){ return State; }
 		cScene* GetScene() { return Scene; }
 		cHUD* GetHUD() { return HUD; }
 		cHero* GetHero() { return Hero; }
+
 
 		// Arnau: Publicos y sin Getter para más comodidad
 		std::list<cEnemy*> Enemies;
@@ -57,6 +57,7 @@ class cGame
 		bool intersects(RECT *r1, RECT *r2);
 		cEnemy* intersectsWithEnemy(RECT *r);
 
+		int GetPoints(){ return GamePoints; }
 
 	private:
 		static cGame* instance;
@@ -70,15 +71,15 @@ class cGame
 		void ProcessCollisions();
 		void ProcessEnemies();
 		
-		// EFG: Ahora son punteros
 		cGraphicsLayer* Graphics;
 		cInputLayer* Input;
 		cSound* Sound;
 		cScene* Scene;
 		cHUD* HUD;
 		cGameState* State;
-
 		cHero* Hero;
+
+		int GamePoints;
 };
 
 #endif

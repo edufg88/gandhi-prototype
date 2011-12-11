@@ -27,9 +27,7 @@ class cHUD
 	public:
 		cHUD();
 		virtual ~cHUD();
-		
-	private:
-		HUDElement Elements[5];
+		HUDElement Elements[3][5];
 };	
 
 

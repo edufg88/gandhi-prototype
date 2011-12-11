@@ -62,6 +62,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 {
 	bool res;
 	
+	GamePoints = 0;
 	cLog *Log = cLog::Instance();
 	
 	// EFG: Instanciamos gráficos, sonido e input
@@ -71,7 +72,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	// EFG: Creamos la escena y el HUD
 	Scene = new cScene();
-
+	HUD = new cHUD();
 	// EFG: Creamos el heroe... y el enemigo de momento
 	//Hero = new cHero();
 	//Enemies.push_back(cEnemy());
