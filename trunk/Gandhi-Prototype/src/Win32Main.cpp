@@ -60,7 +60,7 @@ bool InitWindow( HINSTANCE hInst, HWND *hWnd, bool *exclusive )
 	{
 		*hWnd = CreateWindow( szWinName, szWinName,
 							WS_BORDER | WS_CAPTION | WS_SYSMENU | WS_VISIBLE, 
-							0, 0, 800, 600, HWND_DESKTOP, NULL, hInst, NULL );
+							0, 0, SCREEN_RES_X, SCREEN_RES_Y, HWND_DESKTOP, NULL, hInst, NULL );
 		*exclusive = false;
 	}
 	if( *hWnd == NULL ) return false;

@@ -102,7 +102,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	Graphics->LoadData();
 
-	Scene->LoadMap("media/map.txt");
+	Scene->LoadMap("media/mapaprueba.txt");
 
 	return true;
 }

@@ -110,6 +110,6 @@ bool cScene::Visible(int cellx,int celly)
 }
 
 void cScene::getCell(int *cx, int *cy) {
-	*cx = camx/32;
-	*cy = camy/32;
+	*cx = camx/TILE_WIDTH;
+	*cy = camy/TILE_WIDTH;
 }

@@ -149,8 +149,8 @@ int cTrajectory::NextStep(int *px,int *py,int *cx,int *cy)
 	//Arrive? Calculate next cell (subdir) or remake
 	if( (((*px)%32)==0) && (((*py)%32)==0))
 	{
-		x = (*px)>>5; *cx = x;
-		y = (*py)>>5; *cy = y;
+		x = (*px)>>TILE_W_SHIFT; *cx = x;
+		y = (*py)>>TILE_W_SHIFT; *cy = y;
 
 		if((nxf==-1) && (nyf==-1))
 		{

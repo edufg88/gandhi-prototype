@@ -103,7 +103,7 @@ void cHero::GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene)
 	*posx = SCENE_Xo + x - (Scene->camx);
 	*posy = SCENE_Yo + y - (Scene->camy);
 
-	SetRect(rc,shoot_seq<<5,64,(shoot_seq+1)<<5,96);
+	SetRect(rc,shoot_seq<<TILE_W_SHIFT,64,(shoot_seq+1)<<TILE_W_SHIFT,96);
 	switch(shoot_seq)
 	{
 		case 0:	*posx+=5;	break;

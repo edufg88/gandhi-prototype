@@ -5,8 +5,8 @@
 #include <windows.h>
 #include "cScene.h"
 
-#define HERO_WIDTH 32
-#define HERO_HEIGHT 32
+#define HERO_WIDTH 64
+#define HERO_HEIGHT 64
 
 //Directions
 #define DIRUP		0
