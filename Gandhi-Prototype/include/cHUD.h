@@ -3,10 +3,11 @@
 #define __HUD_H__
 
 #include <windows.h>
+#include <cScene.h>
 
 //Resolution
-#define SCREEN_RES_X	800
-#define SCREEN_RES_Y	600
+//#define SCREEN_RES_X	800
+//#define SCREEN_RES_Y	600
 
 //Parts of the HUD (EFG: Qué elementos mostraremos en el HUD, esto es un ejemplo)
 #define LIFE 0

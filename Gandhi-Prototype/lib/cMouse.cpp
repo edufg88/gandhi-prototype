@@ -125,8 +125,8 @@ bool cMouse::Read()
 	}
 	if((x<SCENE_Xf)&&(y>=SCENE_Yo))
 	{
-		cx=(x-SCENE_Xo)>>5;
-		cy=(y-SCENE_Yo)>>5;
+		cx=(x-SCENE_Xo)>>TILE_W_SHIFT;
+		cy=(y-SCENE_Yo)>>TILE_W_SHIFT;
 	}
 	else
 	{
@@ -247,17 +247,17 @@ void cMouse::GetRect(RECT *rc,int *posx,int *posy)
 	switch(pointer)
 	{
 		case NORMAL:	SetRect(rc,0,0,32,32);					*posx=  0; *posy=  0;	break;
-		case MOVE:		SetRect(rc,seq<<5, 96,(seq+1)<<5,128);	*posx=-16; *posy=-16;	break;
-		case ATTACK:	SetRect(rc,seq<<5,128,(seq+1)<<5,160);	*posx=-16; *posy=-16;	break;
-		case SELECT:	SetRect(rc,seq<<5, 64,(seq+1)<<5, 96);	*posx=-16; *posy=-16;	break;
-		/*case MN:		SetRect(rc,seq<<5,160,(seq+1)<<5,192);	*posx=-16; *posy=  0;	break;
-		case MS:		SetRect(rc,seq<<5,192,(seq+1)<<5,224);	*posx=-16; *posy=-31;	break;
-		case ME:		SetRect(rc,seq<<5,224,(seq+1)<<5,256);	*posx=-31; *posy=-16;	break;
-		case MO:		SetRect(rc,seq<<5,256,(seq+1)<<5,288);	*posx=  0; *posy=-16;	break;
-		case MNE:		SetRect(rc,seq<<5,288,(seq+1)<<5,320);	*posx=-31; *posy=  0;	break;
-		case MSE:		SetRect(rc,seq<<5,320,(seq+1)<<5,352);	*posx=-31; *posy=-31;	break;
-		case MNO:		SetRect(rc,seq<<5,352,(seq+1)<<5,384);	*posx=  0; *posy=  0;	break;
-		case MSO:		SetRect(rc,seq<<5,384,(seq+1)<<5,416);	*posx=  0; *posy=-31;	break;*/
+		case MOVE:		SetRect(rc,seq<<TILE_W_SHIFT, 96,(seq+1)<<TILE_W_SHIFT,128);	*posx=-16; *posy=-16;	break;
+		case ATTACK:	SetRect(rc,seq<<TILE_W_SHIFT,128,(seq+1)<<TILE_W_SHIFT,160);	*posx=-16; *posy=-16;	break;
+		case SELECT:	SetRect(rc,seq<<TILE_W_SHIFT, 64,(seq+1)<<TILE_W_SHIFT, 96);	*posx=-16; *posy=-16;	break;
+		/*case MN:		SetRect(rc,seq<<TILE_W_SHIFT,160,(seq+1)<<TILE_W_SHIFT,192);	*posx=-16; *posy=  0;	break;
+		case MS:		SetRect(rc,seq<<TILE_W_SHIFT,192,(seq+1)<<TILE_W_SHIFT,224);	*posx=-16; *posy=-31;	break;
+		case ME:		SetRect(rc,seq<<TILE_W_SHIFT,224,(seq+1)<<TILE_W_SHIFT,256);	*posx=-31; *posy=-16;	break;
+		case MO:		SetRect(rc,seq<<TILE_W_SHIFT,256,(seq+1)<<TILE_W_SHIFT,288);	*posx=  0; *posy=-16;	break;
+		case MNE:		SetRect(rc,seq<<TILE_W_SHIFT,288,(seq+1)<<TILE_W_SHIFT,320);	*posx=-31; *posy=  0;	break;
+		case MSE:		SetRect(rc,seq<<TILE_W_SHIFT,320,(seq+1)<<TILE_W_SHIFT,352);	*posx=-31; *posy=-31;	break;
+		case MNO:		SetRect(rc,seq<<TILE_W_SHIFT,352,(seq+1)<<TILE_W_SHIFT,384);	*posx=  0; *posy=  0;	break;
+		case MSO:		SetRect(rc,seq<<TILE_W_SHIFT,384,(seq+1)<<TILE_W_SHIFT,416);	*posx=  0; *posy=-31;	break;*/
 	}
 	delay++;
 	if(delay>MDELAY)

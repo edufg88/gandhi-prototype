@@ -347,14 +347,14 @@ bool cGraphicsLayer::DrawLevel()
 
 	for(y=cy;y<fy;y++)
 	{
-		panty = SCENE_Yo + ((y-cy)<<5) - offy;
+		panty = SCENE_Yo + ((y-cy)<<TILE_W_SHIFT) - offy;
 
 		for(x=cx;x<fx;x++)
 		{
-			pantx = SCENE_Xo + ((x-cx)<<5) - offx;
+			pantx = SCENE_Xo + ((x-cx)<<TILE_W_SHIFT) - offx;
 
 			n = Scene->map[y][x].tile;
-			SetRect(&rc,n<<5,0,(n+1)<<5,TILE_WIDTH);
+			SetRect(&rc,n<<TILE_W_SHIFT,0,(n+1)<<TILE_W_SHIFT,TILE_WIDTH);
 			g_pSprite->Draw(texTiles,&rc,NULL, 
 							&D3DXVECTOR3(float(pantx),float(panty),0.0f), 
 							0xFFFFFFFF);
