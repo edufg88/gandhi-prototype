@@ -102,7 +102,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	Graphics->LoadData();
 
-	Scene->LoadMap("media/mapaprueba.txt");
+	Scene->LoadMap("media/map.txt");
 
 	return true;
 }
@@ -252,7 +252,7 @@ void cGame::ProcessEnemies()
 {
 	for(list<cEnemy*>::iterator it = Enemies.begin(); it != Enemies.end(); it++) {
 		cEnemy* enemy = *it;
-		enemy->Move();
+		enemy->update();
 	}
 
 	list<cBullet*>::iterator hit = EnemyBullets.begin();
@@ -298,6 +298,10 @@ void cGame::ProcessOrder()
 			// EFG: Mouse dentro de la escena
 			Hero->ShootAt(mx, my);
 
+			//DEBUG
+			int dx = (mx + Scene->camx)/TILE_WIDTH;
+			int dy = (my + Scene->camy)/TILE_WIDTH;
+			Enemies.front()->MoveTo(dx, dy);
 			
 		}
 	}
