@@ -880,10 +880,10 @@
     <ClCompile Include="lib\cBullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\cPath.cpp">
+    <ClCompile Include="lib\cAStar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lib\cAStar.cpp">
+    <ClCompile Include="lib\cPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
