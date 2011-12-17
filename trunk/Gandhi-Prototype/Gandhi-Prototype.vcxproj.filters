@@ -761,9 +761,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\cTrajectory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\cScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -818,11 +815,14 @@
     <ClInclude Include="include\cBullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\cPath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cAStar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib\cTrajectory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lib\cScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -878,6 +878,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lib\cBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cAStar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

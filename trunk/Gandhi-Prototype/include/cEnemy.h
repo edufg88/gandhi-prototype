@@ -2,7 +2,9 @@
 #define __ENEMY_H__
 
 #include <windows.h>
-#include <cBullet.h>
+#include "cBullet.h"
+#include "cPath.h"
+#include "cScene.h"
 
 #define ENEMY_WIDTH 32
 #define ENEMY_HEIGHT 32
@@ -32,13 +34,16 @@ class cEnemy
 
 		void GetWorldRect(RECT *rc);
 		bool Hit(int damage);
-		void Move();
+		void MoveTo(int destcx,int destcy);
+		void update();
 
 	private:
 		int x,y;		//Position in total map
 		//int cx,cy;		//Cell position in total map
 		int type;
 		int life;
+		cPath Path;
+		cScene *Scene;
 };
 
 #endif

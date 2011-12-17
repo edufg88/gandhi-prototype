@@ -1,6 +1,6 @@
 
 #include "cHero.h"
-#include "cTrajectory.h"
+#include "cPath.h"
 #include "cGame.h"
 
 cHero::cHero(int cx, int cy)

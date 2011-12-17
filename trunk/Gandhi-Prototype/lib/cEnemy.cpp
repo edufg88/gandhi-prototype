@@ -1,5 +1,6 @@
 #include "cEnemy.h"
 #include "cScene.h"
+#include "cGame.h"
 
 cEnemy::cEnemy(int type, int cx, int cy)
 {
@@ -12,6 +13,8 @@ cEnemy::cEnemy(int type, int cx, int cy)
 	case ENEMY_2:
 		life = ENEMY_2_LIFE;
 	}
+
+	Scene = cGame::GetInstance()->GetScene();
 }
 cEnemy::~cEnemy()
 {
@@ -60,7 +63,42 @@ bool cEnemy::Hit(int damage)
 	return life <= 0;
 }
 
-void cEnemy::Move()
+void cEnemy::MoveTo(int destcx,int destcy)
 {
 	// TODO: IA!
+	int cx = x/TILE_WIDTH;
+	int cy = y/TILE_WIDTH;
+	if(Path.IsDone())	Path.Make(cx,cy,destcx,destcy);
+	else					Path.ReMake(destcx,destcy);
+}
+
+void cEnemy::update()
+{
+	int mov;
+	int cx, cy; //TODO: inutiles
+
+	if(!Path.IsDone())
+	{
+		mov=Path.NextStep(&x,&y,&cx,&cy);
+
+		if(mov==ARRIVE)
+		{
+			Path.Done();
+			//seq=0;
+		}
+		else if(mov==CONTINUE)
+		{
+		}
+	}
+	//else
+	//{
+	//	//Moved for attack?
+	//	if(attack)
+	//	{
+	//		shoot=true;
+	//		shoot_seq=0;
+	//		shoot_delay=0;
+	//		attack=false;
+	//	}
+	//}
 }
