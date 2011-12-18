@@ -23,11 +23,22 @@ cHero::cHero(int cx, int cy)
 
 	weapon = BULL_3;
 	weapon_rof = 0;
+
+	isShielded = false;
 }
 
 cHero::~cHero()
 {
 
+}
+
+void cHero::GetRectShield(RECT *rc,int *posx,int *posy,cScene *Scene)
+{
+	*posx = SCENE_Xo + x - (Scene->camx) + 96;
+	*posy = SCENE_Yo + y - (Scene->camy) + 96;
+
+	SetRect(rc, 384, 192, 576, 384); 
+	//SetRect(rc, 448, 0, 512, 64);
 }
 
 void cHero::GetRectHead(RECT *rc,int *posx,int *posy,cScene *Scene)
@@ -282,7 +293,8 @@ void cHero::ShootAt(int mx, int my)
 
 bool cHero::Hit(int damage)
 {
-	life -= damage;
+	if (!isShielded)
+		life -= damage;
 	return life <= 0;
 }
 
@@ -302,5 +314,6 @@ bool cHero::ChangeWeapon(int newWeapon)
 bool cHero::AddLife(int lifeToAdd)
 {
 	life += lifeToAdd;
+	if (life > 100) life = 100;
 	return true;
 }

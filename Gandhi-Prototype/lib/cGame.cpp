@@ -104,6 +104,12 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	Scene->LoadMap("media/map.txt");
 
+
+	// Cargamos efectos de sonido
+	Sound->inicializarAudio();
+	Sound->cargarCancion("media/sounds/Kalimba.mp3");
+	Sound->cargarEfecto("media/sounds/stepMetal1.wav", "pasos");
+
 	return true;
 }
 

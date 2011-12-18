@@ -30,6 +30,7 @@ class cHero
 		void GetRectLegs(RECT *rc,int *posx,int *posy,cScene *Scene);
 		void GetRectBody(RECT *rc,int *posx,int *posy,cScene *Scene);
 		void GetRectHead(RECT *rc,int *posx,int *posy,cScene *Scene);
+		void GetRectShield(RECT *rc,int *posx,int *posy,cScene *Scene);
 
 		void GetRectLife(RECT *rc,int *posx,int *posy,cScene *Scene);
 		void GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene);
@@ -47,12 +48,15 @@ class cHero
 		int GetSpeed();
 		int GetX();
 		int GetY();
+		int GetDirection(){ return direction; }
 		void GetWorldRect(RECT *rc);
 		bool Hit(int damage);
 		bool AddLife(int lifeToAdd);
 
 		bool ChangeWeapon (int newWeapon);
 		int GetWeapon() { return weapon; }
+
+		bool isShielded;
 
 	private:
 		int x,y;		//Position in total map
