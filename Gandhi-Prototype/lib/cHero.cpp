@@ -252,7 +252,7 @@ void cHero::ShootAt(int mx, int my)
 	float dxa = (float)dx/(float)mod;
 	float dya = (float)dy/(float)mod;
 
-	if (weapon_rof == bull_rof[weapon])
+	if (weapon_rof >= bull_rof[weapon])
 	{
 		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
 		Game->addHeroBullet(weapon, x + HERO_WIDTH/2 - BULLET_WIDTH/2, y + HERO_HEIGHT/2 - BULLET_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
