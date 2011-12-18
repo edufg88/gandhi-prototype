@@ -56,6 +56,7 @@ class cGame
 		//Aux
 		bool intersects(RECT *r1, RECT *r2);
 		cEnemy* intersectsWithEnemy(RECT *r);
+		cEnemy* intersectsWithEnemy(RECT *r, cEnemy *self);
 
 		int GetPoints(){ return GamePoints; }
 

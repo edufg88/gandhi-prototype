@@ -14,7 +14,12 @@ cEnemy::cEnemy(int type, int cx, int cy)
 		life = ENEMY_2_LIFE;
 	}
 
+	weapon = BULL_1;
+	weapon_rof = 0;
+
 	Scene = cGame::GetInstance()->GetScene();
+	Hero = cGame::GetInstance()->GetHero();
+	Game = cGame::GetInstance();
 }
 cEnemy::~cEnemy()
 {
@@ -65,7 +70,6 @@ bool cEnemy::Hit(int damage)
 
 void cEnemy::MoveTo(int destcx,int destcy)
 {
-	// TODO: IA!
 	int cx = x/TILE_WIDTH;
 	int cy = y/TILE_WIDTH;
 	if(Path.IsDone())	Path.Make(cx,cy,destcx,destcy);
@@ -77,28 +81,44 @@ void cEnemy::update()
 	int mov;
 	int cx, cy; //TODO: inutiles
 
+	Shoot();
+
 	if(!Path.IsDone())
 	{
-		mov=Path.NextStep(&x,&y,&cx,&cy);
+		mov=Path.NextStep(&x,&y,&cx,&cy,this);
 
 		if(mov==ARRIVE)
 		{
 			Path.Done();
 			//seq=0;
 		}
-		else if(mov==CONTINUE)
+		else if(mov==STOP)
 		{
+			Hero->GetCell(&cx, &cy);
+			MoveTo(cx, cy);
 		}
 	}
-	//else
-	//{
-	//	//Moved for attack?
-	//	if(attack)
-	//	{
-	//		shoot=true;
-	//		shoot_seq=0;
-	//		shoot_delay=0;
-	//		attack=false;
-	//	}
-	//}
+	else {
+		Hero->GetCell(&cx, &cy);
+		MoveTo(cx, cy);
+	}
+}
+
+void cEnemy::Shoot()
+{
+	int dx = Hero->GetX() - x;
+	int dy = Hero->GetY() - y;
+	float mod = sqrt(float(dx*dx + dy*dy));
+
+	float dxa = (float)dx/(float)mod;
+	float dya = (float)dy/(float)mod;
+
+	if (weapon_rof == bull_rof[weapon])
+	{
+		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
+		Game->addEnemyBullet(weapon, x + ENEMY_WIDTH/2 - BULLET_WIDTH/2, y + ENEMY_HEIGHT/2 - BULLET_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
+		weapon_rof = 0;
+	}
+	else
+		weapon_rof++;
 }
