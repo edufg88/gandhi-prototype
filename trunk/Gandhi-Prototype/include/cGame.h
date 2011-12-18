@@ -32,7 +32,7 @@ class cGame
 		cScene* GetScene() { return Scene; }
 		cHUD* GetHUD() { return HUD; }
 		cHero* GetHero() { return Hero; }
-
+		cSound* GetSound() { return Sound; }
 
 		// Arnau: Publicos y sin Getter para más comodidad
 		std::list<cEnemy*> Enemies;

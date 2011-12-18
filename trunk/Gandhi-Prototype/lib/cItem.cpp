@@ -5,6 +5,7 @@
 
 cItem::cItem(int type, int posx, int posy)
 {
+	//this->type = IT_SHIELD;
 	this->type = type;
 	SetPosition(posx,posy);
 }
@@ -80,7 +81,7 @@ void cItem::Use()
 			Hero->AddLife(20);
 			break;
 		case IT_SHIELD:
-			//TODO: Hero.flipa-con-el-shield() xD
+			Hero->isShielded = true;
 			break;
 		case IT_WEAPON_1:
 			Hero->ChangeWeapon(BULL_1);

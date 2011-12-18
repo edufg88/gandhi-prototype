@@ -441,9 +441,17 @@ bool cGraphicsLayer::DrawHero()
 		Hero->GetRectHead(&rc,&posx,&posy,Scene);
 		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
 	
-
+		
 		// Volvemos a la matriz original
 		g_pSprite->SetTransform(&preChange);
+
+		/* PINTAMOS EL ESCUDO (SI HACE FALTA) */
+		if (Hero->isShielded)
+		{
+			Hero->GetRectShield(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texChar, &rc, NULL, &D3DXVECTOR3(float(posx - 164),float(posy - 164),0.0f), 0xFFFFFFFF);
+		}
+
 
 		/* PINTAMOS SUS DISPAROS */
 		for(list<cBullet*>::iterator it = Game->HeroBullets.begin(); it != Game->HeroBullets.end(); it++)
