@@ -82,7 +82,7 @@ void cScene::Move(int dir)
 	else if(dir==DIRDOWN)
 	{
 		int heroY = cGame::GetInstance()->GetHero()->GetY();
-		if(camy < (AREA_HEIGHT-SCENE_HEIGHT-2)*TILE_WIDTH
+		if(camy < (AREA_HEIGHT-SCENE_HEIGHT-1)*TILE_WIDTH
 			&& heroY + HERO_HEIGHT/2 - HERO_Y > 0) camy += speed;
 	}
 	//West
