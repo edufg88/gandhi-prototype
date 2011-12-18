@@ -225,6 +225,7 @@ void cGame::ProcessCollisions()
 		cEnemy* enemy = intersectsWithEnemy(&br);
 		if(enemy != NULL) {
 			if(enemy->Hit(bullet->GetDamage())) {
+				enemy->Die();
 				Enemies.remove(enemy);
 			}
 			hit = HeroBullets.erase(hit);
@@ -376,9 +377,9 @@ void cGame::addEnemy(int type, int cx, int cy)
 	Enemies.push_back(new cEnemy(type, cx, cy));
 }
 
-void cGame::addItem(int type, int cx, int cy)
+void cGame::addItem(int type, int posx, int posy)
 {
-	Items.push_back(new cItem(type, cx, cy));
+	Items.push_back(new cItem(type, posx, posy));
 }
 
 void cGame::addHero(int cx, int cy)

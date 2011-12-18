@@ -1,10 +1,10 @@
 #include "cItem.h"
 #include "cScene.h"
 
-cItem::cItem(int type, int cx, int cy)
+cItem::cItem(int type, int posx, int posy)
 {
 	this->type = type;
-	SetCell(cx,cy);
+	SetPosition(posx,posy);
 }
 
 cItem::~cItem()

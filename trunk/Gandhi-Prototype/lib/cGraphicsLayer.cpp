@@ -369,6 +369,7 @@ bool cGraphicsLayer::DrawHero()
 	int cx,cy,posx,posy;
 	RECT rc;
 
+	//TODO: Convertir a atributos :-(
 	cHero* Hero = cGame::GetInstance()->GetHero();
 	cMouse* Mouse = cInputLayer::GetInstance()->GetMouse();
 	cScene* Scene = cGame::GetInstance()->GetScene();
@@ -382,11 +383,10 @@ bool cGraphicsLayer::DrawHero()
 		int mPosx, mPosy;
 		float angle;
 
-		/* PINTAMOS LAS PIERNAS */
-
 		Hero->GetRectLegs(&rc,&posx,&posy,Scene);
-		D3DXVECTOR2 vPosition((FLOAT) posx, (FLOAT) posy);
 
+		// Preparamos matriz rotación
+		D3DXVECTOR2 vPosition((FLOAT) posx, (FLOAT) posy);
 		g_pSprite->GetTransform(&preChange);
 
 		Mouse->GetPosition(&mPosx, &mPosy);
@@ -394,45 +394,23 @@ bool cGraphicsLayer::DrawHero()
 		angle += (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
 
 		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
-
 		g_pSprite->SetTransform(&matRotate);
+
+		/* PINTAMOS LAS PIERNAS */
+		
 		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
-		g_pSprite->SetTransform(&preChange);
+		
 
 		/* PINTAMOS EL CUERPO */
-
 		Hero->GetRectBody(&rc,&posx,&posy,Scene);
-		vPosition.x = (FLOAT) posx;
-		vPosition.y = (FLOAT) posy;
-
-		g_pSprite->GetTransform(&preChange);
-
-		Mouse->GetPosition(&mPosx, &mPosy);
-		angle = atan2(float(mPosy-posy+HERO_HEIGHT/2),float(mPosx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
-		angle += (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
-
-		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
-
-		g_pSprite->SetTransform(&matRotate);
 		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
-		g_pSprite->SetTransform(&preChange);
+		
 
 		/* PINTAMOS LA CABEZA */
-
 		Hero->GetRectHead(&rc,&posx,&posy,Scene);
-		vPosition.x = (FLOAT) posx;
-		vPosition.y = (FLOAT) posy;
-
-		g_pSprite->GetTransform(&preChange);
-
-		Mouse->GetPosition(&mPosx, &mPosy);
-		angle = atan2(float(mPosy-posy+HERO_HEIGHT/2),float(mPosx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
-		angle += (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
-
-		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
-
-		g_pSprite->SetTransform(&matRotate);
 		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
+
+		// Volvemos a la matriz original
 		g_pSprite->SetTransform(&preChange);
 
 		/* PINTAMOS SUS DISPAROS */
@@ -458,6 +436,16 @@ bool cGraphicsLayer::DrawEnemies()
 	int cx,cy,posx,posy;
 	RECT rc;
 	cScene* Scene = cGame::GetInstance()->GetScene();
+
+	D3DXMATRIX preChange, matRotate;
+	D3DXVECTOR2 vCenter(ENEMY_WIDTH/2, ENEMY_HEIGHT/2);
+	int hx, hy;
+	float angle;
+
+	// Preparamos matriz rotación
+	g_pSprite->GetTransform(&preChange);
+	hx = cGame::GetInstance()->GetHero()->GetX();
+	hy = cGame::GetInstance()->GetHero()->GetY();
 	
 	//Draw Skeleton
 	for(list<cEnemy*>::iterator it = Game->Enemies.begin(); it != Game->Enemies.end(); it++) {
@@ -466,9 +454,13 @@ bool cGraphicsLayer::DrawEnemies()
 		if(Scene->Visible(cx,cy))
 		{
 			Enemy->GetRect(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texCharacters,&rc,NULL, 
-				&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-				0xFFFFFFFF);
+			D3DXVECTOR2 vPosition((FLOAT) posx, (FLOAT) posy);
+			angle = atan2(float(hy-posy+HERO_HEIGHT/2),float(hx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
+			angle += (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
+			D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
+			g_pSprite->SetTransform(&matRotate);
+			g_pSprite->Draw(texCharacters,&rc,NULL, NULL, 0xFFFFFFFF);
+			g_pSprite->SetTransform(&preChange);
 		}
 	}
 

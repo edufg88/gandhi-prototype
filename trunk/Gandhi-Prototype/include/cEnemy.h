@@ -39,6 +39,7 @@ class cEnemy
 		void MoveTo(int destcx,int destcy);
 		void update();
 		void Shoot();
+		void Die();
 
 	private:
 		int x,y;		//Position in total map

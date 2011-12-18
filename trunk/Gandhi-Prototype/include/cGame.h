@@ -48,7 +48,7 @@ class cGame
 		bool Render();
 
 		void addEnemy(int type, int cx, int cy);
-		void addItem(int type, int cx, int cy);
+		void addItem(int type, int posx, int posy);
 		void addHero(int cx, int cy);
 		void addEnemyBullet(int type, int x, int y, int vx, int vy);
 		void addHeroBullet(int type, int x, int y, int vx, int vy);

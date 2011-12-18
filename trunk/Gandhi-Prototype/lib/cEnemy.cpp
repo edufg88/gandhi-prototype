@@ -1,6 +1,7 @@
 #include "cEnemy.h"
 #include "cScene.h"
 #include "cGame.h"
+#include <stdlib.h>
 
 cEnemy::cEnemy(int type, int cx, int cy)
 {
@@ -121,4 +122,9 @@ void cEnemy::Shoot()
 	}
 	else
 		weapon_rof++;
+}
+
+void cEnemy::Die()
+{
+	Game->addItem(rand()%NUM_ITEMS, x, y);
 }

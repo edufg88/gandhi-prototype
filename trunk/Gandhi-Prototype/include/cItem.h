@@ -6,6 +6,7 @@
 #define ITEM_WIDTH 16
 #define ITEM_HEIGHT 16
 
+#define NUM_ITEMS 2
 #define IT_LIFE 0
 #define IT_SHIELD 1
 
@@ -14,7 +15,7 @@ class cScene;
 class cItem
 {
 	public:
-		cItem(int type, int cx, int cy);
+		cItem(int type, int posx, int posy);
 		// EFG: Si hacemos más de 1 ítem podemos hacer la clase abstracta.
 		virtual ~cItem(void);
 
