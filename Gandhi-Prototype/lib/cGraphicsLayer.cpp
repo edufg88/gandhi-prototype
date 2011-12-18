@@ -103,11 +103,11 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateSprite( g_pD3DDevice, &g_pSprite ); 
 
 	//Main menu
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/main.png",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/pantallaInicio.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texMain);
-	//GUI game
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/game.png",0,0,1,0,D3DFMT_UNKNOWN,
+	//Objects game
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/objectTextures.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texGame);
 	//Tiles
@@ -357,7 +357,7 @@ bool cGraphicsLayer::DrawLevel()
 			
 			//SetRect(&rc,n<<TILE_W_SHIFT,0,(n+1)<<TILE_W_SHIFT,TILE_WIDTH);
 			
-			SetRect(&rc, (n%64-1)*64, (n/64)*64, (n%64)*64, ((n/64)+1)*64); 
+			SetRect(&rc, (n%TILE_WIDTH-1)*TILE_WIDTH, (n/TILE_WIDTH)*TILE_WIDTH, (n%TILE_WIDTH)*TILE_WIDTH, ((n/TILE_WIDTH)+1)*TILE_WIDTH); 
 			g_pSprite->Draw(texTiles,&rc,NULL, 
 							&D3DXVECTOR3(float(pantx),float(panty),0.0f), 
 							0xFFFFFFFF);

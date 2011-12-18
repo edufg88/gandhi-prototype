@@ -46,8 +46,8 @@ bool InitWindow( HINSTANCE hInst, HWND *hWnd, bool *exclusive )
 
 	int fullscreen;
 	//fullscreen=MessageBox(0, "Would you like fullscreen mode?", "Isometric Engine", MB_YESNO );
-	fullscreen = IDNO; // Arnau: comentado el message box porqué siempre lo abro en ventana y molestaba :-P
-
+	//fullscreen = IDNO; // Arnau: comentado el message box porqué siempre lo abro en ventana y molestaba :-P
+	fullscreen = IDYES;
 	if(fullscreen==IDYES)
 	{
 		*hWnd = CreateWindow(	szWinName, szWinName, WS_POPUP, 0, 0,
