@@ -9,6 +9,7 @@
 #define ENEMY_WIDTH 32
 #define ENEMY_HEIGHT 32
 
+#define NUM_ENEMIES 2
 #define ENEMY_1 0
 #define ENEMY_2 1
 

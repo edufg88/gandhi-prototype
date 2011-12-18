@@ -43,6 +43,8 @@
 #define DIRRIGHT	2
 #define DIRLEFT		3
 
+//WARNING!: Contra más bajo, más enemigos!
+#define ENEMY_DENSITY 20
 
 struct mapCell {
 	int tile;

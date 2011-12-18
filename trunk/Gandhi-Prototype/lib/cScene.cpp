@@ -3,6 +3,7 @@
 #include "cMouse.h"
 #include "cGame.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 
 cScene::cScene()
@@ -15,7 +16,7 @@ cScene::~cScene(){}
 
 void cScene::LoadMap(char *file)
 {
-	int i,j,n;
+	int i,j,n,w = 0;
 	
 	FILE *f;
 	fopen_s(&f, file,"r");
@@ -38,28 +39,25 @@ void cScene::LoadMap(char *file)
 			fscanf_s(f,"%d",&n);
 			map[i][j].tile = n;
 			map[i][j].walkable = walkableTiles.count(n);
+			if(map[i][j].walkable) {
+				if(w == ENEMY_DENSITY) {
+					Game->addStalkingEnemy(rand()%NUM_ENEMIES, j, i);
+					w = 0;
+				}
+				else w++;
+			}
 		}
 	}
 
 	// Leemos posición inicial hero
 	fscanf_s(f,"%d",&i);
 	fscanf_s(f,"%d",&j);
-	Game->addHero(i, j);
+	Game->GetHero()->SetCell(j, i);
 	
 	// Leemos posición final (meta) del mapa
 	fscanf_s(f,"%d",&i);
 	fscanf_s(f,"%d",&j);
 	//Game->setMapEnd(i, j); //TODO: hacer algo!
-
-	// Leemos enemigos
-	fscanf_s(f,"%d",&n);
-	while (n != -1)
-	{
-		fscanf_s(f,"%d",&i);
-		fscanf_s(f,"%d",&j);
-		Game->addEnemy(n, j, i);
-		fscanf_s(f,"%d",&n);
-	}
 
 	// Items??
 	//TODO: prueba añadir item
@@ -106,7 +104,7 @@ bool cScene::Visible(int cellx,int celly)
 {
 	int cx, cy;
 	getCell(&cx, &cy);
-	return ((cellx>=cx)&&(cellx<cx+SCENE_WIDTH)&&(celly>=cy)&&(celly<cy+SCENE_HEIGHT)) ? 1 : 0;
+	return (cellx>=cx)&&(cellx<=cx+SCENE_WIDTH)&&(celly>=cy)&&(celly<=cy+SCENE_HEIGHT);
 }
 
 void cScene::getCell(int *cx, int *cy) {

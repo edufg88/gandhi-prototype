@@ -74,7 +74,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Scene = new cScene();
 	HUD = new cHUD();
 	// EFG: Creamos el heroe... y el enemigo de momento
-	//Hero = new cHero();
+	Hero = new cHero(0, 0);
 	//Enemies.push_back(cEnemy());
 	//Item = new cItem();
 
@@ -251,6 +251,19 @@ void cGame::ProcessCollisions()
 
 void cGame::ProcessEnemies()
 {
+	list<cEnemy*>::iterator it = StalkingEnemies.begin();
+	while(it != StalkingEnemies.end()) {
+		cEnemy* enemy = *it;
+		int cx, cy;
+		enemy->GetCell(&cx, &cy);
+		if(Scene->Visible(cx, cy)) {
+			list<cEnemy*>::iterator tmpit = it;
+			it++;
+			Enemies.splice(Enemies.begin(), StalkingEnemies, tmpit);
+		}
+		else it++;
+	}
+
 	for(list<cEnemy*>::iterator it = Enemies.begin(); it != Enemies.end(); it++) {
 		cEnemy* enemy = *it;
 		enemy->update();
@@ -375,6 +388,11 @@ bool cGame::ChangeState(cGameState* newState)
 void cGame::addEnemy(int type, int cx, int cy)
 {
 	Enemies.push_back(new cEnemy(type, cx, cy));
+}
+
+void cGame::addStalkingEnemy(int type, int cx, int cy)
+{
+	StalkingEnemies.push_back(new cEnemy(type, cx, cy));
 }
 
 void cGame::addItem(int type, int posx, int posy)
