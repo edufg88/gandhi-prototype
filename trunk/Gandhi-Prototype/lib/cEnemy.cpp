@@ -95,8 +95,9 @@ void cEnemy::update()
 		}
 		else if(mov==STOP)
 		{
-			Hero->GetCell(&cx, &cy);
-			MoveTo(cx, cy);
+			//Hero->GetCell(&cx, &cy);
+			GetCell(&cx, &cy);
+			MoveTo(cx - 1 + rand()%3, cy - 1 + rand()%3);
 		}
 	}
 	else {

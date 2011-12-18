@@ -21,8 +21,8 @@
 #define TILE_W_SHIFT 6
 
 //Visible part
-#define SCENE_WIDTH		SCREEN_RES_X/TILE_WIDTH
-#define SCENE_HEIGHT	SCREEN_RES_Y/TILE_WIDTH-1 // Arnau: no entiendo el -1 pero arregla cosas...
+#define SCENE_WIDTH		SCREEN_RES_X/TILE_WIDTH + 1
+#define SCENE_HEIGHT	SCREEN_RES_Y/TILE_WIDTH + 1
 
 //Map coordinate beginning
 #define SCENE_Xo		0

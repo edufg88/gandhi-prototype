@@ -343,7 +343,7 @@ bool cGraphicsLayer::DrawLevel()
 
 	//Tile based map
 	fx=cx+SCENE_WIDTH+1;
-	fy=cy+SCENE_HEIGHT+3; //Arnau: no entiendo el +3, pero con solo +1 pinta negros...
+	fy=cy+SCENE_HEIGHT+1; //Arnau: no entiendo el +3, pero con solo +1 pinta negros...
 
 	for(y=cy;y<fy;y++)
 	{
