@@ -109,7 +109,11 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Sound->inicializarAudio();
 	Sound->cargarCancion("media/sounds/Kalimba.mp3");
 	Sound->cargarEfecto("media/sounds/stepMetal1.wav", "pasos");
-
+	Sound->cargarEfecto("media/sounds/hurt3.wav", "hit");
+	Sound->cargarEfecto("media/sounds/forceField.wav", "shield");
+	Sound->cargarEfecto("media/sounds/minigun.wav", "w1");
+	Sound->cargarEfecto("media/sounds/railgun.wav", "w2");
+	Sound->cargarEfecto("media/sounds/plasma.wav", "w3");
 	return true;
 }
 

@@ -12,7 +12,7 @@ class cGSIngame : public cGameState
 		virtual void Exit();
 
 	private:
-		
+		int delayPasos;
 };
 
 #endif

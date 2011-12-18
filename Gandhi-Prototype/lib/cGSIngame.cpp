@@ -4,6 +4,7 @@
 void cGSIngame::Enter()
 {
 	cGame::GetInstance()->GetSound()->playCancion();
+	delayPasos = 0;
 }
 
 bool cGSIngame::Process()
@@ -15,7 +16,15 @@ bool cGSIngame::Process()
 
 	if (Game->GetHero()->GetDirection() != DIRNONE)
 	{
-		//Game->GetSound()->playEfecto("pasos");
+		if (delayPasos > 15)
+		{
+			Game->GetSound()->playEfecto("pasos");
+			delayPasos = 0;
+		}
+		else
+		{
+			delayPasos++;
+		}
 	}
 	//Game->GetHero()->Move();
 	

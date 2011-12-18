@@ -82,6 +82,7 @@ void cItem::Use()
 			break;
 		case IT_SHIELD:
 			Hero->isShielded = true;
+			cGame::GetInstance()->GetSound()->playEfecto("shield");
 			break;
 		case IT_WEAPON_1:
 			Hero->ChangeWeapon(BULL_1);
