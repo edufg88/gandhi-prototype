@@ -263,6 +263,18 @@ void cHero::ShootAt(int mx, int my)
 	{
 		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
 		Game->addHeroBullet(weapon, x + HERO_WIDTH/2 - BULLET_WIDTH/2, y + HERO_HEIGHT/2 - BULLET_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
+		switch (weapon)
+		{
+			case BULL_1:
+				Game->GetSound()->playEfecto("w1");
+				break;
+			case BULL_2:
+				Game->GetSound()->playEfecto("w2");
+				break;
+			case BULL_3:
+				Game->GetSound()->playEfecto("w3");
+				break;
+		}
 		weapon_rof = 0;
 	}
 	else
@@ -290,7 +302,10 @@ void cHero::ShootAt(int mx, int my)
 bool cHero::Hit(int damage)
 {
 	if (!isShielded)
+	{
 		life -= damage;
+		Game->GetSound()->playEfecto("hit");
+	}
 	return life <= 0;
 }
 
