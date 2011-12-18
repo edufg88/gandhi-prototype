@@ -84,7 +84,7 @@ void cScene::Move(int dir)
 	else if(dir==DIRDOWN)
 	{
 		int heroY = cGame::GetInstance()->GetHero()->GetY();
-		if(camy < (AREA_HEIGHT-SCENE_HEIGHT)*TILE_WIDTH
+		if(camy < (AREA_HEIGHT-SCENE_HEIGHT-2)*TILE_WIDTH
 			&& heroY + HERO_HEIGHT/2 - HERO_Y > 0) camy += speed;
 	}
 	//West
@@ -97,7 +97,7 @@ void cScene::Move(int dir)
 	else if(dir==DIRRIGHT)
 	{
 		int heroX = cGame::GetInstance()->GetHero()->GetX();
-		if(camx < (AREA_WIDTH-SCENE_WIDTH)*TILE_WIDTH
+		if(camx < (AREA_WIDTH-SCENE_WIDTH-2)*TILE_WIDTH
 			&& heroX + HERO_WIDTH/2 - HERO_X > 0) camx += speed;
 	}
 }
