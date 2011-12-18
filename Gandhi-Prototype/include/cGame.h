@@ -36,6 +36,7 @@ class cGame
 
 		// Arnau: Publicos y sin Getter para más comodidad
 		std::list<cEnemy*> Enemies;
+		std::list<cEnemy*> StalkingEnemies;
 		std::list<cItem*> Items;
 		std::list<cBullet*> HeroBullets;
 		std::list<cBullet*> EnemyBullets;
@@ -48,6 +49,7 @@ class cGame
 		bool Render();
 
 		void addEnemy(int type, int cx, int cy);
+		void addStalkingEnemy(int type, int cx, int cy);
 		void addItem(int type, int posx, int posy);
 		void addHero(int cx, int cy);
 		void addEnemyBullet(int type, int x, int y, int vx, int vy);
@@ -71,7 +73,7 @@ class cGame
 		void ProcessKeyboard();
 		void ProcessCollisions();
 		void ProcessEnemies();
-		
+
 		cGraphicsLayer* Graphics;
 		cInputLayer* Input;
 		cSound* Sound;
