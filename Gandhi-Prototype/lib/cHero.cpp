@@ -145,8 +145,7 @@ bool cHero::Move( int dir )
 	switch(dir) 
 	{
 		case DIRUP:
-			if(Scene->map[(y-speed+1)/TILE_WIDTH][x/TILE_WIDTH].walkable
-				&& Scene->map[(y-speed+1)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
+			if(Scene->map[(y-speed+HERO_HEIGHT/2)/TILE_WIDTH][(x+HERO_WIDTH/2)/TILE_WIDTH].walkable) {
 				y -= speed;
 				GetWorldRect(&hr);
 				if(Game->intersectsWithEnemy(&hr)) {
@@ -157,8 +156,7 @@ bool cHero::Move( int dir )
 			}
 			break;
 		case DIRDOWN:
-			if(Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][x/TILE_WIDTH].walkable
-				&& Scene->map[(y+speed-1+HERO_HEIGHT)/TILE_WIDTH][(x+HERO_WIDTH-1)/TILE_WIDTH].walkable) {
+			if(Scene->map[(y+speed+HERO_HEIGHT/2)/TILE_WIDTH][(x+HERO_WIDTH/2)/TILE_WIDTH].walkable) {
 				y += speed;
 				GetWorldRect(&hr);
 				if(Game->intersectsWithEnemy(&hr)) {
@@ -169,8 +167,7 @@ bool cHero::Move( int dir )
 			}
 			break;
 		case DIRRIGHT:
-			if(Scene->map[y/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable
-				&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x+speed-1+HERO_WIDTH)/TILE_WIDTH].walkable) {
+			if(Scene->map[(y+HERO_HEIGHT/2)/TILE_WIDTH][(x+speed+HERO_WIDTH/2)/TILE_WIDTH].walkable) {
 				x += speed;
 				GetWorldRect(&hr);
 				if(Game->intersectsWithEnemy(&hr)) {
@@ -181,8 +178,7 @@ bool cHero::Move( int dir )
 			}
 			break;
 		case DIRLEFT:
-			if(Scene->map[y/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable
-				&& Scene->map[(y+HERO_HEIGHT-1)/TILE_WIDTH][(x-speed+1)/TILE_WIDTH].walkable) {
+			if(Scene->map[(y+HERO_HEIGHT/2)/TILE_WIDTH][(x-speed+HERO_WIDTH/2)/TILE_WIDTH].walkable) {
 				x -= speed;
 				GetWorldRect(&hr);
 				if(Game->intersectsWithEnemy(&hr)) {
