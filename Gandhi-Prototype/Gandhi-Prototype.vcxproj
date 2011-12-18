@@ -19,6 +19,7 @@
     <None Include="media\imgs\mapTextures2.png" />
     <None Include="media\imgs\menuTextures.png" />
     <None Include="media\imgs\mouse.png" />
+    <None Include="media\imgs\objectTextures.png" />
     <None Include="media\imgs\tiles.png" />
     <None Include="media\imgs\tileTextures.png" />
     <None Include="media\imgs\tutorialTexture.png" />
@@ -262,6 +263,7 @@
     <ClInclude Include="include\cGame.h" />
     <ClInclude Include="include\cGameState.h" />
     <ClInclude Include="include\cGraphicsLayer.h" />
+    <ClInclude Include="include\cGSGameEnd.h" />
     <ClInclude Include="include\cGSGameOver.h" />
     <ClInclude Include="include\cGSIngame.h" />
     <ClInclude Include="include\cGSMenu.h" />
@@ -284,6 +286,7 @@
     <ClCompile Include="lib\cGame.cpp" />
     <ClCompile Include="lib\cGameState.cpp" />
     <ClCompile Include="lib\cGraphicsLayer.cpp" />
+    <ClCompile Include="lib\cGSGameEnd.cpp" />
     <ClCompile Include="lib\cGSGameOver.cpp" />
     <ClCompile Include="lib\cGSIngame.cpp" />
     <ClCompile Include="lib\cGSMenu.cpp" />

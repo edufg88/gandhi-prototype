@@ -450,3 +450,9 @@ cEnemy* cGame::intersectsWithEnemy(RECT *r, cEnemy *self)
 	}
 	return NULL;
 }
+
+void cGame::addLevelEnd( int cx, int cy )
+{
+	Items.push_back(new cItem(IT_END_CAR, cx<<TILE_W_SHIFT, cy<<TILE_W_SHIFT));
+}
+

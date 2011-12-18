@@ -3,8 +3,8 @@
 
 #include <windows.h>
 
-#define ITEM_WIDTH 16
-#define ITEM_HEIGHT 16
+#define ITEM_WIDTH 64
+#define ITEM_HEIGHT 64
 
 #define NUM_ITEMS 5
 #define IT_LIFE 0
@@ -12,6 +12,8 @@
 #define IT_WEAPON_1 2
 #define IT_WEAPON_2 3
 #define IT_WEAPON_3 4
+
+#define IT_END_CAR -1
 
 class cScene;
 

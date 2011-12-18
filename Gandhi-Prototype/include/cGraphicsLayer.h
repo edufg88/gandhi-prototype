@@ -32,6 +32,7 @@ class cGraphicsLayer
 		bool RenderMenu();
 		bool RenderInGame();
 		bool RenderGameOver();
+		bool RenderGameEnd();
 		
 		bool DrawLevel();
 		bool DrawHUD();
@@ -49,7 +50,6 @@ class cGraphicsLayer
 	private:
 		static cGraphicsLayer* instance;
 		cGraphicsLayer();
-
 		cGame* Game;
 
 		LPDIRECT3D9 g_pD3D;
@@ -57,7 +57,7 @@ class cGraphicsLayer
 		LPD3DXSPRITE g_pSprite;
 
 		// TEXTURAS
-		LPDIRECT3DTEXTURE9 texMain,texGame, texGameOver;
+		LPDIRECT3DTEXTURE9 texMain,texGame, texGameOver, texGameEnd;
 		LPDIRECT3DTEXTURE9 texTiles,texCharacters,texMouse;
 		LPDIRECT3DTEXTURE9 texHUD, texChar; // EFG: Estas son las nuevas
 
