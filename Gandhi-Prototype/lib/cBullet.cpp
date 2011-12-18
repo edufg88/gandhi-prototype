@@ -33,7 +33,19 @@ void cBullet::GetRect( RECT *rc,int *posx,int *posy,cScene *Scene )
 
 	//TODO: textura balas!
 	//SetRect(rc,256,0,288,32);
-	SetRect(rc,160,64,192,96);
+
+	switch (type)
+	{
+		case BULL_1:
+			SetRect(rc,576,192,640,256);
+			break;
+		case BULL_2:
+			SetRect(rc,640,192,704,256);
+			break;
+		case BULL_3:
+			SetRect(rc,704,192,768,256);
+			break;
+	}
 }
 
 void cBullet::GetWorldRect( RECT *rc )

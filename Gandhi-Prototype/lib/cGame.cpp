@@ -3,7 +3,7 @@
 #include "cLog.h"
 #include "cGSMenu.h"
 #include "cGSIngame.h"
-//#include "cGSGameOver.h"
+#include "cGSGameOver.h"
 
 cGame* cGame::instance = NULL;
 
@@ -208,6 +208,11 @@ void cGame::ProcessKeyboard() {
 	{
 		Hero->Move(DIRNONE);
 	}
+
+	if (Keyboard->KeyDown(DIK_SPACE))
+	{
+		State->Process();
+	}
 }
 
 void cGame::ProcessCollisions()
@@ -254,7 +259,7 @@ void cGame::ProcessCollisions()
 		if(intersects(&hr, &br)) {
 			if(Hero->Hit(bullet->GetDamage())) {
 				// TODO: Game Over!
-				//ChangeState(new cGSGameOver());
+				ChangeState(new cGSGameOver());
 			}
 			hit = EnemyBullets.erase(hit);
 		}
