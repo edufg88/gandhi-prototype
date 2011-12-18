@@ -6,9 +6,12 @@
 #define ITEM_WIDTH 16
 #define ITEM_HEIGHT 16
 
-#define NUM_ITEMS 2
+#define NUM_ITEMS 5
 #define IT_LIFE 0
 #define IT_SHIELD 1
+#define IT_WEAPON_1 2
+#define IT_WEAPON_2 3
+#define IT_WEAPON_3 4
 
 class cScene;
 
@@ -16,7 +19,7 @@ class cItem
 {
 	public:
 		cItem(int type, int posx, int posy);
-		// EFG: Si hacemos más de 1 ítem podemos hacer la clase abstracta.
+
 		virtual ~cItem(void);
 
 		void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);

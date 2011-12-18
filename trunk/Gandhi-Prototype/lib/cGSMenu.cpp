@@ -18,13 +18,13 @@ bool cGSMenu::Process()
 	if(Mouse->ButtonDown(LEFT))
 	{
 		//Play button
-		if(Mouse->In(334,236,420,278))
+		if(Mouse->In(158,263,301,309))
 		{
 			//EFG: El cambio de estado lo hacemos desde la clase cGame
 			Game->ChangeState(new cGSIngame());
 		}
 		//Exit button
-		else if(Mouse->In(426,236,512,278))
+		else if(Mouse->In(728,263,873,309))
 		{
 			return false;
 		}

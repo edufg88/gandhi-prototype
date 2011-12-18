@@ -80,8 +80,8 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	// Arnau: Comentado para debugar más rápido
 	// EFG: Iniciamos el estado menú
-	//State = new cGSMenu();
-	State = new cGSIngame(); // Arnau: borrar en beta
+	State = new cGSMenu();
+	//State = new cGSIngame(); // Arnau: borrar en beta
 
 	State->Enter();
 
