@@ -759,6 +759,9 @@
     <None Include="media\map.txt">
       <Filter>media</Filter>
     </None>
+    <None Include="media\imgs\objectTextures.png">
+      <Filter>media\imgs</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cScene.h">
@@ -820,6 +823,9 @@
     </ClInclude>
     <ClInclude Include="include\cAStar.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cGSGameEnd.h">
+      <Filter>Header Files\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -885,6 +891,9 @@
     </ClCompile>
     <ClCompile Include="lib\cPath.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\cGSGameEnd.cpp">
+      <Filter>Source Files\GameStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

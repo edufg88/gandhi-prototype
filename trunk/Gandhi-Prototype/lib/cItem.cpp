@@ -2,6 +2,7 @@
 #include "cScene.h"
 #include "cHero.h"
 #include "cGame.h"
+#include "cGSGameEnd.h"
 
 cItem::cItem(int type, int posx, int posy)
 {
@@ -36,6 +37,9 @@ void cItem::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 			break;
 		case IT_WEAPON_3:
 			SetRect(rc, 128, 0, 192, 64);
+			break;
+		case IT_END_CAR:
+			SetRect(rc, 320, 0, 448, 64);
 			break;
 		default:
 			//SetRect(rc, 128, 0, 192, 64);
@@ -92,6 +96,9 @@ void cItem::Use()
 			break;
 		case IT_WEAPON_3:
 			Hero->ChangeWeapon(BULL_3);
+			break;
+		case IT_END_CAR:
+			cGame::GetInstance()->ChangeState(new cGSGameEnd());
 			break;
 	}
 }

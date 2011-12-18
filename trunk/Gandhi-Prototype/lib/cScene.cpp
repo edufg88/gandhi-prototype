@@ -57,11 +57,7 @@ void cScene::LoadMap(char *file)
 	// Leemos posición final (meta) del mapa
 	fscanf_s(f,"%d",&i);
 	fscanf_s(f,"%d",&j);
-	//Game->setMapEnd(i, j); //TODO: hacer algo!
-
-	// Items??
-	//TODO: prueba añadir item
-	Game->addItem(0, 5*TILE_WIDTH, 5*TILE_WIDTH);
+	Game->addLevelEnd(j, i);
 
 	fclose(f);
 }

@@ -110,6 +110,12 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/gameOver.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texGameOver);
+
+	//Game end
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/gameEnd.png",0,0,1,0,D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
+		NULL,NULL,NULL,&texGameEnd);
+
 	//Objects game
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/objectTextures.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
@@ -172,6 +178,11 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texGameOver->Release();
 		texGameOver = NULL;
+	}
+	if(texGameEnd)
+	{
+		texGameEnd->Release();
+		texGameEnd = NULL;
 	}
 	if(texGame)
 	{
@@ -243,6 +254,25 @@ bool cGraphicsLayer::RenderGameOver()
 
 	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	g_pSprite->Draw(texGameOver,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
+	g_pSprite->End();
+
+	DrawMouse();
+
+	g_pD3DDevice->EndScene();
+	g_pD3DDevice->Present( NULL, NULL, NULL, NULL );
+
+	return true;
+}
+
+bool cGraphicsLayer::RenderGameEnd()
+{
+	cGame* game = cGame::GetInstance();
+
+	g_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, 0xFF000000, 0, 0 );
+	g_pD3DDevice->BeginScene();
+
+	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	g_pSprite->Draw(texGameEnd,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
 	g_pSprite->End();
 
 	DrawMouse();

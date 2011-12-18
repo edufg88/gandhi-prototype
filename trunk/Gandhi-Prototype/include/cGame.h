@@ -54,6 +54,7 @@ class cGame
 		void addHero(int cx, int cy);
 		void addEnemyBullet(int type, int x, int y, int vx, int vy);
 		void addHeroBullet(int type, int x, int y, int vx, int vy);
+		void addLevelEnd(int cx, int cy);
 
 		//Aux
 		bool intersects(RECT *r1, RECT *r2);
