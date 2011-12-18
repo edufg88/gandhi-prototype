@@ -298,10 +298,10 @@ void cGame::ProcessOrder()
 			// EFG: Mouse dentro de la escena
 			Hero->ShootAt(mx, my);
 
-			//DEBUG
-			int dx = (mx + Scene->camx)/TILE_WIDTH;
-			int dy = (my + Scene->camy)/TILE_WIDTH;
-			Enemies.front()->MoveTo(dx, dy);
+			////DEBUG
+			//int dx = (mx + Scene->camx)/TILE_WIDTH;
+			//int dy = (my + Scene->camy)/TILE_WIDTH;
+			//Enemies.front()->MoveTo(dx, dy);
 			
 		}
 	}
@@ -404,9 +404,15 @@ bool cGame::intersects(RECT *r1, RECT *r2)
 
 cEnemy* cGame::intersectsWithEnemy(RECT *r)
 {
+	return intersectsWithEnemy(r, NULL);
+}
+
+cEnemy* cGame::intersectsWithEnemy(RECT *r, cEnemy *self)
+{
 	for(list<cEnemy*>::iterator it = Enemies.begin(); it != Enemies.end(); it++) {
 		RECT er;
 		cEnemy* enemy = *it;
+		if(enemy == self) continue;
 		enemy->GetWorldRect(&er);
 		if(intersects(r, &er)) return enemy;
 	}

@@ -1,6 +1,8 @@
 
 #include "cLog.h"
 #include "cPath.h"
+#include "cEnemy.h"
+#include "cGame.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,6 +14,8 @@ cPath::cPath()
 	
 	nxf=-1;	//New direction initialization (false)
 	nyf=-1;
+
+	Game = cGame::GetInstance();
 }
 
 cPath::~cPath(){}
@@ -70,21 +74,33 @@ void cPath::ReMake(int cxdest,int cydest)
 	}
 }
 
-int cPath::NextStep(int *px,int *py,int *cx,int *cy)
+int cPath::NextStep(int *px,int *py,int *cx,int *cy,cEnemy *en)
 {
 	int move=CONTINUE;
+	int xnext = *px; 
+	int ynext = *py;
+	RECT r, hr;
 
 	switch(dir)
 	{
-		case N:	(*py)-=STEP_LENGTH;						break;
-		case S:	(*py)+=STEP_LENGTH;						break;
-		case E:	(*px)+=STEP_LENGTH;						break;
-		case O:	(*px)-=STEP_LENGTH;						break;
-		case NE:(*py)-=STEP_LENGTH; (*px)+=STEP_LENGTH; break;
-		case NO:(*py)-=STEP_LENGTH; (*px)-=STEP_LENGTH; break;
-		case SE:(*py)+=STEP_LENGTH; (*px)+=STEP_LENGTH; break;
-		case SO:(*py)+=STEP_LENGTH; (*px)-=STEP_LENGTH; break;
+		case N:	ynext-=STEP_LENGTH;						break;
+		case S:	ynext+=STEP_LENGTH;						break;
+		case E:	xnext+=STEP_LENGTH;						break;
+		case O:	xnext-=STEP_LENGTH;						break;
+		case NE:ynext-=STEP_LENGTH; xnext+=STEP_LENGTH; break;
+		case NO:ynext-=STEP_LENGTH; xnext-=STEP_LENGTH; break;
+		case SE:ynext+=STEP_LENGTH; xnext+=STEP_LENGTH; break;
+		case SO:ynext+=STEP_LENGTH; xnext-=STEP_LENGTH; break;
 	}
+
+	SetRect(&r, xnext, ynext, xnext + ENEMY_WIDTH, ynext + ENEMY_HEIGHT);
+	Game->GetHero()->GetWorldRect(&hr);
+
+	if(Game->intersectsWithEnemy(&r, en)
+		|| Game->intersects(&r, &hr)) return STOP;
+
+	*px = xnext;
+	*py = ynext;
 
 	//Calculate next cell
 	if( (((*px)%TILE_WIDTH)==0) && (((*py)%TILE_WIDTH)==0))

@@ -19,6 +19,8 @@
 #define ENEMY_2_LIFE 2
 
 class cScene;
+class cGame;
+class cHero;
 
 class cEnemy
 {
@@ -36,14 +38,21 @@ class cEnemy
 		bool Hit(int damage);
 		void MoveTo(int destcx,int destcy);
 		void update();
+		void Shoot();
 
 	private:
 		int x,y;		//Position in total map
 		//int cx,cy;		//Cell position in total map
 		int type;
 		int life;
+
+		int weapon; // Indica el tipo de arma que lleva (Bullet type)
+		int weapon_rof;
+
 		cPath Path;
 		cScene *Scene;
+		cHero *Hero;
+		cGame *Game;
 };
 
 #endif

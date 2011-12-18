@@ -22,6 +22,8 @@
 //Step length
 #define STEP_LENGTH	2	//Posible values = {1,2,4,8,16,32}
 
+class cEnemy;
+class cGame;
 
 class cPath
 {
@@ -37,7 +39,7 @@ public:
 
 	void Make(int cx,int cy,int cxdest,int cydest);	//Make new path
 	void ReMake(int cxdest,int cydest);				//Make new path overlapping previous
-	int  NextStep(int *px,int *py,int *cx,int *cy);				//Calculate next step position
+	int NextStep(int *px,int *py,int *cx,int *cy,cEnemy *en);				//Calculate next step position
 	int  NextCell();										//Calculate next cell
 
 	int  Faced();
@@ -46,6 +48,7 @@ public:
 
 private:
 	void CalcDir(int x1,int y1,int x2,int y2);
+	cGame *Game;
 };
 
 #endif
