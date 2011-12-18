@@ -28,8 +28,6 @@ class cGraphicsLayer
 		void LoadData();
 		void UnLoadData();
 	
-
-		// EFG: Ahora Graphics Layer tiene acceso a todos los parámetros porque tiene acceso a la clase cGame
 		// bool Render();
 		bool RenderMenu();
 		bool RenderInGame();
@@ -59,7 +57,7 @@ class cGraphicsLayer
 		LPD3DXSPRITE g_pSprite;
 
 		// TEXTURAS
-		LPDIRECT3DTEXTURE9 texMain,texGame;
+		LPDIRECT3DTEXTURE9 texMain,texGame, texGameOver;
 		LPDIRECT3DTEXTURE9 texTiles,texCharacters,texMouse;
 		LPDIRECT3DTEXTURE9 texHUD, texChar; // EFG: Estas son las nuevas
 

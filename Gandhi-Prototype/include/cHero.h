@@ -49,6 +49,7 @@ class cHero
 		int GetY();
 		void GetWorldRect(RECT *rc);
 		bool Hit(int damage);
+		bool AddLife(int lifeToAdd);
 
 		bool ChangeWeapon (int newWeapon);
 		int GetWeapon() { return weapon; }

@@ -27,12 +27,37 @@ cEnemy::~cEnemy()
 
 }
 
-void cEnemy::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
+void cEnemy::GetHeadRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 {
 	*posx = SCENE_Xo + x - (Scene->camx);
 	*posy = SCENE_Yo + y - (Scene->camy);
 
-	SetRect(rc,128,32,160,64);
+	switch (type)
+	{
+		case ENEMY_1:			
+			break;
+		case ENEMY_2:
+			break;
+	}
+
+	SetRect(rc, 320, 0, 384, 64);
+	
+}
+
+void cEnemy::GetBodyRect(RECT *rc,int *posx,int *posy,cScene *Scene)
+{
+	*posx = SCENE_Xo + x - (Scene->camx);
+	*posy = SCENE_Yo + y - (Scene->camy);
+
+	switch (type)
+	{
+		case ENEMY_1:
+			SetRect(rc, 512, 0, 576, 64);
+			break;
+		case ENEMY_2:
+			SetRect(rc, 576, 0, 640, 64);
+			break;
+	}
 }
 
 void cEnemy::SetPosition(int posx,int posy)
