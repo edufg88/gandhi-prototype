@@ -21,7 +21,7 @@ cHero::cHero(int cx, int cy)
 	shoot_seq=0;
 	shoot_delay=0;
 
-	weapon = BULL_1;
+	weapon = BULL_3;
 	weapon_rof = 0;
 }
 

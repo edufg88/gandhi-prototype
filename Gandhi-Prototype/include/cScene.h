@@ -15,7 +15,7 @@
 #define SCREEN_RES_Y	768
 
 //Dimensions
-#define AREA_WIDTH		32
+#define AREA_WIDTH		64
 #define AREA_HEIGHT		32
 #define TILE_WIDTH 64
 #define TILE_W_SHIFT 6

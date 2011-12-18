@@ -111,7 +111,7 @@ void cGraphicsLayer::LoadData()
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texGame);
 	//Tiles
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/tiles.png",0,0,1,0,D3DFMT_UNKNOWN,
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/mapTextures.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texTiles);
 	//Characters
@@ -354,7 +354,10 @@ bool cGraphicsLayer::DrawLevel()
 			pantx = SCENE_Xo + ((x-cx)<<TILE_W_SHIFT) - offx;
 
 			n = Scene->map[y][x].tile;
-			SetRect(&rc,n<<TILE_W_SHIFT,0,(n+1)<<TILE_W_SHIFT,TILE_WIDTH);
+			
+			//SetRect(&rc,n<<TILE_W_SHIFT,0,(n+1)<<TILE_W_SHIFT,TILE_WIDTH);
+			
+			SetRect(&rc, (n%64-1)*64, (n/64)*64, (n%64)*64, ((n/64)+1)*64); 
 			g_pSprite->Draw(texTiles,&rc,NULL, 
 							&D3DXVECTOR3(float(pantx),float(panty),0.0f), 
 							0xFFFFFFFF);
