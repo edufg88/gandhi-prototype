@@ -29,7 +29,8 @@ class cEnemy
 		cEnemy(int type, int cx, int cy);
 		virtual ~cEnemy(void);
 
-		void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);
+		void GetHeadRect(RECT *rc,int *posx,int *posy,cScene *Scene);
+		void GetBodyRect(RECT *rc,int *posx,int *posy,cScene *Scene);
 		void SetPosition(int posx,int posy);
 		void GetPosition(int *posx,int *posy);
 		void SetCell(int cellx,int celly);

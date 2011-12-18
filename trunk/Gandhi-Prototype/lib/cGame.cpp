@@ -205,6 +205,7 @@ void cGame::ProcessCollisions()
 	RECT hr;
 	Hero->GetWorldRect(&hr);
 	
+	// CON LOS ITEMS
 	list<cItem*>::iterator it = Items.begin();
 	while(it != Items.end()) {
 		RECT ir;
@@ -217,6 +218,7 @@ void cGame::ProcessCollisions()
 		else it++;
 	}
 
+	// CON LAS BALAS DEL HEROE
 	list<cBullet*>::iterator hit = HeroBullets.begin();
 	while(hit != HeroBullets.end()) {
 		RECT br;
@@ -233,6 +235,7 @@ void cGame::ProcessCollisions()
 		else hit++;
 	}
 
+	// CON LAS BALAS ENEMIGAS
 	hit = EnemyBullets.begin();
 	while(hit != EnemyBullets.end()) {
 		RECT br;

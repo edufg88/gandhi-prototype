@@ -106,6 +106,10 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/pantallaInicio.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								NULL,NULL,NULL,&texMain);
+	//Game over
+	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/gameOver.png",0,0,1,0,D3DFMT_UNKNOWN,
+								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
+								NULL,NULL,NULL,&texGameOver);
 	//Objects game
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/objectTextures.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
@@ -164,6 +168,11 @@ void cGraphicsLayer::UnLoadData()
 		texMain->Release();
 		texMain = NULL;
 	}
+	if(texGameOver)
+	{
+		texGameOver->Release();
+		texGameOver = NULL;
+	}
 	if(texGame)
 	{
 		texGame->Release();
@@ -215,6 +224,25 @@ bool cGraphicsLayer::RenderMenu()
 
 	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	g_pSprite->Draw(texMain,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
+	g_pSprite->End();
+
+	DrawMouse();
+
+	g_pD3DDevice->EndScene();
+	g_pD3DDevice->Present( NULL, NULL, NULL, NULL );
+
+	return true;
+}
+
+bool cGraphicsLayer::RenderGameOver()
+{
+	cGame* game = cGame::GetInstance();
+
+	g_pD3DDevice->Clear( 0, NULL, D3DCLEAR_TARGET, 0xFF000000, 0, 0 );
+	g_pD3DDevice->BeginScene();
+
+	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	g_pSprite->Draw(texGameOver,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
 	g_pSprite->End();
 
 	DrawMouse();
@@ -412,6 +440,7 @@ bool cGraphicsLayer::DrawHero()
 		/* PINTAMOS LA CABEZA */
 		Hero->GetRectHead(&rc,&posx,&posy,Scene);
 		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
+	
 
 		// Volvemos a la matriz original
 		g_pSprite->SetTransform(&preChange);
@@ -456,13 +485,26 @@ bool cGraphicsLayer::DrawEnemies()
 		Enemy->GetCell(&cx,&cy);
 		if(Scene->Visible(cx,cy))
 		{
-			Enemy->GetRect(&rc,&posx,&posy,Scene);
+			Enemy->GetBodyRect(&rc,&posx,&posy,Scene);
 			D3DXVECTOR2 vPosition((FLOAT) posx, (FLOAT) posy);
 			angle = atan2(float(hy-posy+HERO_HEIGHT/2),float(hx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
 			angle += (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
 			D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
 			g_pSprite->SetTransform(&matRotate);
-			g_pSprite->Draw(texCharacters,&rc,NULL, NULL, 0xFFFFFFFF);
+
+
+			//g_pSprite->Draw(texCharacters,&rc,NULL, NULL, 0xFFFFFFFF);
+			
+			
+			/* PINTAMOS EL CUERPO */
+			Enemy->GetBodyRect(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
+		
+
+			/* PINTAMOS LA CABEZA */
+			Enemy->GetHeadRect(&rc,&posx,&posy,Scene);
+			g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
+
 			g_pSprite->SetTransform(&preChange);
 		}
 	}
@@ -516,7 +558,7 @@ bool cGraphicsLayer::DrawItems()
 		if(Scene->Visible(cx,cy))
 		{
 			Item->GetRect(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texCharacters,&rc,NULL, 
+			g_pSprite->Draw(texGame,&rc,NULL, 
 				&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 				0xFFFFFFFF);
 		}

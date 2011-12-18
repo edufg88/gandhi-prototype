@@ -35,8 +35,8 @@ void cHero::GetRectHead(RECT *rc,int *posx,int *posy,cScene *Scene)
 	*posx = SCENE_Xo + x - (Scene->camx);
 	*posy = SCENE_Yo + y - (Scene->camy);
 
-	// SetRect(rc, 256, 0, 320, 64); CABEZA DE HUMANO
-	SetRect(rc, 448, 0, 512, 64);
+	SetRect(rc, 256, 0, 320, 64); 
+	//SetRect(rc, 448, 0, 512, 64);
 }
 
 void cHero::GetRectBody(RECT *rc,int *posx,int *posy,cScene *Scene)
@@ -297,4 +297,10 @@ bool cHero::ChangeWeapon(int newWeapon)
 	{
 		return false;
 	}
+}
+
+bool cHero::AddLife(int lifeToAdd)
+{
+	life += lifeToAdd;
+	return true;
 }
