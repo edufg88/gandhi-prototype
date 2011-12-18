@@ -63,7 +63,7 @@ void cScene::LoadMap(char *file)
 
 	// Items??
 	//TODO: prueba añadir item
-	Game->addItem(0, 5, 5);
+	Game->addItem(0, 5*TILE_WIDTH, 5*TILE_WIDTH);
 
 	fclose(f);
 }
