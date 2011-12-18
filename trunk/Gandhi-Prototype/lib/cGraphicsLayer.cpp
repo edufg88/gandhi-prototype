@@ -491,7 +491,7 @@ bool cGraphicsLayer::DrawHero()
 			if(Scene->Visible(cx,cy))
 			{
 				Bullet->GetRect(&rc,&posx,&posy,Scene);
-				g_pSprite->Draw(texCharacters,&rc,NULL, 
+				g_pSprite->Draw(texChar,&rc,NULL, 
 					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
 					0xFFFFFFFF);
 			}

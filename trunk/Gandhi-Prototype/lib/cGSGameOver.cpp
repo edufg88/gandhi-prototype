@@ -1,4 +1,5 @@
 #include "cGSGameOver.h"
+#include "cGSMenu.h"
 #include "cMouse.h"
 #include "cGame.h"
 
@@ -12,7 +13,13 @@ bool cGSGameOver::Process()
 	cGame *Game = cGame::GetInstance();
 	cMouse *Mouse;
 	Mouse = cInputLayer::GetInstance()->GetMouse();
-	
+	cKeyboard *KeyBoard = cInputLayer::GetInstance()->GetKeyboard();
+
+	if (KeyBoard->KeyDown(DIK_SPACE))
+	{
+		Game->Finalize();
+	}
+
 	// EFG: Comprobar eventos del raton
 	if(Mouse->ButtonDown(LEFT))
 	{
