@@ -21,9 +21,10 @@ class cGame;
 class cHero
 {
 	public:
-		cHero(int cx, int cy);
+		cHero();
 		virtual ~cHero(void);
 
+		void init(int cx, int cy);
 		bool Move(int dir);
 		//void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);
 		// EFG: Como el personaje está formado por 3 partes distintas, tenemos 3 funciones
@@ -39,8 +40,6 @@ class cHero
 		//void GetPosition(int *posx,int *posy);
 		void SetCell(int cellx,int celly);
 		void GetCell(int *cellx,int *celly);
-		bool GetShooting();
-		bool IsFiring();
 
 		void ShootAt(int mx, int my);
 
@@ -56,7 +55,9 @@ class cHero
 		bool ChangeWeapon (int newWeapon);
 		int GetWeapon() { return weapon; }
 
-		bool isShielded;
+		int shielded;
+		int upgraded;
+		bool firing;
 
 	private:
 		int x,y;		//Position in total map
@@ -65,8 +66,6 @@ class cHero
 		int seq;		//Sequence animation control
 		int delay;		//Animation delay
 
-		bool attack;	//Order to attack established (moving for attack)
-		bool shoot;		//Begin attack (to shoot)
 		int shoot_seq;	//Shooter sequence animation control
 		int shoot_delay;//Shooter animation delay
 

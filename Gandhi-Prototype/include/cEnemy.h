@@ -9,15 +9,15 @@
 #define ENEMY_WIDTH 32
 #define ENEMY_HEIGHT 32
 
-#define NUM_ENEMIES 2
+#define NUM_ENEMIES 3
 #define ENEMY_1 0
 #define ENEMY_2 1
+#define ENEMY_3 2
 
-#define ENEMY_1_BULLET BULL_1
-#define ENEMY_2_BULLET BULL_2
-
-#define ENEMY_1_LIFE 1
-#define ENEMY_2_LIFE 2
+//class cGame;
+const int enemy_life[3] = {4, 12, 25};
+const int enemy_weapon[3] = {BULL_1, BULL_2, BULL_3};
+//const int bull_speed[3] = {8, 8, 8};
 
 class cScene;
 class cGame;

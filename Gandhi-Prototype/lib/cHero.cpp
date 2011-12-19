@@ -3,33 +3,36 @@
 #include "cPath.h"
 #include "cGame.h"
 
-cHero::cHero(int cx, int cy)
+cHero::cHero()
 {
 	Game = cGame::GetInstance();
 	Scene = cGame::GetInstance()->GetScene();
-
-	SetCell(cx,cy);
-
-	seq=0;
-	delay=0;
-	speed = 4;
-	life = 100;
-	direction = DIRNONE;
-
-	attack=false;
-	shoot=false;
-	shoot_seq=0;
-	shoot_delay=0;
-
-	weapon = BULL_3;
-	weapon_rof = 0;
-
-	isShielded = false;
 }
 
 cHero::~cHero()
 {
 
+}
+
+void cHero::init(int cx, int cy)
+{
+	SetCell(cx,cy);
+
+	seq=0;
+	delay=0;
+	speed = 4; //4
+	life = 100;
+	direction = DIRNONE;
+
+	firing = false;
+	shoot_seq=0;
+	shoot_delay=0;
+
+	weapon = BULL_1;
+	weapon_rof = 0;
+
+	shielded = 0; //0
+	upgraded = 0;
 }
 
 void cHero::GetRectShield(RECT *rc,int *posx,int *posy,cScene *Scene)
@@ -90,19 +93,6 @@ void cHero::GetRectLegs(RECT *rc,int *posx,int *posy,cScene *Scene)
 				delay=0;
 			}
 			break;
-			/*
-		case DIRLEFT:
-		case DIRRIGHT:
-			SetRect(rc, seq*64, 128, (seq+1)*64, 192);
-			delay++;
-			if(delay>=4)
-			{
-				seq++;
-				if(seq>6) seq=0;
-				delay=0;
-			}
-			break;
-			*/
 	}
 
 	*posx = SCENE_Xo + x - (Scene->camx);
@@ -221,15 +211,6 @@ void cHero::GetCell(int *cellx,int *celly)
 	*celly = y/TILE_WIDTH;
 }
 
-bool cHero::GetShooting()
-{
-	return shoot;
-}
-bool cHero::IsFiring()
-{
-	return (shoot_seq<8);
-}
-
 int cHero::GetSpeed()
 {
 	return speed;
@@ -262,46 +243,21 @@ void cHero::ShootAt(int mx, int my)
 	if (weapon_rof >= bull_rof[weapon])
 	{
 		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
-		Game->addHeroBullet(weapon, x + HERO_WIDTH/2 - BULLET_WIDTH/2, y + HERO_HEIGHT/2 - BULLET_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
-		switch (weapon)
-		{
-			case BULL_1:
-				Game->GetSound()->playEfecto("w1");
-				break;
-			case BULL_2:
-				Game->GetSound()->playEfecto("w2");
-				break;
-			case BULL_3:
-				Game->GetSound()->playEfecto("w3");
-				break;
-		}
+		Game->addHeroBullet(weapon, x, y, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
+		firing = true;
 		weapon_rof = 0;
 	}
 	else
-		weapon_rof++;
+		weapon_rof += 1 + upgraded;
 }
-
-/*
-void cHero::ShootAt(int mx, int my)
-{
-	cout << "(" << mx << ", " << my << ")" << endl;
-	int dx = mx - x;
-	int dy = my - y;
-	float mod = sqrt(float(dx*dx + dy*dy));
-
-	if (weapon_rof == bull_rof[weapon])
-	{
-		Game->addHeroBullet(BULL_1, x + HERO_WIDTH/2, y + HERO_HEIGHT/2, dx/mod*bull_speed[weapon], dy/mod*bull_speed[weapon]);
-		weapon_rof = 0;
-	}
-	else
-		weapon_rof++;
-	
-}*/
 
 bool cHero::Hit(int damage)
 {
-	if (!isShielded)
+	if (shielded > 0) 
+	{
+		shielded = max(shielded - damage, 0);
+	}
+	else
 	{
 		life -= damage;
 		Game->GetSound()->playEfecto("hit");
@@ -311,15 +267,12 @@ bool cHero::Hit(int damage)
 
 bool cHero::ChangeWeapon(int newWeapon)
 {
-	if (newWeapon >= 0 && newWeapon <= 2)
-	{
+	if(newWeapon == weapon) upgraded = 1;
+	else {
+		upgraded = 0;
 		weapon = newWeapon;
-		return true;
 	}
-	else
-	{
-		return false;
-	}
+	return true;
 }
 
 bool cHero::AddLife(int lifeToAdd)

@@ -17,6 +17,11 @@
 #define STATE_MAIN	0
 #define STATE_GAME	1
 
+class cGSGameEnd;
+class cGSGameOver;
+class cGSIngame;
+class cGSMenu;
+
 // EFG: Clase principal del juego utilizamos el patrón Singleton
 class cGame
 {
@@ -51,7 +56,6 @@ class cGame
 		void addEnemy(int type, int cx, int cy);
 		void addStalkingEnemy(int type, int cx, int cy);
 		void addItem(int type, int posx, int posy);
-		void addHero(int cx, int cy);
 		void addEnemyBullet(int type, int x, int y, int vx, int vy);
 		void addHeroBullet(int type, int x, int y, int vx, int vy);
 		void addLevelEnd(int cx, int cy);
@@ -61,7 +65,13 @@ class cGame
 		cEnemy* intersectsWithEnemy(RECT *r);
 		cEnemy* intersectsWithEnemy(RECT *r, cEnemy *self);
 
-		int GetPoints(){ return GamePoints; }
+		int GamePoints;
+		int rumble;
+
+		cGSGameEnd* gameEnd;
+		cGSGameOver* gameOver;
+		cGSIngame* inGame;
+		cGSMenu* menu;
 
 	private:
 		static cGame* instance;
@@ -83,7 +93,7 @@ class cGame
 		cGameState* State;
 		cHero* Hero;
 
-		int GamePoints;
+		
 };
 
 #endif

@@ -4,10 +4,18 @@
 #include "cGSMenu.h"
 #include "cGSIngame.h"
 #include "cGSGameOver.h"
+#include "cGSGameEnd.h"
 
 cGame* cGame::instance = NULL;
 
-cGame::cGame() {}
+cGame::cGame() {
+	State = NULL;
+	gameEnd = new cGSGameEnd();
+	gameOver = new cGSGameOver();
+	inGame = new cGSIngame();
+	menu = new cGSMenu();
+}
+
 cGame::~cGame()
 {
 	//EFG: Eliminamos la memoria dinámica
@@ -63,6 +71,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	bool res;
 	
 	GamePoints = 0;
+	rumble = 0;
 	cLog *Log = cLog::Instance();
 	
 	// EFG: Instanciamos gráficos, sonido e input
@@ -74,13 +83,13 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Scene = new cScene();
 	HUD = new cHUD();
 	// EFG: Creamos el heroe... y el enemigo de momento
-	Hero = new cHero(0, 0);
+	Hero = new cHero();
 	//Enemies.push_back(cEnemy());
 	//Item = new cItem();
 
 	// Arnau: Comentado para debugar más rápido
 	// EFG: Iniciamos el estado menú
-	State = new cGSMenu();
+	ChangeState(menu);
 	//State = new cGSIngame(); // Arnau: borrar en beta
 
 	State->Enter();
@@ -102,7 +111,7 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 
 	Graphics->LoadData();
 
-	Scene->LoadMap("media/map.txt");
+	//Scene->LoadMap("media/map.txt");
 
 
 	// Cargamos efectos de sonido
@@ -114,6 +123,9 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Sound->cargarEfecto("media/sounds/minigun.wav", "w1");
 	Sound->cargarEfecto("media/sounds/railgun.wav", "w2");
 	Sound->cargarEfecto("media/sounds/plasma.wav", "w3");
+	Sound->cargarEfecto("media/sounds/grenadeExplode.wav", "explo");
+	Sound->cargarEfecto("media/sounds/unstoppable.wav", "end");
+	Sound->cargarEfecto("media/sounds/humiliation.wav", "over");
 	return true;
 }
 
@@ -123,7 +135,6 @@ void cGame::Finalize()
 	Graphics->Finalize();
 	Input->UnacquireAll();
 	Input->Finalize();
-	
 	
 }
 
@@ -257,9 +268,8 @@ void cGame::ProcessCollisions()
 		cBullet* bullet = *hit;
 		bullet->GetWorldRect(&br);
 		if(intersects(&hr, &br)) {
-			if(Hero->Hit(bullet->GetDamage())) {
-				// TODO: Game Over!
-				ChangeState(new cGSGameOver());
+			if(Hero->Hit(bullet->GetDamage()/*>>1*/)) { //>>1 ajuste de dificultad
+				ChangeState(gameOver);
 			}
 			hit = EnemyBullets.erase(hit);
 		}
@@ -314,7 +324,6 @@ void cGame::ProcessOrder()
 
 	Mouse = Input->GetMouse();
 	b4pointer = Mouse->GetPointer();
-	//Mouse->Read(); //Arnau: comentado porqué tampoco hace nada...
 	Mouse->GetPosition(&mx,&my);
 
 	ProcessKeyboard();
@@ -329,49 +338,7 @@ void cGame::ProcessOrder()
 		{
 			// EFG: Mouse dentro de la escena
 			Hero->ShootAt(mx, my);
-
-			////DEBUG
-			//int dx = (mx + Scene->camx)/TILE_WIDTH;
-			//int dy = (my + Scene->camy)/TILE_WIDTH;
-			//Enemies.front()->MoveTo(dx, dy);
-			
 		}
-	}
-	else if(Mouse->ButtonUp(LEFT))
-	{
-		Mouse->SetSelection(SELECT_NOTHING);
-
-		//Mouse over Enemy
-		/* EFG: Esto puede servir de algo
-		Skeleton.GetCell(&cx,&cy);
-		if(Mouse->InCell(&Scene,cx,cy))
-		{
-			Mouse->SetPointer(ATTACK);
-		}
-		else if(Mouse->In(s,SCENE_Yo,SCENE_Xf,SCENE_Yf-s))
-		{
-			//Critter selected pointing, where to move
-			if(Critter.GetSelected())	Mouse->SetPointer(MOVE);
-			//Critter selected but mouse out map
-			else						Mouse->SetPointer(NORMAL);
-		}
-		else
-		{	
-			//Arrow mouse pointers to move through scene
-			if	   (Mouse->In(             s,             s,SCREEN_RES_X-s,SCREEN_RES_Y-s)) Mouse->SetPointer(NORMAL);
-			else if(Mouse->In(             s,             0,SCREEN_RES_X-s,             s)) Mouse->SetPointer(MN);
-			else if(Mouse->In(             s,SCREEN_RES_Y-s,SCREEN_RES_X-s,  SCREEN_RES_Y)) Mouse->SetPointer(MS);
-			else if(Mouse->In(SCREEN_RES_X-s,             s,  SCREEN_RES_X,SCREEN_RES_Y-s)) Mouse->SetPointer(ME);
-			else if(Mouse->In(             0,             s,             s,SCREEN_RES_Y-s)) Mouse->SetPointer(MO);
-			else if(Mouse->In(             0,             0,             s,             s)) Mouse->SetPointer(MNO);
-			else if(Mouse->In(             0,SCREEN_RES_Y-s,             s,  SCREEN_RES_Y)) Mouse->SetPointer(MSO);
-			else if(Mouse->In(SCREEN_RES_X-s,             0,  SCREEN_RES_X,             s)) Mouse->SetPointer(MNE);
-			else if(Mouse->In(SCREEN_RES_X-s,SCREEN_RES_Y-s,  SCREEN_RES_X,  SCREEN_RES_Y)) Mouse->SetPointer(MSE);
-			else																			Mouse->SetPointer(NORMAL);
-
-			p = Mouse->GetPointer();
-			if((p>=MN)&&(p<=MSO))	Scene.Move(p);
-		}*/
 	}
 	if(Mouse->ButtonDown(RIGHT))
 	{
@@ -387,8 +354,8 @@ bool cGame::ChangeState(cGameState* newState)
 	if (State != NULL)
 	{
 		State->Exit();
-		delete State;
-		State = NULL;
+		//delete State;
+		//State = NULL;
 	}
 	// EFG: Hacemos del nuevo estado el estado actual y entramos en el
 	if (newState != NULL)
@@ -418,19 +385,42 @@ void cGame::addItem(int type, int posx, int posy)
 	Items.push_back(new cItem(type, posx, posy));
 }
 
-void cGame::addHero(int cx, int cy)
-{
-	Hero = new cHero(cx, cy);
-}
-
 void cGame::addEnemyBullet( int type, int x, int y, int vx, int vy )
 {
 	EnemyBullets.push_back(new cBullet(type, x, y, vx, vy));
+
+	if(EnemyBullets.size()%2 == 0 && Scene->Visible(x>>TILE_W_SHIFT, y>>TILE_W_SHIFT)) {
+		switch (type)
+		{
+		case BULL_1:
+			Sound->playEfecto("w1");
+			break;
+		case BULL_2:
+			Sound->playEfecto("w2");
+			break;
+		case BULL_3:
+			Sound->playEfecto("w3");
+			break;
+		}
+	}
 }
 
 void cGame::addHeroBullet( int type, int x, int y, int vx, int vy )
 {
 	HeroBullets.push_back(new cBullet(type, x, y, vx, vy));
+
+	switch (type)
+	{
+	case BULL_1:
+		Sound->playEfecto("w1");
+		break;
+	case BULL_2:
+		Sound->playEfecto("w2");
+		break;
+	case BULL_3:
+		Sound->playEfecto("w3");
+		break;
+	}
 }
 
 bool cGame::intersects(RECT *r1, RECT *r2)

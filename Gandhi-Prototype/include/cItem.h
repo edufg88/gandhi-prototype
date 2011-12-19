@@ -6,14 +6,18 @@
 #define ITEM_WIDTH 64
 #define ITEM_HEIGHT 64
 
-#define NUM_ITEMS 5
+#define NUM_ITEMS 3
 #define IT_LIFE 0
 #define IT_SHIELD 1
+#define IT_WEAPON 2
+
 #define IT_WEAPON_1 2
 #define IT_WEAPON_2 3
 #define IT_WEAPON_3 4
 
 #define IT_END_CAR -1
+
+#define SHIELD_POWER 50
 
 class cScene;
 

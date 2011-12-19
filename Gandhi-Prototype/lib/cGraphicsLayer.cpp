@@ -124,10 +124,6 @@ void cGraphicsLayer::LoadData()
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/mapTextures.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texTiles);
-	//Characters
-	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/characters.png",0,0,1,0,D3DFMT_UNKNOWN,
-								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
-								0x00ff00ff,NULL,NULL,&texCharacters);
 	//Mouse pointers
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/mouse.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
@@ -138,7 +134,7 @@ void cGraphicsLayer::LoadData()
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texHUD);
 
-	// Characters (Esta es la nueva)
+	// Characters
 	D3DXCreateTextureFromFileEx(g_pD3DDevice,"media/imgs/charTextures.png",0,0,1,0,D3DFMT_UNKNOWN,
 								D3DPOOL_DEFAULT,D3DX_FILTER_NONE,D3DX_FILTER_NONE,
 								0x00ff00ff,NULL,NULL,&texChar);
@@ -193,11 +189,6 @@ void cGraphicsLayer::UnLoadData()
 	{
 		texTiles->Release();
 		texTiles = NULL;
-	}
-	if(texCharacters)
-	{
-		texCharacters->Release();
-		texCharacters = NULL;
 	}
 	if(texChar)
 	{
@@ -254,8 +245,28 @@ bool cGraphicsLayer::RenderGameOver()
 
 	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	g_pSprite->Draw(texGameOver,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
-	g_pSprite->End();
 
+	///////////////////////////////////
+	// Pintamos la puntuación
+	///////////////////////////////////
+	/////////////////////////////////// 
+	cHUD* hud = Game->GetHUD();
+	char text[6];
+	itoa(Game->GamePoints, text, 10);
+	int font_height = g_font->DrawText(g_pSprite,							//pSprite
+		text,								//pString
+		-1,									//Count
+		&hud->Elements[POINTS][0].r,			//pRect
+		DT_LEFT|DT_NOCLIP,					//Format,
+		0xFFFFFFFF);							//Color
+
+	g_pSprite->Draw(texHUD, &hud->Elements[POINTS][1].r,NULL, 
+		&D3DXVECTOR3(float(hud->Elements[POINTS][1].x),
+		float(hud->Elements[POINTS][1].y),
+		0.0f), 
+		0xFFFFFFFF);
+
+	g_pSprite->End();
 	DrawMouse();
 
 	g_pD3DDevice->EndScene();
@@ -273,6 +284,27 @@ bool cGraphicsLayer::RenderGameEnd()
 
 	g_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	g_pSprite->Draw(texGameEnd,NULL,NULL,&D3DXVECTOR3(0.0f,0.0f,0.0f),0xFFFFFFFF);
+
+	///////////////////////////////////
+	// Pintamos la puntuación
+	///////////////////////////////////
+	/////////////////////////////////// 
+	cHUD* hud = Game->GetHUD();
+	char text[6];
+	itoa(Game->GamePoints, text, 10);
+	int font_height = g_font->DrawText(g_pSprite,							//pSprite
+		text,								//pString
+		-1,									//Count
+		&hud->Elements[POINTS][0].r,			//pRect
+		DT_LEFT|DT_NOCLIP,					//Format,
+		0xFF000000);							//Color
+
+	g_pSprite->Draw(texHUD, &hud->Elements[POINTS][1].r,NULL, 
+		&D3DXVECTOR3(float(hud->Elements[POINTS][1].x),
+		float(hud->Elements[POINTS][1].y),
+		0.0f), 
+		0xFFFFFFFF);
+
 	g_pSprite->End();
 
 	DrawMouse();
@@ -340,7 +372,7 @@ bool cGraphicsLayer::DrawHUD()
 	///////////////////////////////////
 	int nucleos = (Game->GetHero()->GetLife() + 19) / 20;
 	posx = 0;
-	for (int i = 0; i < nucleos; i++)
+	for (int i = 0; i < nucleos - 1; i++)
 	{
 		g_pSprite->Draw(texHUD, &hud->Elements[LIFE][0].r,NULL, 
 				&D3DXVECTOR3(float(hud->Elements[LIFE][0].x + posx),
@@ -350,7 +382,14 @@ bool cGraphicsLayer::DrawHUD()
 
 		posx += 60;
 	}
-	
+	// Último núcleo
+	g_pSprite->Draw(texHUD, &hud->Elements[LIFE][0].r,NULL, 
+		&D3DXVECTOR3(float(hud->Elements[LIFE][0].x + posx),
+		float(hud->Elements[LIFE][0].y),
+		0.0f), 
+		D3DCOLOR_ARGB(Game->GetHero()->GetLife()*255/20, 0xFF, 0xFF, 0xFF));
+
+	// Container vida
 	g_pSprite->Draw(texHUD, &hud->Elements[LIFE][1].r,NULL, 
 				&D3DXVECTOR3(float(hud->Elements[LIFE][1].x),
 							 float(hud->Elements[LIFE][1].y),
@@ -367,7 +406,7 @@ bool cGraphicsLayer::DrawHUD()
 	// Pintamos la puntuación
 	///////////////////////////////////
 	char text[6];
-	itoa(Game->GetPoints(), text, 10);
+	itoa(Game->GamePoints, text, 10);
 	int font_height = g_font->DrawText(g_pSprite,							//pSprite
 									   text,								//pString
 									   -1,									//Count
@@ -396,8 +435,12 @@ bool cGraphicsLayer::DrawLevel()
 	cScene* Scene = cGame::GetInstance()->GetScene();
 
 	Scene->getCell(&cx, &cy);
-	offx = Scene->camx - cx*TILE_WIDTH;
-	offy = Scene->camy - cy*TILE_WIDTH;
+	offx = Scene->camx - cx*TILE_WIDTH + Game->rumble*2;
+	offy = Scene->camy - cy*TILE_WIDTH + Game->rumble*2;
+	if(Game->rumble == 2) Game->rumble = -2;
+	else if(Game->rumble == -2) Game->rumble = 1;
+	else if(Game->rumble == 1) Game->rumble = -1;
+	else if(Game->rumble == -1) Game->rumble = 0;
 
 	//Tile based map
 	fx=cx+SCENE_WIDTH+1;
@@ -435,7 +478,7 @@ bool cGraphicsLayer::DrawHero()
 	cMouse* Mouse = cInputLayer::GetInstance()->GetMouse();
 	cScene* Scene = cGame::GetInstance()->GetScene();
 
-	//Draw Critter
+	//Draw Hero
 	Hero->GetCell(&cx, &cy);
 	if(Scene->Visible(cx,cy))
 	{
@@ -451,7 +494,7 @@ bool cGraphicsLayer::DrawHero()
 		g_pSprite->GetTransform(&preChange);
 
 		Mouse->GetPosition(&mPosx, &mPosy);
-		angle = atan2(float(mPosy-posy+HERO_HEIGHT/2),float(mPosx-posx+HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
+		angle = atan2(float(mPosy-posy-HERO_HEIGHT/2),float(mPosx-posx-HERO_WIDTH/2)); // Arnau: HERO_xxx/2, centro del Hero
 		angle += (float) M_PI_2; // Arnau: retocar cuando cambiemos el sprite
 
 		D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
@@ -464,22 +507,24 @@ bool cGraphicsLayer::DrawHero()
 
 		/* PINTAMOS EL CUERPO */
 		Hero->GetRectBody(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
-		
+		g_pSprite->Draw(texChar, &rc, NULL, NULL, D3DCOLOR_ARGB(0xFF, 0xFF, (!Hero->firing)*255, (!Hero->firing)*255));
+
 
 		/* PINTAMOS LA CABEZA */
 		Hero->GetRectHead(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
+		g_pSprite->Draw(texChar, &rc, NULL, NULL, D3DCOLOR_ARGB(0xFF, 0xFF, (!Hero->firing)*255, (!Hero->firing)*255));
+
+		Hero->firing = false;
 	
 		
 		// Volvemos a la matriz original
 		g_pSprite->SetTransform(&preChange);
 
 		/* PINTAMOS EL ESCUDO (SI HACE FALTA) */
-		if (Hero->isShielded)
+		if (Hero->shielded)
 		{
 			Hero->GetRectShield(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texChar, &rc, NULL, &D3DXVECTOR3(float(posx - 164),float(posy - 164),0.0f), 0xFFFFFFFF);
+			g_pSprite->Draw(texChar, &rc, NULL, &D3DXVECTOR3(float(posx - 164),float(posy - 164),0.0f), D3DCOLOR_ARGB(Hero->shielded*255/SHIELD_POWER, 0xFF, 0xFF, 0xFF));
 		}
 
 
@@ -490,15 +535,36 @@ bool cGraphicsLayer::DrawHero()
 			Bullet->GetCell(&cx,&cy);
 			if(Scene->Visible(cx,cy))
 			{
-				Bullet->GetRect(&rc,&posx,&posy,Scene);
-				g_pSprite->Draw(texChar,&rc,NULL, 
-					&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-					0xFFFFFFFF);
+				DrawBullet(Bullet);
 			}
 		}
 	}
 
 	return true;
+}
+
+void cGraphicsLayer::DrawBullet(cBullet *Bullet)
+{
+	int cx,cy,posx,posy;
+	RECT rc;
+	D3DXMATRIX preChange, matRotate;
+	D3DXVECTOR2 vCenter(BULLET_WIDTH/2, BULLET_HEIGHT/2);
+	float angle;
+	cScene* Scene = cGame::GetInstance()->GetScene();
+
+	Bullet->GetRect(&rc,&posx,&posy,Scene,&angle);
+
+	g_pSprite->GetTransform(&preChange);
+
+	D3DXVECTOR2 vPosition((FLOAT) posx, (FLOAT) posy);
+	D3DXMatrixTransformation2D(&matRotate, NULL, NULL, NULL, &vCenter, angle, &vPosition);
+	g_pSprite->SetTransform(&matRotate);
+
+	g_pSprite->Draw(texChar,&rc,NULL, 
+		NULL, 
+		0xFFFFFFFF);
+
+	g_pSprite->SetTransform(&preChange);
 }
 
 bool cGraphicsLayer::DrawEnemies()
@@ -514,10 +580,10 @@ bool cGraphicsLayer::DrawEnemies()
 
 	// Preparamos matriz rotación
 	g_pSprite->GetTransform(&preChange);
-	hx = cGame::GetInstance()->GetHero()->GetX();
-	hy = cGame::GetInstance()->GetHero()->GetY();
+	hx = cGame::GetInstance()->GetHero()->GetX() - Scene->camx;
+	hy = cGame::GetInstance()->GetHero()->GetY() - Scene->camy;
 	
-	//Draw Skeleton
+	//Draw Enemies
 	for(list<cEnemy*>::iterator it = Game->Enemies.begin(); it != Game->Enemies.end(); it++) {
 		cEnemy* Enemy = *it;
 		Enemy->GetCell(&cx,&cy);
@@ -553,32 +619,9 @@ bool cGraphicsLayer::DrawEnemies()
 		Bullet->GetCell(&cx,&cy);
 		if(Scene->Visible(cx,cy))
 		{
-			Bullet->GetRect(&rc,&posx,&posy,Scene);
-			g_pSprite->Draw(texCharacters,&rc,NULL, 
-				&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-				0xFFFFFFFF);
+			DrawBullet(Bullet);
 		}
 	}
-
-	
-	
-	//Draw Fire
-	//if(Critter->GetShooting())
-	//{
-	//	if(Critter->IsFiring())
-	//	{
-	//		//Advance animation & draw
-	//		Critter->GetRectShoot(&rc,&posx,&posy,Scene);
-	//		g_pSprite->Draw(texCharacters,&rc,NULL, 
-	//						&D3DXVECTOR3(float(posx),float(posy),0.0f), 
-	//						0xFFFFFFFF);
-	//	}
-	//	else
-	//	{
-	//		//Advance animation
-	//		Critter->GetRectShoot(&rc,&posx,&posy,Scene);
-	//	}
-	//}
 
 	return true;
 }
