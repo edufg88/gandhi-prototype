@@ -68,6 +68,11 @@ void cItem::GetCell(int *cellx,int *celly)
 {
 	*cellx = x/TILE_WIDTH;
 	*celly = y/TILE_WIDTH;
+
+	// El coche es más largo, +2 para cargarlo a tiempo
+	if(type == IT_END_CAR) {
+		*cellx += 2;
+	}
 }
 
 void cItem::GetWorldRect(RECT *rc)
@@ -83,22 +88,28 @@ void cItem::Use()
 	{
 		case IT_LIFE:
 			Hero->AddLife(20);
+			cGame::GetInstance()->GamePoints += 20;
 			break;
 		case IT_SHIELD:
-			Hero->isShielded = true;
+			Hero->shielded += SHIELD_POWER;
 			cGame::GetInstance()->GetSound()->playEfecto("shield");
+			cGame::GetInstance()->GamePoints += 50;
 			break;
 		case IT_WEAPON_1:
 			Hero->ChangeWeapon(BULL_1);
+			cGame::GetInstance()->GamePoints += 100;
 			break;
 		case IT_WEAPON_2:
 			Hero->ChangeWeapon(BULL_2);
+			cGame::GetInstance()->GamePoints += 200;
 			break;
 		case IT_WEAPON_3:
 			Hero->ChangeWeapon(BULL_3);
+			cGame::GetInstance()->GamePoints += 300;
 			break;
 		case IT_END_CAR:
-			cGame::GetInstance()->ChangeState(new cGSGameEnd());
+			cGame::GetInstance()->ChangeState(cGame::GetInstance()->gameEnd);
+			cGame::GetInstance()->GamePoints += 5000;
 			break;
 	}
 }

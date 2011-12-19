@@ -41,7 +41,9 @@ void cScene::LoadMap(char *file)
 			map[i][j].walkable = walkableTiles.count(n);
 			if(map[i][j].walkable) {
 				if(w == ENEMY_DENSITY) {
-					Game->addStalkingEnemy(rand()%NUM_ENEMIES, j, i);
+					// El último enemigo es más chungo y tiene la mitad de probabilidades
+					int enType = rand()%(2*NUM_ENEMIES - 1);
+					Game->addStalkingEnemy(enType%NUM_ENEMIES, j, i);
 					w = 0;
 				}
 				else w++;
@@ -52,7 +54,7 @@ void cScene::LoadMap(char *file)
 	// Leemos posición inicial hero
 	fscanf_s(f,"%d",&i);
 	fscanf_s(f,"%d",&j);
-	Game->GetHero()->SetCell(j, i);
+	Game->GetHero()->init(j, i);
 	
 	// Leemos posición final (meta) del mapa
 	fscanf_s(f,"%d",&i);

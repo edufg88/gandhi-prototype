@@ -3,8 +3,21 @@
 
 void cGSIngame::Enter()
 {
-	cGame::GetInstance()->GetSound()->playCancion();
+	cGame *Game = cGame::GetInstance();
+
+	Game->GetSound()->playCancion();
 	delayPasos = 0;
+	
+	Game->Enemies.clear();
+	Game->StalkingEnemies.clear();
+	Game->HeroBullets.clear();
+	Game->EnemyBullets.clear();
+	Game->Items.clear();
+	Game->GamePoints = 0;
+
+	Game->GetScene()->LoadMap("media/map.txt");
+	Game->GetScene()->camx = 0;
+	Game->GetScene()->camy = 0;
 }
 
 bool cGSIngame::Process()

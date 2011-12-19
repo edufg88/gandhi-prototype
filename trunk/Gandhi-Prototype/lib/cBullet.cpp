@@ -1,6 +1,9 @@
 #include "cBullet.h"
 #include "cGame.h"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 
 cBullet::cBullet( int type, int x, int y, int vx, int vy )
 {
@@ -11,6 +14,9 @@ cBullet::cBullet( int type, int x, int y, int vx, int vy )
 	this->vy = vy;
 
 	Scene = cGame::GetInstance()->GetScene();
+
+	angle = atan2(float(vy),float(vx));
+	angle += (float) M_PI_2;
 }
 
 cBullet::~cBullet( void )
@@ -26,10 +32,11 @@ bool cBullet::Move()
 	return Scene->map[(y+BULLET_HEIGHT/2)/TILE_WIDTH][(x+BULLET_WIDTH/2)/TILE_WIDTH].walkable;
 }
 
-void cBullet::GetRect( RECT *rc,int *posx,int *posy,cScene *Scene )
+void cBullet::GetRect( RECT *rc,int *posx,int *posy,cScene *Scene,float *ang )
 {
 	*posx = SCENE_Xo + x - (Scene->camx);
 	*posy = SCENE_Yo + y - (Scene->camy);
+	*ang = angle;
 
 	//TODO: textura balas!
 	//SetRect(rc,256,0,288,32);

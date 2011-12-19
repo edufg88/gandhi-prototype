@@ -8,14 +8,9 @@ cEnemy::cEnemy(int type, int cx, int cy)
 	this->type = type;
 	SetCell(cx,cy);
 
-	switch(type) {
-	case ENEMY_1:
-		life = ENEMY_1_LIFE;
-	case ENEMY_2:
-		life = ENEMY_2_LIFE;
-	}
+	life = enemy_life[type];
 
-	weapon = BULL_1;
+	weapon = enemy_weapon[type];
 	weapon_rof = 0;
 
 	Scene = cGame::GetInstance()->GetScene();
@@ -34,13 +29,18 @@ void cEnemy::GetHeadRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 
 	switch (type)
 	{
-		case ENEMY_1:			
+		case ENEMY_1:
+			SetRect(rc, 320, 0, 384, 64);
 			break;
 		case ENEMY_2:
+			SetRect(rc, 384, 0, 448, 64);
+			break;
+		case ENEMY_3:
+			SetRect(rc, 448, 0, 512, 64);
 			break;
 	}
 
-	SetRect(rc, 320, 0, 384, 64);
+	
 	
 }
 
@@ -56,6 +56,9 @@ void cEnemy::GetBodyRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 			break;
 		case ENEMY_2:
 			SetRect(rc, 576, 0, 640, 64);
+			break;
+		case ENEMY_3:
+			SetRect(rc, 640, 0, 704, 64);
 			break;
 	}
 }
@@ -90,6 +93,7 @@ void cEnemy::GetWorldRect(RECT *rc)
 
 bool cEnemy::Hit(int damage)
 {
+	Game->GamePoints += damage *10;
 	life -= damage;
 	return life <= 0;
 }
@@ -98,8 +102,8 @@ void cEnemy::MoveTo(int destcx,int destcy)
 {
 	int cx = x/TILE_WIDTH;
 	int cy = y/TILE_WIDTH;
-	if(Path.IsDone())	Path.Make(cx,cy,destcx,destcy);
-	else					Path.ReMake(destcx,destcy);
+	if(Path.IsDone()) Path.Make(cx,cy,destcx,destcy);
+	else Path.ReMake(destcx,destcy);
 }
 
 void cEnemy::update()
@@ -140,7 +144,7 @@ void cEnemy::Shoot()
 	float dxa = (float)dx/(float)mod;
 	float dya = (float)dy/(float)mod;
 
-	if (weapon_rof == bull_rof[weapon])
+	if (weapon_rof == bull_rof[weapon]<<1) //<<1 ajuste de dificultad
 	{
 		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
 		Game->addEnemyBullet(weapon, x + ENEMY_WIDTH/2 - BULLET_WIDTH/2, y + ENEMY_HEIGHT/2 - BULLET_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
@@ -152,5 +156,17 @@ void cEnemy::Shoot()
 
 void cEnemy::Die()
 {
-	Game->addItem(rand()%NUM_ITEMS, x, y);
+	int drop = rand()%NUM_ITEMS;
+
+	if(drop == IT_WEAPON) {
+		if(Hero->GetWeapon() < weapon && rand()%3 == 0) drop = Hero->GetWeapon() + IT_WEAPON_1 + Hero->upgraded;
+		else drop = -1;
+	}
+
+	if(drop != -1) Game->addItem(drop, x, y);
+
+	Game->GetSound()->playEfecto("explo");
+	Game->rumble = 2;
+
+	Game->GamePoints += (type + 1)*150;
 }

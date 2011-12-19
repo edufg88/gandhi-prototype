@@ -15,6 +15,7 @@
 #include "cMouse.h"
 
 class cGame;
+class cBullet;
 
 class cGraphicsLayer  
 {
@@ -37,6 +38,7 @@ class cGraphicsLayer
 		bool DrawLevel();
 		bool DrawHUD();
 		bool DrawHero();
+		void DrawBullet(cBullet *Bullet);
 		bool DrawEnemies();
 		bool DrawItems();
 		bool DrawMouse();
@@ -58,7 +60,7 @@ class cGraphicsLayer
 
 		// TEXTURAS
 		LPDIRECT3DTEXTURE9 texMain,texGame, texGameOver, texGameEnd;
-		LPDIRECT3DTEXTURE9 texTiles,texCharacters,texMouse;
+		LPDIRECT3DTEXTURE9 texTiles,texMouse;
 		LPDIRECT3DTEXTURE9 texHUD, texChar; // EFG: Estas son las nuevas
 
 		ID3DXFont *g_font;
