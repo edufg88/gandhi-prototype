@@ -57,7 +57,7 @@ class cHero
 
 		int shielded;
 		int upgraded;
-		bool firing;
+		int firing;
 
 	private:
 		int x,y;		//Position in total map

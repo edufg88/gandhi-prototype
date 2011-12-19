@@ -137,8 +137,8 @@ void cEnemy::update()
 
 void cEnemy::Shoot()
 {
-	int dx = Hero->GetX() - x;
-	int dy = Hero->GetY() - y;
+	int dx = Hero->GetX() - x - ENEMY_WIDTH/2;
+	int dy = Hero->GetY() - y - ENEMY_HEIGHT/2;
 	float mod = sqrt(float(dx*dx + dy*dy));
 
 	float dxa = (float)dx/(float)mod;
@@ -147,7 +147,7 @@ void cEnemy::Shoot()
 	if (weapon_rof == bull_rof[weapon]<<1) //<<1 ajuste de dificultad
 	{
 		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
-		Game->addEnemyBullet(weapon, x + ENEMY_WIDTH/2 - BULLET_WIDTH/2, y + ENEMY_HEIGHT/2 - BULLET_HEIGHT/2, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
+		Game->addEnemyBullet(weapon, x, y, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
 		weapon_rof = 0;
 	}
 	else
@@ -159,7 +159,7 @@ void cEnemy::Die()
 	int drop = rand()%NUM_ITEMS;
 
 	if(drop == IT_WEAPON) {
-		if(Hero->GetWeapon() < weapon && rand()%3 == 0) drop = Hero->GetWeapon() + IT_WEAPON_1 + Hero->upgraded;
+		if(Hero->GetWeapon() < weapon && rand()%2) drop = Hero->GetWeapon() + IT_WEAPON_1 + Hero->upgraded;
 		else drop = -1;
 	}
 

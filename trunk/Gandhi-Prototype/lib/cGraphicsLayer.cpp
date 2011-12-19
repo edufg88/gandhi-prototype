@@ -478,6 +478,17 @@ bool cGraphicsLayer::DrawHero()
 	cMouse* Mouse = cInputLayer::GetInstance()->GetMouse();
 	cScene* Scene = cGame::GetInstance()->GetScene();
 
+	/* PINTAMOS SUS DISPAROS */
+	for(list<cBullet*>::iterator it = Game->HeroBullets.begin(); it != Game->HeroBullets.end(); it++)
+	{
+		cBullet* Bullet = *it;
+		Bullet->GetCell(&cx,&cy);
+		if(Scene->Visible(cx,cy))
+		{
+			DrawBullet(Bullet);
+		}
+	}
+
 	//Draw Hero
 	Hero->GetCell(&cx, &cy);
 	if(Scene->Visible(cx,cy))
@@ -486,6 +497,24 @@ bool cGraphicsLayer::DrawHero()
 		D3DXVECTOR2 vCenter(HERO_WIDTH/2, HERO_HEIGHT/2);
 		int mPosx, mPosy;
 		float angle;
+
+		D3DCOLOR colWeap;
+		if(Hero->firing) {
+			switch(Hero->GetWeapon()) {
+			case BULL_1:
+				colWeap = D3DCOLOR_ARGB(0xFF, 0xFF, 0xFF, 64*(Hero->firing - 1));
+				break;
+			case BULL_2:
+				colWeap = D3DCOLOR_ARGB(0xFF, 64*(Hero->firing - 1), 64*(Hero->firing - 1), 0xFF);
+				break;
+			case BULL_3:
+				colWeap = D3DCOLOR_ARGB(0xFF, 0xFF, 64*(Hero->firing - 1), 64*(Hero->firing - 1));
+				break;
+			
+			}
+			Hero->firing--;
+		}
+		else colWeap = D3DCOLOR_ARGB(0xFF, 0xFF, 0xFF, 0xFF);
 
 		Hero->GetRectLegs(&rc,&posx,&posy,Scene);
 
@@ -507,14 +536,13 @@ bool cGraphicsLayer::DrawHero()
 
 		/* PINTAMOS EL CUERPO */
 		Hero->GetRectBody(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texChar, &rc, NULL, NULL, D3DCOLOR_ARGB(0xFF, 0xFF, (!Hero->firing)*255, (!Hero->firing)*255));
+		g_pSprite->Draw(texChar, &rc, NULL, NULL, colWeap);
 
 
 		/* PINTAMOS LA CABEZA */
 		Hero->GetRectHead(&rc,&posx,&posy,Scene);
-		g_pSprite->Draw(texChar, &rc, NULL, NULL, D3DCOLOR_ARGB(0xFF, 0xFF, (!Hero->firing)*255, (!Hero->firing)*255));
-
-		Hero->firing = false;
+		//g_pSprite->Draw(texChar, &rc, NULL, NULL, D3DCOLOR_ARGB(0xFF, 0xFF, (!Hero->firing)*255, (!Hero->firing)*255));
+		g_pSprite->Draw(texChar, &rc, NULL, NULL, colWeap);
 	
 		
 		// Volvemos a la matriz original
@@ -525,18 +553,6 @@ bool cGraphicsLayer::DrawHero()
 		{
 			Hero->GetRectShield(&rc,&posx,&posy,Scene);
 			g_pSprite->Draw(texChar, &rc, NULL, &D3DXVECTOR3(float(posx - 164),float(posy - 164),0.0f), D3DCOLOR_ARGB(Hero->shielded*255/SHIELD_POWER, 0xFF, 0xFF, 0xFF));
-		}
-
-
-		/* PINTAMOS SUS DISPAROS */
-		for(list<cBullet*>::iterator it = Game->HeroBullets.begin(); it != Game->HeroBullets.end(); it++)
-		{
-			cBullet* Bullet = *it;
-			Bullet->GetCell(&cx,&cy);
-			if(Scene->Visible(cx,cy))
-			{
-				DrawBullet(Bullet);
-			}
 		}
 	}
 
@@ -578,6 +594,16 @@ bool cGraphicsLayer::DrawEnemies()
 	int hx, hy;
 	float angle;
 
+	//Bullets
+	for(list<cBullet*>::iterator it = Game->EnemyBullets.begin(); it != Game->EnemyBullets.end(); it++) {
+		cBullet* Bullet = *it;
+		Bullet->GetCell(&cx,&cy);
+		if(Scene->Visible(cx,cy))
+		{
+			DrawBullet(Bullet);
+		}
+	}
+
 	// Preparamos matriz rotación
 	g_pSprite->GetTransform(&preChange);
 	hx = cGame::GetInstance()->GetHero()->GetX() - Scene->camx;
@@ -610,16 +636,6 @@ bool cGraphicsLayer::DrawEnemies()
 			g_pSprite->Draw(texChar, &rc, NULL, NULL, 0xFFFFFFFF);
 
 			g_pSprite->SetTransform(&preChange);
-		}
-	}
-
-	//Bullets
-	for(list<cBullet*>::iterator it = Game->EnemyBullets.begin(); it != Game->EnemyBullets.end(); it++) {
-		cBullet* Bullet = *it;
-		Bullet->GetCell(&cx,&cy);
-		if(Scene->Visible(cx,cy))
-		{
-			DrawBullet(Bullet);
 		}
 	}
 
