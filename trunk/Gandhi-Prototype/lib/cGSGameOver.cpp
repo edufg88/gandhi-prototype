@@ -17,7 +17,8 @@ bool cGSGameOver::Process()
 
 	if (KeyBoard->KeyDown(DIK_SPACE))
 	{
-		Game->Finalize();
+		//Game->GetState()->Exit();
+		//Game->Finalize();
 	}
 
 	// EFG: Comprobar eventos del raton
