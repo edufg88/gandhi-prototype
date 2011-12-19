@@ -268,7 +268,7 @@ void cGame::ProcessCollisions()
 		cBullet* bullet = *hit;
 		bullet->GetWorldRect(&br);
 		if(intersects(&hr, &br)) {
-			if(Hero->Hit(bullet->GetDamage()/*>>1*/)) { //>>1 ajuste de dificultad
+			if(Hero->Hit(bullet->GetDamage()>>1)) { //>>1 ajuste de dificultad
 				ChangeState(gameOver);
 			}
 			hit = EnemyBullets.erase(hit);

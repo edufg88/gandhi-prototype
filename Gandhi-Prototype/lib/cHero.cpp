@@ -24,7 +24,7 @@ void cHero::init(int cx, int cy)
 	life = 100;
 	direction = DIRNONE;
 
-	firing = false;
+	firing = 0;
 	shoot_seq=0;
 	shoot_delay=0;
 
@@ -233,8 +233,8 @@ void cHero::GetWorldRect(RECT *rc)
 
 void cHero::ShootAt(int mx, int my)
 {
-	int dx = (mx + Scene->camx) - x;
-	int dy = (my + Scene->camy) - y;
+	int dx = (mx + Scene->camx) - x - HERO_WIDTH/2;
+	int dy = (my + Scene->camy) - y - HERO_HEIGHT/2;
 	float mod = sqrt(float(dx*dx + dy*dy));
 	
 	float dxa = (float)dx/(float)mod;
@@ -244,7 +244,7 @@ void cHero::ShootAt(int mx, int my)
 	{
 		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
 		Game->addHeroBullet(weapon, x, y, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
-		firing = true;
+		firing = 3;
 		weapon_rof = 0;
 	}
 	else

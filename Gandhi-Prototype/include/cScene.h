@@ -11,8 +11,8 @@
  **/
 
 //Resolution
-#define SCREEN_RES_X	1024
-#define SCREEN_RES_Y	768
+#define SCREEN_RES_X	640
+#define SCREEN_RES_Y	480
 
 //Dimensions
 #define AREA_WIDTH		64
