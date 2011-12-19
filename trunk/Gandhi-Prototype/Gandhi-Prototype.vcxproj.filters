@@ -28,9 +28,6 @@
     <Filter Include="Source Files\GameStates">
       <UniqueIdentifier>{d9ec1ed4-eba1-4277-ba34-efe057c084a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="media\imgs\unused">
-      <UniqueIdentifier>{32388d78-4335-4a98-b284-2d68b2ae8224}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="media\map.txt">
@@ -59,39 +56,6 @@
     </None>
     <None Include="media\imgs\pantallaInicio.png">
       <Filter>media\imgs</Filter>
-    </None>
-    <None Include="media\imgs\unused\characters.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\flagTextures.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\game.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\hudTextures2.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\main.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\mapTextures1.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\mapTextures2.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\menuTextures.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\tiles.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\tileTextures.png">
-      <Filter>media\imgs\unused</Filter>
-    </None>
-    <None Include="media\imgs\unused\tutorialTexture.png">
-      <Filter>media\imgs\unused</Filter>
     </None>
     <None Include="media\sounds\bazooka.wav">
       <Filter>media\sounds</Filter>

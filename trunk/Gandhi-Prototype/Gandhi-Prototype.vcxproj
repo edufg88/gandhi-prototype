@@ -19,17 +19,6 @@
     <None Include="media\imgs\mouse.png" />
     <None Include="media\imgs\objectTextures.png" />
     <None Include="media\imgs\pantallaInicio.png" />
-    <None Include="media\imgs\unused\characters.png" />
-    <None Include="media\imgs\unused\flagTextures.png" />
-    <None Include="media\imgs\unused\game.png" />
-    <None Include="media\imgs\unused\hudTextures2.png" />
-    <None Include="media\imgs\unused\main.png" />
-    <None Include="media\imgs\unused\mapTextures1.png" />
-    <None Include="media\imgs\unused\mapTextures2.png" />
-    <None Include="media\imgs\unused\menuTextures.png" />
-    <None Include="media\imgs\unused\tiles.png" />
-    <None Include="media\imgs\unused\tileTextures.png" />
-    <None Include="media\imgs\unused\tutorialTexture.png" />
     <None Include="media\map.txt" />
     <None Include="media\sounds\bazooka.wav" />
     <None Include="media\sounds\buttonClick.wav" />
