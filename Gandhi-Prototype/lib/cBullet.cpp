@@ -38,9 +38,6 @@ void cBullet::GetRect( RECT *rc,int *posx,int *posy,cScene *Scene,float *ang )
 	*posy = SCENE_Yo + y - (Scene->camy);
 	*ang = angle;
 
-	//TODO: textura balas!
-	//SetRect(rc,256,0,288,32);
-
 	switch (type)
 	{
 		case BULL_1:
@@ -71,16 +68,4 @@ void cBullet::GetCell( int *cellx,int *celly )
 	*celly = y/TILE_WIDTH;
 }
 
-//bool cBullet::CollidesWithEnemy()
-//{
-//	RECT hr;
-//	GetWorldRect(&hr);
-//	for(list<cEnemy*>::iterator it = Game->Enemies.begin(); it != Game->Enemies.end(); it++) {
-//		RECT er;
-//		cEnemy* enemy = *it;
-//		enemy->GetWorldRect(&er);
-//		if(Game->intersect(&hr, &er)) return true;
-//	}
-//	return false;
-//}
 

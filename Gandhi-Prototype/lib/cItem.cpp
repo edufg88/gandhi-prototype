@@ -6,7 +6,6 @@
 
 cItem::cItem(int type, int posx, int posy)
 {
-	//this->type = IT_SHIELD;
 	this->type = type;
 	SetPosition(posx,posy);
 }
@@ -42,7 +41,7 @@ void cItem::GetRect(RECT *rc,int *posx,int *posy,cScene *Scene)
 			SetRect(rc, 320, 0, 448, 64);
 			break;
 		default:
-			//SetRect(rc, 128, 0, 192, 64);
+			
 			break;
 	}
 }
@@ -59,8 +58,6 @@ void cItem::GetPosition(int *posx,int *posy)
 }
 void cItem::SetCell(int cellx,int celly)
 {
-	//cx = cellx;
-	//cy = celly;
 	x = cellx*TILE_WIDTH;
 	y = celly*TILE_WIDTH;
 }
@@ -91,7 +88,7 @@ void cItem::Use()
 			cGame::GetInstance()->GamePoints += 20;
 			break;
 		case IT_SHIELD:
-			Hero->shielded += SHIELD_POWER;
+			Hero->shielded = SHIELD_POWER;
 			cGame::GetInstance()->GetSound()->playEfecto("shield");
 			cGame::GetInstance()->GamePoints += 50;
 			break;

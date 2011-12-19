@@ -32,7 +32,7 @@ public:
 private:
 	int type;
 	int x,y;		//Position in total map
-	//int cx,cy;		//Cell position in total map
+
 	float angle;
 
 	int vx, vy;

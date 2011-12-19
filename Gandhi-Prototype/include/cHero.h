@@ -26,7 +26,7 @@ class cHero
 
 		void init(int cx, int cy);
 		bool Move(int dir);
-		//void GetRect(RECT *rc,int *posx,int *posy,cScene *Scene);
+
 		// EFG: Como el personaje está formado por 3 partes distintas, tenemos 3 funciones
 		void GetRectLegs(RECT *rc,int *posx,int *posy,cScene *Scene);
 		void GetRectBody(RECT *rc,int *posx,int *posy,cScene *Scene);
@@ -37,7 +37,7 @@ class cHero
 		void GetRectShoot(RECT *rc,int *posx,int *posy,cScene *Scene);
 
 		void SetPosition(int posx,int posy);
-		//void GetPosition(int *posx,int *posy);
+
 		void SetCell(int cellx,int celly);
 		void GetCell(int *cellx,int *celly);
 
@@ -61,7 +61,6 @@ class cHero
 
 	private:
 		int x,y;		//Position in total map
-		//int cx,cy;		//Cell position in total map
 
 		int seq;		//Sequence animation control
 		int delay;		//Animation delay

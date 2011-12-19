@@ -20,7 +20,7 @@ bool cGSMenu::Process()
 		//Play button
 		if(Mouse->In(158,263,301,309))
 		{
-			//EFG: El cambio de estado lo hacemos desde la clase cGame
+			// EFG: El cambio de estado lo hacemos desde la clase cGame
 			Game->ChangeState(Game->inGame);
 		}
 		//Exit button

@@ -37,8 +37,53 @@ bool cSound::inicializarAudio()
 	result = FMOD::System_Create(&system);
 	res = ERRCHECK(result);
 	// Inicializamos FMOD
+	// 
+	// 
+	int numdrivers;
+	FMOD_SPEAKERMODE speakermode;
+	FMOD_CAPS caps;
+	char name[256];
+
+	result = system->getNumDrivers(&numdrivers);
+	if(!ERRCHECK(result)) return false;
+
+	if (numdrivers == 0){
+		result = system->setOutput(FMOD_OUTPUTTYPE_NOSOUND);
+		if(!ERRCHECK(result)) return false;
+	}else{
+		result = system->getDriverCaps(0, &caps, 0, &speakermode);
+		if(!ERRCHECK(result)) return false;
+
+		// 	Set the user selected speaker mode.
+		result = system->setSpeakerMode(speakermode);
+		if(!ERRCHECK(result)) return false;
+
+		// 'Acceleration' slider is off! Bad for latency! Issue a warning
+		if (caps & FMOD_CAPS_HARDWARE_EMULATED){
+			result = system->setDSPBufferSize(1024, 10);
+			if(!ERRCHECK(result)) return false;
+		}
+
+		result = system->getDriverInfo(0, name, 256, 0);
+		if(!ERRCHECK(result)) return false;
+
+		//Sigmatel devices crackle if format is PCM 16bit. PCM floating point seems to solve it.
+		if (strstr(name, "SigmaTel")){
+			result = system->setSoftwareFormat(48000, FMOD_SOUND_FORMAT_PCMFLOAT, 0,0,
+				FMOD_DSP_RESAMPLER_LINEAR);
+			if(!ERRCHECK(result)) return false;
+		}
+	}
+
 	result = system->init(100, FMOD_INIT_NORMAL, 0);
-	res = ERRCHECK(result);
+	if (result == FMOD_ERR_OUTPUT_CREATEBUFFER){  //speaker mode unsupported, back to stereo...
+		result = system->setSpeakerMode(FMOD_SPEAKERMODE_STEREO);
+		if(!ERRCHECK(result)) return false;
+
+		//Switch it... and re-init.
+		result = system->init(100, FMOD_INIT_NORMAL, 0);
+	}
+
 	// Inicializamos el grupo de canales
 	result = system->createChannelGroup("ICG1", &inputChannelGroup);
 	res = ERRCHECK(result);
@@ -49,18 +94,6 @@ bool cSound::inicializarAudio()
 
 void cSound::actualizar()
 {
-	/*
-	// Controlamos la pausa
-	if(segundosPausa > 0)
-	{
-		if ((Gosu::milliseconds() - contadorPausa) > segundosPausa*1000)
-		{
-			setPaused(false);
-			segundosPausa = 0;
-		}
-	}
-	*/
-
 	// Actualizamos el sistema
 	result = system->update();
 
@@ -102,10 +135,6 @@ void cSound::setPosicion(int ms)
 
 void cSound::pausar(int segs)
 {
-	/*
-	contadorPausa = Gosu::milliseconds();
-	segundosPausa = segs;
-	*/
 	setPaused(true);
 }
 
@@ -154,7 +183,7 @@ bool cSound::ERRCHECK(FMOD_RESULT result)
 {
 	if (result != FMOD_OK)
 	{
-		//cerr << "FMOD error! (" << result << ") " << FMOD_ErrorString(result) << endl;
+		cerr << "FMOD error! (" << result << ") " << FMOD_ErrorString(result) << endl;
 		return false;
 	}
 

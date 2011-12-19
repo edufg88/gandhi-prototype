@@ -49,7 +49,6 @@ class cGame
 		// EFG: Cambia el estado del juego
 		bool ChangeState(cGameState* newState);
 
-		// EFG: Necesitamos que de momento sean públicas
 		void ProcessOrder();
 		bool Render();
 

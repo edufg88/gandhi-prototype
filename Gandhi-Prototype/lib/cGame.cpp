@@ -18,7 +18,7 @@ cGame::cGame() {
 
 cGame::~cGame()
 {
-	//EFG: Eliminamos la memoria dinámica
+	// EFG: Eliminamos la memoria dinámica
 	if (Graphics != NULL)
 	{
 		delete Graphics;
@@ -82,15 +82,11 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	// EFG: Creamos la escena y el HUD
 	Scene = new cScene();
 	HUD = new cHUD();
-	// EFG: Creamos el heroe... y el enemigo de momento
+	// EFG: Creamos el heroe
 	Hero = new cHero();
-	//Enemies.push_back(cEnemy());
-	//Item = new cItem();
 
-	// Arnau: Comentado para debugar más rápido
 	// EFG: Iniciamos el estado menú
 	ChangeState(menu);
-	//State = new cGSIngame(); // Arnau: borrar en beta
 
 	State->Enter();
 
@@ -110,9 +106,6 @@ bool cGame::Init(HWND hWnd,HINSTANCE hInst,bool exclusive)
 	Input->SetMousePosition(SCREEN_RES_X >> 1,SCREEN_RES_Y >> 1);
 
 	Graphics->LoadData();
-
-	//Scene->LoadMap("media/map.txt");
-
 
 	// Cargamos efectos de sonido
 	Sound->inicializarAudio();
@@ -166,7 +159,6 @@ bool cGame::LoopInput()
 	if(!res)
 	{
 		Log->Msg("Error reading Input!");
-		//return false; // Arnau: comentado porqué al perder focus devolvía false y cerraba la aplicación el joputa
 	}
 	return true;
 }
@@ -340,22 +332,15 @@ void cGame::ProcessOrder()
 			Hero->ShootAt(mx, my);
 		}
 	}
-	if(Mouse->ButtonDown(RIGHT))
-	{
-		//EFG: Segundo ataque?
-	}
 
-	//if(b4pointer!=Mouse->GetPointer()) Mouse->InitAnim();
 }
 
 bool cGame::ChangeState(cGameState* newState)
 {
-	// EFG: Salimos del estado actual y lo borramos
+	// EFG: Salimos del estado actual
 	if (State != NULL)
 	{
 		State->Exit();
-		//delete State;
-		//State = NULL;
 	}
 	// EFG: Hacemos del nuevo estado el estado actual y entramos en el
 	if (newState != NULL)

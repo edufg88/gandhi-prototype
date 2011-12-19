@@ -15,14 +15,6 @@ class cScene;
 #define MOVE		1
 #define ATTACK		2
 #define SELECT		3
-//#define MN			4
-//#define MS			5
-//#define ME			6
-//#define MO			7
-//#define MNE			8
-//#define MSE			9
-//#define MNO			10
-//#define MSO			11
 
 //Mouse delay animation
 #define MDELAY		2

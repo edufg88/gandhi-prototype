@@ -40,7 +40,6 @@ class cItem
 
 	private:
 		int x,y;		//Position in total map
-		//int cx,cy;		//Cell position in total map
 		int type;
 };
 
