@@ -41,7 +41,6 @@ void cHero::GetRectShield(RECT *rc,int *posx,int *posy,cScene *Scene)
 	*posy = SCENE_Yo + y - (Scene->camy) + 96;
 
 	SetRect(rc, 384, 192, 576, 384); 
-	//SetRect(rc, 448, 0, 512, 64);
 }
 
 void cHero::GetRectHead(RECT *rc,int *posx,int *posy,cScene *Scene)
@@ -50,7 +49,6 @@ void cHero::GetRectHead(RECT *rc,int *posx,int *posy,cScene *Scene)
 	*posy = SCENE_Yo + y - (Scene->camy);
 
 	SetRect(rc, 256, 0, 320, 64); 
-	//SetRect(rc, 448, 0, 512, 64);
 }
 
 void cHero::GetRectBody(RECT *rc,int *posx,int *posy,cScene *Scene)
@@ -187,20 +185,10 @@ void cHero::SetPosition(int posx,int posy)
 {
 	x = posx;
 	y = posy;
-	//cx = posx/32;
-	//cy = posy/32;
 }
-
-//void cHero::GetPosition(int *posx,int *posy)
-//{
-//	*posx = x;
-//	*posy = y;
-//}
 
 void cHero::SetCell(int cellx,int celly)
 {
-	//cx = cellx;
-	//cy = celly;
 	x = cellx*TILE_WIDTH;
 	y = celly*TILE_WIDTH;
 }
@@ -242,7 +230,6 @@ void cHero::ShootAt(int mx, int my)
 
 	if (weapon_rof >= bull_rof[weapon])
 	{
-		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
 		Game->addHeroBullet(weapon, x, y, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
 		firing = 3;
 		weapon_rof = 0;

@@ -11,14 +11,14 @@
 
 cAStar::cAStar()
 {
-	tileSize = 1;//10;
+	tileSize = 1;
 	onClosedList = 10;
 
 	notfinished = 0;
 	notStarted = 0;// path-related constants
 
 	found = 1;
-	nonexistent = 0;//2; 
+	nonexistent = 0;
 
 	walkable = 1;
 	unwalkable = 0;// walkability array constants

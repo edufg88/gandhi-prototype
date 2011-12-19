@@ -29,7 +29,6 @@ class cGraphicsLayer
 		void LoadData();
 		void UnLoadData();
 	
-		// bool Render();
 		bool RenderMenu();
 		bool RenderInGame();
 		bool RenderGameOver();
@@ -43,11 +42,6 @@ class cGraphicsLayer
 		bool DrawItems();
 		bool DrawMouse();
 		bool DrawRect(RECT rc, D3DCOLOR color);
-		//bool Render(int state,cMouse *Mouse,cScene *Scene,cCritter *Critter,cSkeleton *Skeleton);
-		//bool DrawScene(cScene *Scene);
-		//bool DrawUnits(cScene *Scene,cCritter *Critter,cSkeleton *Skeleton);
-		//bool DrawMouse(cMouse *Mouse);
-		//bool DrawRect(RECT rc, D3DCOLOR color);
 
 	private:
 		static cGraphicsLayer* instance;
@@ -61,7 +55,7 @@ class cGraphicsLayer
 		// TEXTURAS
 		LPDIRECT3DTEXTURE9 texMain,texGame, texGameOver, texGameEnd;
 		LPDIRECT3DTEXTURE9 texTiles,texMouse;
-		LPDIRECT3DTEXTURE9 texHUD, texChar; // EFG: Estas son las nuevas
+		LPDIRECT3DTEXTURE9 texHUD, texChar;
 
 		ID3DXFont *g_font;
 

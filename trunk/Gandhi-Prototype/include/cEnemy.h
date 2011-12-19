@@ -17,7 +17,6 @@
 //class cGame;
 const int enemy_life[3] = {4, 12, 25};
 const int enemy_weapon[3] = {BULL_1, BULL_2, BULL_3};
-//const int bull_speed[3] = {8, 8, 8};
 
 class cScene;
 class cGame;
@@ -45,7 +44,6 @@ class cEnemy
 
 	private:
 		int x,y;		//Position in total map
-		//int cx,cy;		//Cell position in total map
 		int type;
 		int life;
 

@@ -77,5 +77,5 @@ cHUD::cHUD()
 
 cHUD::~cHUD()
 {
-	//EFG: Inicializar los elementos del HUD
+	
 }

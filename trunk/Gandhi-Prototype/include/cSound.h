@@ -61,7 +61,6 @@ class cSound
 		// Sonido para la canción principal
 		FMOD::Sound* sound;
 		// Sonidos para efectos
-		//map<string, FMOD::Sound*> efectos;
 		map<string, FMOD::Sound*, classcomp> efectos;
 		// Contador para las pausas
 		int contadorPausa;

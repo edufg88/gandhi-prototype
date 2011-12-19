@@ -8,8 +8,6 @@
 
 cScene::cScene()
 {
-	/*cx=0;
-	cy=0;*/
 	camx = camy = 0;
 }
 cScene::~cScene(){}
@@ -67,8 +65,6 @@ void cScene::LoadMap(char *file)
 void cScene::Move(int dir)
 {
 	int speed = cGame::GetInstance()->GetHero()->GetSpeed();
-
-	//map=32x32, visible=20x17 => move=0..32-20,0..32-17=0..12,0..15
 
 	//Up
 	if(dir==DIRUP)

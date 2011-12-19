@@ -75,8 +75,6 @@ void cEnemy::GetPosition(int *posx,int *posy)
 }
 void cEnemy::SetCell(int cellx,int celly)
 {
-	//cx = cellx;
-	//cy = celly;
 	x = cellx*TILE_WIDTH;
 	y = celly*TILE_WIDTH;
 }
@@ -109,7 +107,7 @@ void cEnemy::MoveTo(int destcx,int destcy)
 void cEnemy::update()
 {
 	int mov;
-	int cx, cy; //TODO: inutiles
+	int cx, cy;
 
 	Shoot();
 
@@ -120,11 +118,9 @@ void cEnemy::update()
 		if(mov==ARRIVE)
 		{
 			Path.Done();
-			//seq=0;
 		}
 		else if(mov==STOP)
 		{
-			//Hero->GetCell(&cx, &cy);
 			GetCell(&cx, &cy);
 			MoveTo(cx - 1 + rand()%3, cy - 1 + rand()%3);
 		}
@@ -146,7 +142,6 @@ void cEnemy::Shoot()
 
 	if (weapon_rof == bull_rof[weapon]<<1) //<<1 ajuste de dificultad
 	{
-		// TODO: Aplicar ángulo a la posición original de la bala para que coincida siempre con el arma del personaje
 		Game->addEnemyBullet(weapon, x, y, dxa*bull_speed[weapon], dya*bull_speed[weapon]);
 		weapon_rof = 0;
 	}

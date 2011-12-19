@@ -11,8 +11,8 @@
  **/
 
 //Resolution
-#define SCREEN_RES_X	640
-#define SCREEN_RES_Y	480
+#define SCREEN_RES_X	1024
+#define SCREEN_RES_Y	768
 
 //Dimensions
 #define AREA_WIDTH		64
@@ -29,9 +29,6 @@
 #define SCENE_Yo		0
 #define SCENE_Xf		SCREEN_RES_X 
 #define SCENE_Yf		SCREEN_RES_Y
-// Arnau: dejo estas comentadas por si lo queremos aprovechar más adelante
-//#define SCENE_Xf		( SCENE_Xo + (SCENE_WIDTH * TILE_WIDTH) )
-//#define SCENE_Yf		( SCENE_Yo + (SCENE_HEIGHT * TILE_WIDTH) )
 
 //Posición pantalla Hero excepto en bordes
 #define HERO_X	SCREEN_RES_X/2
@@ -62,7 +59,7 @@ class cScene
 		bool Visible(int cellx,int celly);
 
 		mapCell map[AREA_HEIGHT][AREA_WIDTH];
-		int camx,camy/*,cx,cy*/;
+		int camx,camy;
 
 		void getCell(int *cx, int *cy);
 
